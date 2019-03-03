@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-VaalBHCSSystem-E37B5BD8-3D6F-414E-8B9E-66CD3C853B81</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <PackageId>VaalBeachClub.Web</PackageId>
+    <AssemblyName>VaalBeachClub.Web</AssemblyName>
+    <RootNamespace>VaalBeachClub.Web</RootNamespace>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\CampSites\" />
+    <Folder Include="Controllers\CampSites\" />
+    <Folder Include="Controllers\TestPage\" />
+    <Folder Include="wwwroot\css\AdminPages\" />
+    <Folder Include="wwwroot\lib\admin\" />
+    <Folder Include="wwwroot\fonts\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\VaalBeachClub.Common\VaalBeachClub.Common.csproj" />
+    <ProjectReference Include="..\VaalBeachClub.Data\VaalBeachClub.Data.csproj" />
+    <ProjectReference Include="..\VaalBeachClub.Models\VaalBeachClub.Models.csproj" />
+    <ProjectReference Include="..\VaalBeachClub.Services\VaalBeachClub.Services.csproj" />
+    <ProjectReference Include="..\VaalBeachClub.ViewFactory\VaalBeachClub.ViewFactory.csproj" />
+  </ItemGroup>
+
+</Project>

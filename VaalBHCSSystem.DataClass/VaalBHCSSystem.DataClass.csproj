@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Context\Custom\" />
+    <Folder Include="Context\Generated\" />
+    <Folder Include="Entities\Custom\" />
+    <Folder Include="Entities\Generated\" />
+    <Folder Include="Enum\Custom\" />
+    <Folder Include="Enum\Generated\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EFModel1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EFModel1.cs</LastGenOutput>
+    </None>
+    <None Update="MyModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyModel.cs</LastGenOutput>
+    </None>
+    <None Update="VaalBHCSSystem.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VaalBHCSSystem.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="EFModel1.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EFModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Update="MyModel.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Update="VaalBHCSSystem.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VaalBHCSSystem.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
