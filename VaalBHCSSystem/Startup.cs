@@ -128,7 +128,7 @@ namespace VaalBeachClub.Web
 
             app.UseAuthentication();
 
-            dbInitializer.Initialize();
+           // dbInitializer.Initialize();
 
 
 
