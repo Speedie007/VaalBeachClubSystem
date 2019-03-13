@@ -7,7 +7,7 @@ using System.Text;
 
 namespace VaalBeachClub.Common.Interfaces
 {
-    interface IVaalBeachClubStartup
+   public  interface IVaalBeachClubStartup
     { /// <summary>
       /// Add and configure any of the middleware
       /// </summary>

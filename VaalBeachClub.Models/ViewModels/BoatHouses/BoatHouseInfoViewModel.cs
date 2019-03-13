@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VaalBeachClub.Models.ViewModels.ViewModelComponents;
 using VaalBeachClub.Web.Data.Identity;
 
 namespace VaalBeachClub.Models.ViewModels.BoatHouses

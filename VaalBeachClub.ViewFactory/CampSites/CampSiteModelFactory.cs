@@ -7,7 +7,7 @@ namespace VaalBeachClub.ViewFactory.CampSites
 {
     public partial class CampSiteModelFactory : ICampSiteModelFactory
     {
-        private readonly 
+      // private readonly 
 
 
         public CampSiteViewModel PrepareBoatHouseListModel()
@@ -16,6 +16,16 @@ namespace VaalBeachClub.ViewFactory.CampSites
 
 
             return model;
+        }
+
+        public CampSiteViewModel PrepareCampSiteViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<CampSiteBookingViewModel> PrepareMemeberCampSiteBookingListModel()
+        {
+            throw new NotImplementedException();
         }
     }
 }

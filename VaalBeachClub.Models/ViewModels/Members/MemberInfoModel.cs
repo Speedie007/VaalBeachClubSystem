@@ -4,6 +4,7 @@ using System.Text;
 using VaalBeachClub.Models.Domain.Addresses;
 using VaalBeachClub.Models.Domain.Intefaces;
 using VaalBeachClub.Models.Domain.Members;
+using VaalBeachClub.Models.ViewModels.ViewModelComponents;
 
 namespace VaalBeachClub.Models.ViewModels.Members
 {
