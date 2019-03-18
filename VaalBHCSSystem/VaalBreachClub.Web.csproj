@@ -8,6 +8,7 @@
     <AssemblyName>VaalBeachClub.Web</AssemblyName>
     <RootNamespace>VaalBeachClub.Web</RootNamespace>
     <NoWin32Manifest>true</NoWin32Manifest>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
 
@@ -29,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\CampSites\" />
     <Folder Include="Controllers\CampSites\" />
+    <Folder Include="Controllers\TemplateComponents\" />
     <Folder Include="Controllers\TestPage\" />
     <Folder Include="wwwroot\css\AdminPages\" />
     <Folder Include="wwwroot\lib\admin\" />
