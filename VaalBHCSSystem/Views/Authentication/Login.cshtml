@@ -1,0 +1,121 @@
+﻿@model LoginViewModel
+
+@{
+
+    Layout = "_AuthenticationLayout";
+    ViewData["Title"] = "Vaal Beach Club";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        @*<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />*@
+        <link href="~/fontawesome/css/all.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        @*<link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />*@
+        <link href="~/fontawesome/css/all.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    </environment>
+
+
+
+</head>
+<body class="gray-bg">
+    @*<div class="text-center heading">
+            <h1>Welcome To Integrator!</h1>
+        </div>*@
+    <div class="loginColumns animated fadeInDown">
+        <div class="text-center">
+            @*<a asp-action="LandingPage" asp-controller="Home" class="btn btn-primary block full-width m-b">Back To Site</a>*@
+            <h1>Welcome To Vaal Beach Club!</h1>
+        </div>
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <hr />
+                <div class="ibox-content">
+                    <h4><span class="fas fa-book-reader heading-icon "></span>&nbsp;Current Member account log in.</h4>
+                </div>
+                <hr />
+                <div class="ibox-content">
+                    <form class="m-t" method="post" role="form" action="Login">
+                        <div class="form-group">
+                            <span class="far fa-envelope"></span>
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <span class="fas fa-key"></span>
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="RememberMe">
+                                    <input asp-for="RememberMe" />
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                        <a href="#">
+                            <small>Forgot password?</small>
+                        </a>
+
+
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <hr />
+                <div class="ibox-content">
+                    <h4><span class="fas fa-book-medical heading-icon "></span>&nbsp;New Member.</h4>
+                </div>
+                <hr />
+                <h2 class="font-bold">Welcome:</h2>
+                <p>
+
+                    By creating an account on our website, you will be able to customize your own profile, this includes your ites that will be in storage. eg. Boat.
+                </p>
+                <hr />
+                <p class="text-muted ">
+                    <small>Do not have an account?</small>
+                </p>
+                <a class="btn btn-primary  full-width" asp-area="Members" asp-action="Register" asp-controller="Members">Register as an Member</a>
+
+
+            </div>
+        </div>
+        <hr />
+
+    </div>
+
+</body>
+
+</html>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

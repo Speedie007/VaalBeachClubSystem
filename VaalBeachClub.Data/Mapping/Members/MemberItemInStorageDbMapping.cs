@@ -19,13 +19,12 @@ namespace VaalBeachClub.Data.Mapping.Members
             builder.ToTable("MemberItemInStorage");
 
 
+            builder.HasOne(d => d.MemberItemBeingStored)
+                   .WithMany(p => p.MemberItemsInStorage)
+                   .HasForeignKey(d => d.MemberItemID)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-
-            //builder.Property(x => x.FirstName)
-            //    .HasMaxLength(75);
-            //builder.Property(x => x.LastName)
-            //    .HasMaxLength(75);
-
+           
 
             base.Configure(builder);
         }

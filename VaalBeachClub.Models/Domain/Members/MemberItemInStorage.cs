@@ -13,13 +13,13 @@ namespace VaalBeachClub.Models.Domain.Members
 
         }
 
-        public virtual string item { get; set; }
 
-        public virtual int? BoatHouseRentalID { get; set; }
-        public virtual int? MemberItemID { get; set; }
+        public virtual int BoatHouseRentalID { get; set; }
+        public virtual int MemberItemID { get; set; }
 
         public virtual MemberItem MemberItemBeingStored { get; set; }
 
+        
         public virtual BoatHouseRental BoatHouseUseToStoreMemberItem { get; set; }
 
 

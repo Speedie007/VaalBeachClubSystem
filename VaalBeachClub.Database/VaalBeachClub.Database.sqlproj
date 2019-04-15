@@ -7,7 +7,7 @@
     <Name>VaalBeachClub.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{fcf676f3-6870-4ef6-9a58-7672dbcb55a1}</ProjectGuid>
+    <ProjectGuid>{72dd3349-d251-4cec-81e9-46a12b32201f}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -17,7 +17,7 @@
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -57,5 +57,32 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\MemberItems.sql" />
+    <Build Include="dbo\Tables\MemberItemInStorage.sql" />
+    <Build Include="dbo\Tables\Logs.sql" />
+    <Build Include="dbo\Tables\EntranceCommissionFees.sql" />
+    <Build Include="dbo\Tables\CampSites.sql" />
+    <Build Include="dbo\Tables\CampSiteBookings.sql" />
+    <Build Include="dbo\Tables\BoatHouseSizes.sql" />
+    <Build Include="dbo\Tables\BoatHouses.sql" />
+    <Build Include="dbo\Tables\BoatHouseRentals.sql" />
+    <Build Include="dbo\Tables\BoatHouseCommissionFees.sql" />
+    <Build Include="dbo\Tables\BeachClubRoles.sql" />
+    <Build Include="dbo\Tables\BeachClubRoleClaims.sql" />
+    <Build Include="dbo\Tables\BeachClubMemberTokens.sql" />
+    <Build Include="dbo\Tables\BeachClubMembers.sql" />
+    <Build Include="dbo\Tables\BeachClubMemberRoles.sql" />
+    <Build Include="dbo\Tables\BeachClubMemberLogins.sql" />
+    <Build Include="dbo\Tables\BeachClubMemberClaims.sql" />
+    <Build Include="dbo\Tables\BeachClubFeeStructures.sql" />
+    <Build Include="dbo\Tables\AffiliatedMembers.sql" />
+    <Build Include="dbo\Tables\Addresses.sql" />
+    <Build Include="dbo\Tables\ActivityLogTypes.sql" />
+    <Build Include="dbo\Tables\ActivityLogs.sql" />
+    <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />
   </ItemGroup>
 </Project>

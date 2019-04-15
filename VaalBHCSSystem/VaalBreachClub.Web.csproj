@@ -11,6 +11,21 @@
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Areas\Admin\Views\Shared\_AdminLayoutOld.cshtml" />
+    <Content Remove="Views\Shared\_Layout.cshtml" />
+    <Content Remove="Views\Shared\_Layout_2.cshtml" />
+    <Content Remove="Views\Shared\_Layout_3.cshtml" />
+    <Content Remove="Views\Shared\_Layout_4.cshtml" />
+    <Content Remove="Views\Shared\_LoginPartial.cshtml" />
+    <Content Remove="Views\Shared\_Navigation.cshtml" />
+    <Content Remove="Views\Shared\_NavigationOffCanvas.cshtml" />
+    <Content Remove="Views\Shared\_RightSidebar.cshtml" />
+    <Content Remove="Views\Shared\_SkinConfig.cshtml" />
+    <Content Remove="Views\Shared\_TopNavbar.cshtml" />
+    <Content Remove="Views\Shared\_TopNavbar2.cshtml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.Mvc.Routes.DebuggingLoggerMiddleware" Version="1.0.0" />
@@ -28,10 +43,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\CampSites\" />
-    <Folder Include="Controllers\CampSites\" />
-    <Folder Include="Controllers\TemplateComponents\" />
-    <Folder Include="Controllers\TestPage\" />
     <Folder Include="wwwroot\css\AdminPages\" />
     <Folder Include="wwwroot\lib\admin\" />
     <Folder Include="wwwroot\fonts\" />

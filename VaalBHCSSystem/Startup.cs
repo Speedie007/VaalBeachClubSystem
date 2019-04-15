@@ -17,7 +17,7 @@ using VaalBeachClub.Web.Data.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using VaalBeachClub.Data.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using VaalBeachClub.Services.Interfaces.BoatHouses;
+
 using VaalBeachClub.Services.BoatHouses;
 using VaalBeachClub.ViewFactory.BoatHouses;
 using VaalBreachClub.Web.Data.Intefaces;
@@ -27,6 +27,7 @@ using VaalBeachClub.Models;
 using VaalBeachClub.Models.Domain.BoatHouses;
 
 using VaalBreachClub.Web.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace VaalBeachClub.Web
 {
@@ -44,13 +45,7 @@ namespace VaalBeachClub.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //    options.CheckConsentNeeded = context => true;
-            //    options.MinimumSameSitePolicy = SameSiteMode.None;
-            //});
-
+            
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -59,10 +54,8 @@ namespace VaalBeachClub.Web
             });
 
             services.AddIdentity<BeachClubMember, BeachClubRole>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-
-                .AddDefaultTokenProviders();
+                //.AddDefaultUI(UIFramework.Bootstrap4)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 
@@ -89,16 +82,40 @@ namespace VaalBeachClub.Web
                 options.User.RequireUniqueEmail = false;
             });
 
-            // Add Database Initializer
-            services.AddScoped<IDbInitializer, DbInitializer>();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
 
-            //services.AddScoped<IRepository<>,EfRepository<BoatHouse>>();
-            //services.AddScoped<IBoatHouseService, BoatHouseService>();
-            //services.AddScoped<IBoatHouseModelFactory, BoatHouseModelFactory>();
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.Secure = CookieSecurePolicy.SameAsRequest;
 
-            //services.AddScoped<IEventPublisher>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            });
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                // options.Cookie.Name = "IntrgratorCookie";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Authentication/Login";
+                options.AccessDeniedPath = "/Authentication/Login";
+                // ReturnUrlParameter requires 
+                //using Microsoft.AspNetCore.Authentication.Cookies;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+                
+            });
+
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddXmlSerializerFormatters();
+
+            services.AddHttpContextAccessor();
 
             return services.ConfigureApplicationServices(Configuration);
 
@@ -128,7 +145,7 @@ namespace VaalBeachClub.Web
 
             app.UseAuthentication();
 
-           // dbInitializer.Initialize();
+            dbInitializer.Initialize();
 
 
 
@@ -136,12 +153,9 @@ namespace VaalBeachClub.Web
             {
 
                 routes.MapRoute(
-                         name: "areaRouteForBoatHouseAdminSection",
-                         template: "{area:exists}/{controller=BoatHouseAdmin}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                         name: "areaRouteForAdminSection",
-                         template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
 
                 routes.MapRoute(
                     name: "default",

@@ -21,7 +21,7 @@ namespace VaalBreachClub.Web.Extensions
             //add hosting configuration parameters
             // services.ConfigureStartupConfig<HostingConfig>(configuration.GetSection("Hosting"));
             //add accessor to HttpContext
-            services.AddHttpContextAccessor();
+            //services.AddHttpContextAccessor();
 
             ////create, initialize and configure the engine
             var engine = EngineContext.Create();
@@ -67,9 +67,9 @@ namespace VaalBreachClub.Web.Extensions
         /// Register HttpContextAccessor
         /// </summary>
         /// <param name="services">Collection of service descriptors</param>
-        public static void AddHttpContextAccessor(this IServiceCollection services)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        }
+        //public static void AddHttpContextAccessor(this IServiceCollection services)
+        //{
+        //    services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        //}
     }
 }

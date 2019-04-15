@@ -14,17 +14,23 @@ namespace VaalBeachClub.Data.Mapping.BoatHouses
      /// <param name="builder">The builder to be used to configure the entity</param>
         public override void Configure(EntityTypeBuilder<BoatHouseSize> builder)
         {
+            builder.ToTable("BoatHouseSizes");
+
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                 .HasColumnName("BoatHouseSizeID");
 
-            builder.Property(x => x.Cost)
-            .HasColumnType("Money");
-            //each Boat house has only one size
-            builder
-                .HasOne(a => a.BoatHouse)
-                .WithOne(b => b.BoatHouseSize)
-                .HasForeignKey<BoatHouse>(b => b.BoatHouseSizeID);
+
+            builder.Property(e => e.Cost).HasColumnType("money");
+
+            builder.Property(e => e.Hieght).HasColumnType("numeric(18, 1)");
+
+            builder.Property(e => e.Length).HasColumnType("numeric(18, 1)");
+
+            builder.Property(e => e.Width).HasColumnType("numeric(18, 1)");
+
+            //builder.Property(e => e.Dimensions)..ValueGeneratedNever();
 
             base.Configure(builder);
         }

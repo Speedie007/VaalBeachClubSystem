@@ -1,0 +1,48 @@
+﻿@model BoatHouseSizeViewModel
+
+@{
+    ViewData["Title"] = "AddBoatHouseSize";
+}
+
+<h1>AddBoatHouseSize</h1>
+
+<h4>BoatHouseSizeViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddBoatHouseSize">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="aCost" class="control-label"></label>
+                <input asp-for="aCost" class="form-control" />
+                <span asp-validation-for="aCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="aHieght" class="control-label"></label>
+                <input asp-for="aHieght" class="form-control" />
+                <span asp-validation-for="aHieght" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="aLength" class="control-label"></label>
+                <input asp-for="aLength" class="form-control" />
+                <span asp-validation-for="aLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="aWidth" class="control-label"></label>
+                <input asp-for="aWidth" class="form-control" />
+                <span asp-validation-for="aWidth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

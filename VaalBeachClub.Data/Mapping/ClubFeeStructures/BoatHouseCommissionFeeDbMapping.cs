@@ -15,7 +15,8 @@ namespace VaalBeachClub.Data.Mapping.ClubFeeStructures
         /// <param name="builder">The builder to be used to configure the entity</param>
         public override void Configure(EntityTypeBuilder<BoatHouseCommissionFee> builder)
         {
-            
+            builder.ToTable("BoatHouseCommissionFees");
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
@@ -24,7 +25,9 @@ namespace VaalBeachClub.Data.Mapping.ClubFeeStructures
             builder.Property(x => x.CommisionPercentage)
             .HasColumnType("Decimal(18,2)");
 
-           
+            builder.HasOne(d => d.BoatHouseSize)
+             .WithMany(p => p.BoatHouseCommissionFees)
+             .HasForeignKey(d => d.BoatHouseSizeID);
 
             base.Configure(builder);
         }

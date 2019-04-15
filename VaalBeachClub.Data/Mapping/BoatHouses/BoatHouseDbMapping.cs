@@ -13,11 +13,12 @@ namespace VaalBeachClub.Data.Mapping.BoatHouses
         public override void Configure(EntityTypeBuilder<BoatHouse> builder)
         {
 
+            builder.ToTable("BoatHouses");
 
             builder.Property(x => x.Id)
                 .HasColumnName("BoatHouseID");
 
-            builder.ToTable("BoatHouses");
+            
             builder.HasKey(boathouse => boathouse.Id);
 
             builder.Property(boathouse => boathouse.BoatHouseNumber)
@@ -30,7 +31,14 @@ namespace VaalBeachClub.Data.Mapping.BoatHouses
                 .HasForeignKey(ul => ul.BoatHouseID)
                 .IsRequired();
 
-           
+            // Each Boathouse can have many sizes
+            builder.HasOne(d => d.BoatHouseSize)
+                    .WithMany(p => p.BoatHouses)
+                    .HasForeignKey(d => d.BoatHouseSizeID)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_BoatHouses_BoatHouseSizes");
+
+
 
             base.Configure(builder);
         }

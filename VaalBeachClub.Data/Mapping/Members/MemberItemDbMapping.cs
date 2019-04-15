@@ -17,13 +17,23 @@ namespace VaalBeachClub.Data.Mapping.Members
 
             builder.ToTable("MemberItems");
 
-            builder.ToTable("MemberItems")
-            .HasDiscriminator<MemberItemType>(nameof(MemberItemType))
+            builder.ToTable("MemberItems");
+            //.HasDiscriminator<MemberItemType>(nameof(MemberItemType))
 
-            .HasValue<Boat>(MemberItemType.Boat)
-            .HasValue<Trailer>(MemberItemType.Trailer)
-            .HasValue<JetSki>(MemberItemType.JetSki)
-            .HasValue<MotorHome>(MemberItemType.MotorHouses);
+            //.HasValue<Boat>(MemberItemType.Boat)
+            //.HasValue<Trailer>(MemberItemType.Trailer)
+            //.HasValue<JetSki>(MemberItemType.JetSki)
+            //.HasValue<MotorHome>(MemberItemType.MotorHouses);
+
+              builder.HasOne(d => d.BeachClubMember)
+                    .WithMany(p => p.MemberItems)
+                    .HasForeignKey(d => d.BeachClubMemberID);
+
+            builder.HasOne(d => d.Item)
+                .WithMany(p => p.MemberItems)
+                .HasForeignKey(d => d.ItemID)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_MemberItems_ItemTypes");
 
             // Each User can have many BoatLoackRentals
             builder.HasMany(e => e.MemberItemsInStorage)

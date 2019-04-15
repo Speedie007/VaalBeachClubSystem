@@ -19,4 +19,8 @@
     <ProjectReference Include="..\VaalBeachClub.Models\VaalBeachClub.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\BoatHouses\" />
+  </ItemGroup>
+
 </Project>

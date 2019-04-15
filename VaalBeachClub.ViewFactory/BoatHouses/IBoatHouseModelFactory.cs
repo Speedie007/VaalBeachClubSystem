@@ -12,7 +12,10 @@ namespace VaalBeachClub.ViewFactory.BoatHouses
         /// Prepare the boathouse list model
         /// </summary>
         /// <returns>BoatHouse List Model used in the views</returns>
-        BoatHouseInfoViewModel PrepareBoatHouseListModel();
-
+        List<BoatHouseInfoViewModel> PrepareBoatHouseListModel();
+        BoatHouseInfoViewModel PrepareAddBoatHouseModel();
+        BoatHouseInfoViewModel PrepareEditBoatHouseModel(int BoatHouseID);
+        List<BoatHouseSizeViewModel> PrepareBostHouseSizeViewModel();
+        BoatHouseSizeViewModel PrepareEditBoatHouseSizeViewModel(int BoatHouseSizeID);
     }
 }

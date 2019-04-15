@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using VaalBeachClub.Common.Events;
 using VaalBeachClub.Models.Domain.CampSites;
 using VaalBeachClub.Services.Interfaces.CampSites;
@@ -13,33 +15,44 @@ namespace VaalBeachClub.Services.CampSites
     {
 
         private readonly IRepository<CampSite> _campSiteRepository;
-        private readonly IEventPublisher _eventPublisher;
+       // private readonly IEventPublisher _eventPublisher;
         private readonly string _entityName;
 
-        public CampSiteService(IRepository<CampSite> campSiteRepository, IEventPublisher eventPublisher)
+        public CampSiteService(
+            IRepository<CampSite> campSiteRepository
+            //, IEventPublisher eventPublisher
+            )
         {
             this._campSiteRepository = campSiteRepository;
-            this._eventPublisher = eventPublisher;
+            //this._eventPublisher = eventPublisher;
             this._entityName = typeof(CampSite).Name;
         }
-        public void DeleteBoatHouse(CampSite boatHouse)
+
+
+        public void DeleteCampSite(CampSite Entity)
         {
-            throw new NotImplementedException();
+            _campSiteRepository.Delete(Entity);
         }
 
-        public IQueryable<CampSite> GetAllBoatHouses()
+        
+        public async Task<List<CampSite>> ListCampSites()
         {
-            return _campSiteRepository.Table;
+            return await _campSiteRepository.Table.ToListAsync();
+        }
+        
+        public async Task<CampSite> GetCampSite(int? CampSiteID)
+        {
+            return  await _campSiteRepository.Table.Where(x=>x.Id == CampSiteID).FirstOrDefaultAsync<CampSite>();
         }
 
-        public void InsertBoatHouse(CampSite BoatHouse)
+        public void InsertCampSite(CampSite Entity)
         {
-            throw new NotImplementedException();
+            _campSiteRepository.Insert(Entity);
         }
 
-        public void UpdateBoatHouse(CampSite boatHouse)
+        public void UpdateCampSite(CampSite Entity)
         {
-            throw new NotImplementedException();
+            _campSiteRepository.Update(Entity);
         }
     }
 }

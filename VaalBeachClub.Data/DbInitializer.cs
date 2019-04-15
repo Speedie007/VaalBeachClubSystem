@@ -33,6 +33,11 @@ namespace VaalBeachClub.Data
                     //Create the Administartor Role
                     await _roleManager.CreateAsync(new BeachClubRole("Administrator"));
                 }
+                if (!(await _roleManager.RoleExistsAsync("Member")))
+                {
+                    //Create the Individual Role
+                    await _roleManager.CreateAsync(new BeachClubRole("Member"));
+                }
                 //Create the default Admin account and apply the Administrator role
                 var _userManager = serviceScope.ServiceProvider.GetService<UserManager<BeachClubMember>>();
                 string user = "Admin@Admin.com";

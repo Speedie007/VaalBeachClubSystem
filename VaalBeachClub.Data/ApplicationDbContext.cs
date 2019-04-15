@@ -43,27 +43,28 @@ namespace VaalBeachClub.Data
 
         }
 
-        //mUST ADD all classes that you need as tables in the database
-        public virtual DbSet<POBoxAddress> POBoxAddresses { get; set; }
-        public virtual DbSet<StreetAddress> StreetAddresses { get; set; }
-        public virtual DbSet<ComplexAddress> ComplexAddresses { get; set; }
-        public virtual DbSet<BoatHouse> BoatHouses { get; set; }
-        public virtual DbSet<BoatHouseRental> BoatHouseRentals { get; set; }
-        public virtual DbSet<AffiliatedMember> AffiliatedMembers { get; set; }
-        public virtual DbSet<BoatHouseSize> BoatHouseSizes { get; set; }
-        public virtual DbSet<CampSite> CampSites { get; set; }
-        public virtual DbSet<CampSiteBooking> CampSiteBookings { get; set; }
+        ////mUST ADD all classes that you need as tables in the database
+        //public virtual DbSet<POBoxAddress> POBoxAddresses { get; set; }
+        //public virtual DbSet<StreetAddress> StreetAddresses { get; set; }
+        //public virtual DbSet<ComplexAddress> ComplexAddresses { get; set; }
+        //public virtual DbSet<BoatHouse> BoatHouses { get; set; }
+        //public virtual DbSet<BoatHouseRental> BoatHouseRentals { get; set; }
+        //public virtual DbSet<AffiliatedMember> AffiliatedMembers { get; set; }
+        //public virtual DbSet<BoatHouseSize> BoatHouseSizes { get; set; }
+        //public virtual DbSet<CampSite> CampSites { get; set; }
+        //public virtual DbSet<CampSiteBooking> CampSiteBookings { get; set; }
 
-        public virtual DbSet<MemberItem> MemberItems { get; set; }
-        public virtual DbSet<Boat> Boats { get; set; }
-        public virtual DbSet<Trailer> Trailers { get; set; }
-        public virtual DbSet<JetSki> JetSkis { get; set; }
-        public virtual DbSet<MotorHome> MotorHome { get; set; }
+        //public virtual DbSet<MemberItem> MemberItems { get; set; }
+        ////public virtual DbSet<Boat> Boats { get; set; }
+        ////public virtual DbSet<Trailer> Trailers { get; set; }
+        ////public virtual DbSet<JetSki> JetSkis { get; set; }
+        ////public virtual DbSet<MotorHome> MotorHome { get; set; }
+        //public virtual DbSet<CampSite> CampSites { get; set; }
+        
+        //public virtual DbSet<EntranceCommissionFee> EntranceCommissionFees { get; set; }
+        //public virtual DbSet<BoatHouseCommissionFee> BoatHouseCommissionFees { get; set; }
 
-        public virtual DbSet<EntranceCommissionFee> EntranceCommissionFees { get; set; }
-        public virtual DbSet<BoatHouseCommissionFee> BoatHouseCommissionFees { get; set; }
-
-        public virtual DbSet<MemberItemInStorage> MemberItemsInStorage { get; set; }
+        //public virtual DbSet<MemberItemInStorage> MemberItemsInStorage { get; set; }
 
 
         //logging
