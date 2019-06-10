@@ -8,6 +8,7 @@ using VaalBeachClub.Models;
 using VaalBeachClub.Models.Domain;
 using VaalBeachClub.Models.Domain.Addresses;
 using VaalBeachClub.Models.Domain.Bookings;
+using VaalBeachClub.Models.Domain.Common;
 using VaalBeachClub.Models.Domain.Members;
 using VaalBeachClub.Models.Domain.Rentals;
 
@@ -29,6 +30,9 @@ namespace VaalBeachClub.Web.Data.Identity
             AffiliatedMembers = new List<AffiliatedMember>();
             CampSiteBookings = new List<CampSiteBooking>();
             MemberItems = new List<MemberItem>();
+            MemberRegistrations = new HashSet<MemberRegistration>();
+            ContactDetails = new HashSet<ContactDetail>();
+            MemberProfileImages = new HashSet<MemberProfileImage>();
         }
 
         public BeachClubMember(string UserName) : base(UserName) { this.Init(); }
@@ -47,7 +51,13 @@ namespace VaalBeachClub.Web.Data.Identity
         public virtual ICollection<AffiliatedMember> AffiliatedMembers { get; set; }
         public virtual ICollection<CampSiteBooking> CampSiteBookings { get; set; }
         public virtual ICollection<MemberItem> MemberItems { get; set; }
-        
+
+        public virtual ICollection<MemberRegistration> MemberRegistrations { get; set; }
+
+        public virtual ICollection<ContactDetail> ContactDetails { get; set; }
+
+        public virtual ICollection<MemberProfileImage> MemberProfileImages { get; set; }
+
     }
 
     public class BeachClubRole : IdentityRole<int>

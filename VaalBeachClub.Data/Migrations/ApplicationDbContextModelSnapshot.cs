@@ -16,7 +16,7 @@ namespace VaalBeachClub.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -36,13 +36,17 @@ namespace VaalBeachClub.Data.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<string>("Country");
+                    b.Property<int>("CountryID");
+
+                    b.Property<bool>("IsPrimaryAddress");
 
                     b.Property<string>("Suburb");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BeachClubMemberID");
+
+                    b.HasIndex("CountryID");
 
                     b.ToTable("Addresses");
 
@@ -67,6 +71,44 @@ namespace VaalBeachClub.Data.Migrations
                     b.HasIndex("BoatHouseSizeID");
 
                     b.ToTable("BoatHouses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BoatHouseNumber = "BH001",
+                            BoatHouseSizeID = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BoatHouseNumber = "BH002",
+                            BoatHouseSizeID = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BoatHouseNumber = "BH003",
+                            BoatHouseSizeID = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BoatHouseNumber = "BH004",
+                            BoatHouseSizeID = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BoatHouseNumber = "BH005",
+                            BoatHouseSizeID = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BoatHouseNumber = "BH006",
+                            BoatHouseSizeID = 6
+                        });
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.BoatHouses.BoatHouseSize", b =>
@@ -93,6 +135,62 @@ namespace VaalBeachClub.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BoatHouseSizes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cost = 14380m,
+                            Description = "Boat Size A",
+                            Hieght = 2.5m,
+                            Length = 8m,
+                            Width = 3m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cost = 16392m,
+                            Description = "Boat Size B",
+                            Hieght = 2.8m,
+                            Length = 9m,
+                            Width = 3.5m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cost = 16392m,
+                            Description = "Boat Size C",
+                            Hieght = 3.5m,
+                            Length = 9m,
+                            Width = 3.5m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Cost = 18117m,
+                            Description = "Boat Size D",
+                            Hieght = 4m,
+                            Length = 10m,
+                            Width = 3.5m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Cost = 20340m,
+                            Description = "Boat Size E",
+                            Hieght = 2.8m,
+                            Length = 12m,
+                            Width = 3.5m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Cost = 20340m,
+                            Description = "Boat Size F",
+                            Hieght = 3.5m,
+                            Length = 12m,
+                            Width = 3.5m
+                        });
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Bookings.CampSiteBooking", b =>
@@ -133,6 +231,92 @@ namespace VaalBeachClub.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CampSite");
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Common.ContactDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ContactDetailID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BeachClubMemberID");
+
+                    b.Property<int>("ContactDetailTypeID");
+
+                    b.Property<string>("ContactDetailValue")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BeachClubMemberID");
+
+                    b.HasIndex("ContactDetailTypeID");
+
+                    b.ToTable("ContactDetails");
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Common.ContactDetailType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ContactDetailTypeID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactDetailTypeValue")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactDetailTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContactDetailTypeValue = "Email Address"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContactDetailTypeValue = "Cell Number"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContactDetailTypeValue = "Office Number"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ContactDetailTypeValue = "Home Number"
+                        });
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Common.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("CountryID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .IsUnicode(false);
+
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Fees.BeachClubFeeStructure", b =>
@@ -217,6 +401,36 @@ namespace VaalBeachClub.Data.Migrations
                     b.ToTable("EntranceCommissionFee");
                 });
 
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Files.File", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("FileID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .IsUnicode(false);
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(false);
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("image");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemProperty", b =>
                 {
                     b.Property<int>("Id")
@@ -224,15 +438,103 @@ namespace VaalBeachClub.Data.Migrations
                         .HasColumnName("ItemPropertyID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ItemPropertyDataTypeID");
+
                     b.Property<string>("Property")
                         .IsRequired()
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
-                    b.HasKey("Id")
-                        .HasName("PK_MemberItemProperties");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemPropertyDataTypeID");
 
                     b.ToTable("ItemProperties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Colour"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Make"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Boat Name"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ItemPropertyDataTypeID = 2,
+                            Property = "Length"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ItemPropertyDataTypeID = 2,
+                            Property = "Height"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Registration Number"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Model"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Make Of Engine"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ItemPropertyDataTypeID = 1,
+                            Property = "Width"
+                        });
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemPropertyDataType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ItemPropertyDataTypeID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ItemPropertyDataTypeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemPropertyDataTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ItemPropertyDataTypeName = "TEXT"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ItemPropertyDataTypeName = "NUMERIC"
+                        });
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemType", b =>
@@ -242,6 +544,8 @@ namespace VaalBeachClub.Data.Migrations
                         .HasColumnName("ItemTypeID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsOnSiteStorageItem");
+
                     b.Property<string>("Item")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -250,6 +554,58 @@ namespace VaalBeachClub.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ItemTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsOnSiteStorageItem = false,
+                            Item = "Trailer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsOnSiteStorageItem = false,
+                            Item = "Boat"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsOnSiteStorageItem = false,
+                            Item = "JetSki"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsOnSiteStorageItem = false,
+                            Item = "Vechicle"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsOnSiteStorageItem = false,
+                            Item = "Wake Board Tower"
+                        });
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemTypeHierarchy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ItemTypeHierarchyID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ChildID");
+
+                    b.Property<bool>("OccupiesSameSpaceAsParent");
+
+                    b.Property<int>("ParentID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentID");
+
+                    b.ToTable("ItemTypeHierarchy");
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemTypeProperty", b =>
@@ -262,6 +618,8 @@ namespace VaalBeachClub.Data.Migrations
                     b.Property<int>("ItemID");
 
                     b.Property<int>("ItemPropertyID");
+
+                    b.Property<bool>("ItemPropertyRequired");
 
                     b.HasKey("Id");
 
@@ -358,6 +716,8 @@ namespace VaalBeachClub.Data.Migrations
                         .HasColumnName("AffiliatedMemberID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AffiliatedMemberTypeID");
+
                     b.Property<int>("BeachClubMemberID");
 
                     b.Property<DateTime>("DateOfBirth");
@@ -368,13 +728,57 @@ namespace VaalBeachClub.Data.Migrations
                     b.Property<string>("LastName")
                         .HasMaxLength(75);
 
-                    b.Property<int>("MemberAffiliation");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AffiliatedMemberTypeID");
 
                     b.HasIndex("BeachClubMemberID");
 
                     b.ToTable("AffiliatedMembers");
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.AffiliatedMemberType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("AffiliatedMemberTypeID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AffiliatedMemberTypeName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AffiliatedMemberTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AffiliatedMemberTypeName = "Wife"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AffiliatedMemberTypeName = "Husband"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AffiliatedMemberTypeName = "Son"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AffiliatedMemberTypeName = "Daughter"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AffiliatedMemberTypeName = "Visitor"
+                        });
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberItem", b =>
@@ -417,6 +821,82 @@ namespace VaalBeachClub.Data.Migrations
                     b.HasIndex("MemberItemID");
 
                     b.ToTable("MemberItemInStorage");
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberItemProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("MemberItemPropertyID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ItemPropertyID");
+
+                    b.Property<int>("MemberItemID");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemPropertyID");
+
+                    b.HasIndex("MemberItemID");
+
+                    b.ToTable("MemberItemProperties");
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberProfileImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("MemberProfileImageID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BeachClubMemberID");
+
+                    b.Property<DateTime>("DateLastUpdated");
+
+                    b.Property<int>("FileID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BeachClubMemberID");
+
+                    b.HasIndex("FileID");
+
+                    b.ToTable("MemberProfileImages");
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberRegistration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("MemberRegistrationID")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BeachClubMemberID");
+
+                    b.Property<DateTime>("DateRegistrationCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<bool>("HasBeenApproved");
+
+                    b.Property<bool>("HasBeenPaid");
+
+                    b.Property<bool>("HasBeenProcessed");
+
+                    b.Property<bool>("HasReadTermsAndConditions");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BeachClubMemberID");
+
+                    b.ToTable("MemberRegistrations");
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Rentals.BoatHouseRental", b =>
@@ -662,6 +1142,12 @@ namespace VaalBeachClub.Data.Migrations
                         .WithMany("Addresses")
                         .HasForeignKey("BeachClubMemberID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("VaalBeachClub.Models.Domain.Common.Country", "aCountry")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CountryID")
+                        .HasConstraintName("FK_Addresses_Countries")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.BoatHouses.BoatHouse", b =>
@@ -686,6 +1172,21 @@ namespace VaalBeachClub.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Common.ContactDetail", b =>
+                {
+                    b.HasOne("VaalBeachClub.Web.Data.Identity.BeachClubMember", "BeachClubMember")
+                        .WithMany("ContactDetails")
+                        .HasForeignKey("BeachClubMemberID")
+                        .HasConstraintName("FK_ContactDetails_BeachClubMembers")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("VaalBeachClub.Models.Domain.Common.ContactDetailType", "ContactDetailType")
+                        .WithMany("ContactDetails")
+                        .HasForeignKey("ContactDetailTypeID")
+                        .HasConstraintName("FK_ContactDetails_ContactDetailTypes")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Fees.BoatHouseCommissionFee", b =>
                 {
                     b.HasOne("VaalBeachClub.Models.Domain.BoatHouses.BoatHouseSize", "BoatHouseSize")
@@ -702,13 +1203,31 @@ namespace VaalBeachClub.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemProperty", b =>
+                {
+                    b.HasOne("VaalBeachClub.Models.Domain.Items.ItemPropertyDataType", "ItemPropertyDataType")
+                        .WithMany("ItemProperties")
+                        .HasForeignKey("ItemPropertyDataTypeID")
+                        .HasConstraintName("FK_ItemProperties_ItemPropertyDataTypes")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemTypeHierarchy", b =>
+                {
+                    b.HasOne("VaalBeachClub.Models.Domain.Items.ItemType", "Parent")
+                        .WithMany("ItemTypeHierarchy")
+                        .HasForeignKey("ParentID")
+                        .HasConstraintName("FK_ItemTypeHierarchy_ItemTypes")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Items.ItemTypeProperty", b =>
                 {
                     b.HasOne("VaalBeachClub.Models.Domain.Items.ItemType", "Item")
                         .WithMany("ItemTypeProperties")
                         .HasForeignKey("ItemID")
                         .HasConstraintName("FK_ItemTypeProperties_ItemTypes")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("VaalBeachClub.Models.Domain.Items.ItemProperty", "ItemProperty")
                         .WithMany("ItemTypeProperties")
@@ -738,6 +1257,12 @@ namespace VaalBeachClub.Data.Migrations
 
             modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.AffiliatedMember", b =>
                 {
+                    b.HasOne("VaalBeachClub.Models.Domain.Members.AffiliatedMemberType", "AffiliatedMemberType")
+                        .WithMany("AffiliatedMembers")
+                        .HasForeignKey("AffiliatedMemberTypeID")
+                        .HasConstraintName("FK_AffiliatedMembers_AffiliatedMemberTypes")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("VaalBeachClub.Web.Data.Identity.BeachClubMember", "Member")
                         .WithMany("AffiliatedMembers")
                         .HasForeignKey("BeachClubMemberID")
@@ -768,6 +1293,45 @@ namespace VaalBeachClub.Data.Migrations
                     b.HasOne("VaalBeachClub.Models.Domain.Members.MemberItem", "MemberItemBeingStored")
                         .WithMany("MemberItemsInStorage")
                         .HasForeignKey("MemberItemID")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberItemProperty", b =>
+                {
+                    b.HasOne("VaalBeachClub.Models.Domain.Items.ItemProperty", "ItemProperty")
+                        .WithMany("MemberAssetProperties")
+                        .HasForeignKey("ItemPropertyID")
+                        .HasConstraintName("FK_MemberItemProperties_ItemProperties_1")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("VaalBeachClub.Models.Domain.Members.MemberItem", "MemberItem")
+                        .WithMany("MemberAssetProperties")
+                        .HasForeignKey("MemberItemID")
+                        .HasConstraintName("FK_MemberItemProperties_MemberItems_1")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberProfileImage", b =>
+                {
+                    b.HasOne("VaalBeachClub.Web.Data.Identity.BeachClubMember", "BeachClubMember")
+                        .WithMany("MemberProfileImages")
+                        .HasForeignKey("BeachClubMemberID")
+                        .HasConstraintName("FK_MemberProfileImages_BeachClubMembers")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("VaalBeachClub.Models.Domain.Files.File", "File")
+                        .WithMany("MemberProfileImages")
+                        .HasForeignKey("FileID")
+                        .HasConstraintName("FK_MemberProfileImages_Files")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("VaalBeachClub.Models.Domain.Members.MemberRegistration", b =>
+                {
+                    b.HasOne("VaalBeachClub.Web.Data.Identity.BeachClubMember", "BeachClubMember")
+                        .WithMany("MemberRegistrations")
+                        .HasForeignKey("BeachClubMemberID")
+                        .HasConstraintName("FK_MemberRegistrations_BeachClubMembers")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

@@ -6,7 +6,7 @@ using VaalBeachClub.Models.ViewModels.ViewModelComponents;
 
 namespace VaalBeachClub.Models.ViewModels.Authentication
 {
-   public partial class RegisterViewModel: BaseBeachClubViewModel
+    public partial class RegisterViewModel : BaseBeachClubViewModel
     {
         #region Cstor
         public RegisterViewModel()
@@ -19,6 +19,12 @@ namespace VaalBeachClub.Models.ViewModels.Authentication
         [Display(Name = "Email")]
         [Required]
         public string UserEmail { get; set; }
+
+        [EmailAddress]
+        [Display(Name ="Confirm Email")]
+        [Required]
+        [Compare("UserEmail", ErrorMessage ="")]
+        public string UserConfirmEmail { get; set; }
 
         [Required]
         [Display(Name = "First Name")]
@@ -53,6 +59,8 @@ namespace VaalBeachClub.Models.ViewModels.Authentication
         public Boolean TermsAndConditions { get; set; }
 
         public string UserRole { get; set; }
+
+        public Boolean RegistrationConfirmationSent { get; set; }
 
         //public Boolean IsComplexAddressAdded { get; set; }
         //public ComplexAddressViewModel ComplexAddress { get; set; }

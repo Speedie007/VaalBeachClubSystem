@@ -21,7 +21,7 @@ namespace VaalBeachClub.Models.Domain.BoatHouses
         public decimal Hieght { get; set; }
 
         
-        public string Dimensions => $"{Width}Mx{Length}Mx{Hieght}H";
+        public string Dimensions => $"({Description}) - {Width}M x {Length}M x {Hieght}H";
 
         public virtual ICollection<BoatHouseCommissionFee> BoatHouseCommissionFees { get; set; }
         public virtual ICollection<BoatHouse> BoatHouses { get; set; }

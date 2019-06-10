@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VaalBeachClub.Common.Events;
 using VaalBeachClub.Models.Domain.CampSites;
+using VaalBeachClub.Models.Domain.Interfaces;
 using VaalBeachClub.Services.Interfaces.CampSites;
 using VaalBreachClub.Web.Data.Intefaces;
 

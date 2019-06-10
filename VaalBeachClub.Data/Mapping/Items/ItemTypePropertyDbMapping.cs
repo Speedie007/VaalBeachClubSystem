@@ -25,7 +25,7 @@ namespace VaalBeachClub.Data.Mapping.Items
             builder.HasOne(d => d.Item)
                     .WithMany(p => p.ItemTypeProperties)
                     .HasForeignKey(d => d.ItemID)
-                    .OnDelete(DeleteBehavior.Restrict)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_ItemTypeProperties_ItemTypes");
 
             builder.HasOne(d => d.ItemProperty)
@@ -34,6 +34,12 @@ namespace VaalBeachClub.Data.Mapping.Items
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_ItemTypeProperties_ItemProperties");
 
+            //builder.Property(e => e.ItemPropertyValue)
+            //       .IsRequired()
+            //       .HasMaxLength(150)
+            //       .IsUnicode(false);
+
+            
 
             base.Configure(builder);
         }

@@ -1,0 +1,1376 @@
+﻿@model RegisterViewModel
+
+@inject IHttpContextAccessor httpContextAccessor
+@inject  ICommonService CommonService
+@{
+    Layout = "_AuthenticationLayout";
+}
+
+
+<div class="  loginscreen   animated fadeInDown">
+    <div class="wrapper wrapper-content">
+        <div class="row animated fadeInDown">
+            <div class="col-lg-3">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Registration Summary</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="#" class="dropdown-item">Config option 1</a>
+
+                                </li>
+                                <li>
+                                    <a href="#" class="dropdown-item">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        sfasdfdsf
+                        <button type="button" class="btn btn-primary" onclick="LoadCountries();">TESTING </button>
+
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-lg-9">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Striped Table </h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <!--Member Registrastion Wizard Accordion-->
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <a class="text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <h5 class="panel-title">
+                                            Main Member Details
+                                        </h5>
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in " data-parent="#accordion">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="ibox ">
+                                                    <div class="ibox-title">
+                                                        <h5>Member Picture</h5>
+                                                        <div class="ibox-tools">
+                                                            <a class="collapse-link">
+                                                                <i class="fa fa-chevron-up"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <h3> Image Controls - reposition the image till desired position.</h3><br />
+                                                        <small>*Step 1 - Select your image of your self to upload.</small>
+                                                        <label title="Upload image file" for="inputImage" class="btn btn-primary full-width">
+                                                            <input type="file" accept="image/*" name="file" id="inputImage" style="        display: none;" class="hide">
+                                                            <i class="fa fa-download"></i> Select Your Image
+                                                        </label>
+                                                        <hr />
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <h4>Preview image</h4>
+                                                                <div class="img-preview img-preview-sm rounded" style="        height: 400px"></div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <td colspan="3"><h3>Image Controls</h3></td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <button id="zoomIn" title="Zoom In" type="button" class="btn btn-info full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-plus cropper-control-icons-size"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button id="imageUp" type="button" class="btn btn-primary full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-arrow-circle-up"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button id="zoomOut" type="button" class="btn btn-info full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-minus cropper-control-icons-size"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <button id="imageLeft" type="button" class="btn  btn-primary full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-arrow-circle-left"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button id="imageReset" type="button" class="btn btn-small btn-warning full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-refresh"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button id="imageRight" type="button" class="btn btn-small btn-primary full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-arrow-circle-right"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <button id="imageRotateLeft" type="button" class="btn btn-info full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-reply"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button id="imageDown" type="button" class="btn   btn-primary full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-arrow-circle-down"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button id="imageRotateRight" type="button" class="btn  btn-info full-width full-height">
+                                                                                        <i style="        font-size: 25px;" class="fa fa-share full-width full-height"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        @*
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <td colspan="3">
+                                                                                        <button type="button" id="btnFileUpload" class="btn btn-outline-primary full-width " onclick="processImage();"><i class="fa fa-upload"></i>&nbsp;Upload Image</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tfoot>*@
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12 heading ">
+                                                                <p class="text-lg-left text-primary">Image Cropper - can reposition the crop area to desired location by dragging the box. User the controls above to bring the desired area into focus. The image will automatically be cropped and upload to the system, when uploaded.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div style="display:none;">
+                                                                    <div class="image-crop">
+                                                                        <img src="~/images/blank-profile.png" style="min-height: 200px;max-height: 300px;" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="ibox ">
+                                                    <div class="ibox-title">
+                                                        <h5>Member Details</h5>
+                                                        <div class="ibox-tools">
+                                                            <a class="collapse-link">
+                                                                <i class="fa fa-chevron-up"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <h3>Register with Vaal Beach Club</h3>
+                                                        <p>Create account to start your journey today!</p>
+                                                        <form class="m-t" role="form" asp-action="Register" asp-area="Individuals" asp-controller="Individual">
+                                                            <div class="form-group">
+                                                                <label class="text-primary">First Name</label>
+                                                                <input asp-for="FirstName" class="form-control" placeholder="Enter First Name Here" />
+                                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="text-primary">Last Name</label>
+                                                                <input asp-for="LastName" class="form-control" placeholder="Enter Last Name Here" />
+                                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="text-primary">Email Address</label>
+                                                                <input asp-for="UserEmail" class="form-control" placeholder="Enter Email Address Here" />
+                                                                <span asp-validation-for="UserEmail" class="text-danger"></span>
+                                                            </div><hr />
+                                                            <div class="form-group">
+                                                                <label class="text-primary">Password</label>
+                                                                <input asp-for="UserPassword" class="form-control" placeholder="Enter Password Here" />
+                                                                <span asp-validation-for="UserPassword" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="text-primary">Confirm Password</label>
+                                                                <input asp-for="ConfirmUserPassword" class="form-control" placeholder="Confirm Password" />
+                                                                <span asp-validation-for="ConfirmUserPassword" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="checkbox checkbox-success">
+                                                                    <input asp-for="TermsAndConditions" />
+                                                                    <label for="TermsAndConditions">
+                                                                        Agree the terms and policy
+                                                                    </label>
+                                                                </div>
+                                                                <span asp-validation-for="TermsAndConditions" class="text-danger"></span>
+                                                            </div>
+                                                            <hr />
+                                                            User Picture
+                                                            <div class="form-group">
+                                                                <button type="button" style="        margin-top: 5px;" class="btn btn-info full-width " data-toggle="modal" data-target="#SelectPictureModal" onclick=""><i class="fa fa-plus">&nbsp;Select/Configure Your Picture</i></button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#MemberAddressDetails">
+                                        <h4 class="panel-title text-white">
+                                            Address Details
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="MemberAddressDetails" class="panel-collapse collapse show" data-parent="#accordion">
+                                    <div class="panel-body">
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+                                                <div class="ibox ">
+                                                    <div class="ibox-title">
+                                                        <h5>List Of Addresses</h5>
+                                                        <div class="ibox-tools">
+                                                            <a class="collapse-link">
+                                                                <i class="fa fa-chevron-up"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                        <!--Address Types Accordinion-->
+                                                        <!--Address Details According-->
+                                                        <div class="panel-group" id="MemberAddressAccordion">
+                                                            <div class="panel panel-primary">
+                                                                <div class="panel-heading">
+                                                                    <a class="text-white" data-toggle="collapse" data-parent="#MemberAddressAccordion" href="#collapseStreetAddress">
+                                                                        <h5 class="panel-title">Street Addresses</h5>
+                                                                    </a>
+                                                                </div>
+                                                                <div id="collapseStreetAddress" class="panel-collapse collapse" data-parent="#MemberAddressAccordion">
+                                                                    <div class="panel-body">
+                                                                        <!--List Of ADDED Street Addresses-->
+                                                                        <button type="button"
+                                                                                class="btn btn-info "
+                                                                                data-toggle="modal"
+                                                                                data-target="#AddMemberAddressesModal"
+                                                                                onclick="initiAddMemberAddressForm(1);">
+                                                                            <i class=" fa fa-plus"></i>&nbsp;Add Addesses
+                                                                        </button>
+                                                                        <hr />
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table table-striped table-bordered table-hover dataTables-MemberAddress-Street">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Options</th>
+                                                                                                <th class="text-nowrap">Number</th>
+                                                                                                <th class="text-nowrap">Street</th>
+                                                                                                <th class="text-nowrap">City</th>
+                                                                                                <th class="text-nowrap">Suburb</th>
+                                                                                                <th class="text-nowrap">Country</th>
+                                                                                                <th class="text-nowrap">Area Code</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody></tbody>
+                                                                                        <tfoot>
+                                                                                            <tr>
+                                                                                                <th>Options</th>
+                                                                                                <th class="text-nowrap">Number</th>
+                                                                                                <th class="text-nowrap">Street</th>
+                                                                                                <th class="text-nowrap">City</th>
+                                                                                                <th class="text-nowrap">Suburb</th>
+                                                                                                <th class="text-nowrap">Country</th>
+                                                                                                <th class="text-nowrap">Area Code</th>
+                                                                                            </tr>
+                                                                                        </tfoot>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--END - List Of ADDED Street Addresses-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-primary">
+                                                                <div class="panel-heading">
+                                                                    <a data-toggle="collapse" data-parent="#MemberAddressAccordion" href="#collapsePostalAddress">
+                                                                        <h4 class="panel-title text-white">
+                                                                            P.O.Box Addresss
+                                                                        </h4>
+                                                                    </a>
+                                                                </div>
+                                                                <div id="collapsePostalAddress" class="panel-collapse collapse " data-parent="#MemberAddressAccordion">
+                                                                    <div class="panel-body">
+                                                                        <!--List Of ADDED PoBox Addresses-->
+                                                                        <button type="button"
+                                                                                class="btn btn-info "
+                                                                                data-toggle="modal"
+                                                                                data-target="#AddMemberAddressesModal"
+                                                                                onclick="initiAddMemberAddressForm(3);">
+                                                                            <i class=" fa fa-plus"></i>&nbsp;Add Addesses
+                                                                        </button>
+                                                                        <hr />
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table table-striped table-bordered table-hover dataTables-MemberAddress-POBox">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Options</th>
+                                                                                                <th class="text-nowrap">P.O.Box Number</th>
+                                                                                                <th class="text-nowrap">City</th>
+                                                                                                <th class="text-nowrap">Suburb</th>
+                                                                                                <th class="text-nowrap">Country</th>
+                                                                                                <th class="text-nowrap">Area Code</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody></tbody>
+                                                                                        <tfoot>
+                                                                                            <tr>
+                                                                                                <th>Options</th>
+                                                                                                <th class="text-nowrap">P.O.Box Number</th>
+                                                                                                <th class="text-nowrap">City</th>
+                                                                                                <th class="text-nowrap">Suburb</th>
+                                                                                                <th class="text-nowrap">Country</th>
+                                                                                                <th class="text-nowrap">Area Code</th>
+                                                                                            </tr>
+                                                                                        </tfoot>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--END - List Of ADDED PoBox Addresses-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-primary">
+                                                                <div class="panel-heading ">
+                                                                    <a data-toggle="collapse" data-parent="#MemberAddressAccordion" href="#collapseComplexAddress">
+                                                                        <h4 class="panel-title text-white">
+                                                                            Complex Address
+                                                                        </h4>
+                                                                    </a>
+                                                                </div>
+                                                                <div id="collapseComplexAddress" class="panel-collapse collapse " data-parent="#MemberAddressAccordion">
+                                                                    <div class="panel-body">
+                                                                        <!--List Of ADDED Complex Addresses-->
+                                                                        <button type="button"
+                                                                                class="btn btn-info "
+                                                                                data-toggle="modal"
+                                                                                data-target="#AddMemberAddressesModal"
+                                                                                onclick="initiAddMemberAddressForm(2);">
+                                                                            <i class=" fa fa-plus"></i>&nbsp;Add Addesses
+                                                                        </button>
+                                                                        <hr />
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table table-striped table-bordered table-hover dataTables-MemberAddress-Complex">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Options</th>
+                                                                                                <th class="text-nowrap">Complex Name</th>
+                                                                                                <th class="text-nowrap">Unit Number</th>
+                                                                                                <th class="text-nowrap">City</th>
+                                                                                                <th class="text-nowrap">Suburb</th>
+                                                                                                <th class="text-nowrap">Country</th>
+                                                                                                <th class="text-nowrap">Area Code</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody></tbody>
+                                                                                        <tfoot>
+                                                                                            <tr>
+                                                                                                <th>Options</th>
+                                                                                                <th class="text-nowrap">Complex Name</th>
+                                                                                                <th class="text-nowrap">Unit Number</th>
+                                                                                                <th class="text-nowrap">City</th>
+                                                                                                <th class="text-nowrap">Suburb</th>
+                                                                                                <th class="text-nowrap">Country</th>
+                                                                                                <th class="text-nowrap">Area Code</th>
+                                                                                            </tr>
+                                                                                        </tfoot>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--END - List Of ADDED Complex Addresses-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--Address Deatils According-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Family Members</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" data-parent="#accordion">
+                                    <div class="panel-body">
+                                        <div class="p-sm">
+                                            <button type="button"
+                                                    class="btn btn-info "
+                                                    data-toggle="modal"
+                                                    data-target="#AddAffiliatedMemberModal"
+                                                    onclick="intiAddMemberForm();">
+                                                <i class="fa fa-plus ">&nbsp;Add Member Affiliation</i>
+                                            </button>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-MemberAffiliation">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Options</th>
+                                                        <th class="text-nowrap">Affiliation</th>
+                                                        <th class="text-nowrap">First Name</th>
+                                                        <th class="text-nowrap">Last Name</th>
+
+                                                        <th class="text-nowrap">Date Of Birth</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Options</th>
+                                                        <th class="text-nowrap">Affiliation</th>
+                                                        <th class="text-nowrap">First Name</th>
+                                                        <th class="text-nowrap">Last Name</th>
+
+                                                        <th class="text-nowrap">Date Of Birth</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">On-Site Assets</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" data-parent="#accordion">
+                                    <div class="panel-body">
+                                        [On-site Assests]
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Boat Locker Selection</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" data-parent="#accordion">
+                                    <div class="panel-body">
+                                        [On-site Assests]
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Member Registrastion Wizard Accordion-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+    <div>
+        @*<div>
+
+                <h1 class="logo-name">Integrator</h1>
+
+            </div>*@
+
+        <p class="m-t"> <small>Integrator &copy; @DateTime.Now.Year</small> </p>
+    </div>
+</div>
+<!--Select Picture Modal-->
+<div class="modal inmodal fade" id="SelectPictureModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-industry">&nbsp;Select Picture</i></h4>
+            </div>
+            <div class="modal-body">
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick=""><i class="fa fa-plus">&nbsp;Add Selected Skill</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Add member Affilate Modal-->
+<div class="modal inmodal fade" id="AddAffiliatedMemberModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-industry">&nbsp;Add Member</i></h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div id="divSelectMemberAffiliationContainer" class="p-h-xs">
+                        Select Affiliation
+                        <select class="full-width MemberAffiliation-Select">
+                            <option value="1">
+                                Wife
+                            </option>
+                            <option value="2">
+                                Husband
+                            </option>
+                            <option value="3">
+                                Son
+                            </option>
+                            <option value="4">
+                                Daughter
+                            </option>
+                            <option value="5">
+                                Visitor
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-primary">First Name</label>
+                        <input id="txtMemberAffiliateFirstName" class="form-control" placeholder="Enter First Name Here" />
+
+                    </div>
+                    <div class="form-group">
+
+                        <label class="text-primary">Last Name</label>
+                        <input id="txtMemberAffiliateLastName" class="form-control" placeholder="Enter Last Name Here" />
+
+                    </div>
+
+                    <div class="form-group" id="AffiliatedMemberDateOfBirth">
+                        <label class="control-label">Select Date of Birth</label>
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addAffiliatedMember();"><i class="fa fa-plus">&nbsp;Add Memeber Affiliation</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Afiliated Member Modal-->
+<!--Add member Address Modal-->
+<div class="modal inmodal fade" id="AddMemberAddressesModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-address-book">&nbsp;Add Address</i></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group add-Member-Address-ComplexName">
+
+                        <label class="text-primary">Complex Name</label>
+                        <input id="txtAddMemberAddressComplexName" class="form-control" placeholder="Enter Complex Name Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-ComplexUnitNumber">
+
+                        <label class="text-primary">Unit Number</label>
+                        <input id="txtAddMemberAddressComplexUnitNumber" class="form-control" placeholder="EnterComplex Unit Number Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-POBoxNumber">
+
+                        <label class="text-primary">P.O.Box Number</label>
+                        <input id="txtAddMemberAddressPOBoxNumber" class="form-control" placeholder="Enter P.O.Box Number Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-StreetNumber">
+                        <label class="text-primary">Street Number</label>
+                        <input id="txtAddMemberAddressStreetNumber" class="form-control" placeholder="Enter Street Number Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-StreetName">
+                        <label class="text-primary">Street Name</label>
+                        <input id="txtAddMemberAddressStreetName" class="form-control" placeholder="Enter Street Name Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-City">
+                        <label class="text-primary">City</label>
+                        <input id="txtAddMemberAddressCity" class="form-control" placeholder="Enter City Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-Suburb">
+                        <label class="text-primary">Suburb</label>
+                        <input id="txtAddMemberAddressSuburb" class="form-control" placeholder="Enter Suburb Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-Country">
+                        <label class="text-primary">Country</label>
+                        @*<input id="txtAddMemberAddressCountry" class="form-control" placeholder="Enter Country Here" />*@
+
+
+                    <select name="cboCountries" id="cboCountries">
+                        @{
+                            foreach (var item in CommonService.ListCountries())
+                            {
+                                <option value="@item.CountryCode" label="@item.CountryName">@item.CountryName</option>
+                            }
+                        }
+                       
+                    </select>
+                    </div>
+                    <div class="form-group add-Member-Address-AreaCode">
+                        <label class="text-primary">Area Code</label>
+                        <input id="txtAddMemberAddressAreaCode" class="form-control" placeholder="Enter Area Code Here" />
+                    </div>
+                    <hr />
+                    <div class="form-group add-Member-Address-IsPrimaryAddress">
+
+                        <div class="checkbox checkbox-success">
+                            <input type="checkbox" id="chkAddMemberAddressIsPrimary" />
+                            <label for="chkAddMemberAddressIsPrimary">
+                                Is Your Primary Address
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addMemberAddress();"><i class="fa fa-plus"></i>&nbsp;Add Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Member Address Modal-->
+@section Styles {
+
+    <environment names="Development,Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" />
+        <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+        <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
+        <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+        <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
+        <link href="~/lib/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/lib/cropperorignal/dist/cropper.min.css" />
+    </environment>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script src="~/lib/toastr/toastr.min.js"></script>
+        <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="~/lib/dataTables/datatables.min.js"></script>
+        <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+        <script src="~/lib/select2/dist/js/select2.min.js"></script>
+        <script src="~/lib/cropperorignal/dist/cropper.min.js"></script>
+    </environment>
+
+    <script>
+
+    /*Main Data Structure
+     * *****************/
+    /*
+    {
+        MainMemberDetails:
+            {
+                FirstName: "NAME",
+                LastNAme: "LASTNAME",
+                Password: "PASSWORD",
+                ConfirmPassword: "CONFIRMPASSWORD",
+                AgreeToTermsAndPolicy: "FALSE"
+            }
+        Adddresses:[
+                        {
+                            Index: 0,
+                            AddressType: ENUM_ADDRESS_TYPE, See Enum For Address Type
+                            City: "CITY",
+                            Subub: "SUBURB",
+                            countryID: "ZA"
+                            Country: "COUNTRY",
+                            AreaCode: "AREACODE",
+                            ComplexName: "COMPLEXNAME",
+                            ComplexUnitNumber: "COMPLEXUNITNUMBER",
+                            POBoxNumber: "POBOXNUMBER",
+                            StreetNumber, "STREETNUMBER",
+                            StreetName:"STREETNAME",
+                            IsPrimaryAddress: false
+                        }
+                   ],
+        FamilyMembers:  [
+                            {
+                                Index: 0,
+                                AffiliateType: ENUM_AFFILIATE_TYPE,
+                                FirstName: "NAME",
+                                LastNAme: "LASTNAME",
+                                DateOfBirth: "date"
+                            }
+                        ],
+        StorageItems:   [
+                            {}
+                        ]
+    }
+    ****/
+
+    /*Sytem ENUM Items
+     * ******************/
+    //Address Type ENUM
+    var ENUM_ADDRESS_TYPE = JSON.parse("{}");
+
+    ENUM_ADDRESS_TYPE.POBoxAddress = "POBOX";
+    ENUM_ADDRESS_TYPE.StreetAddress = "STREET";
+    ENUM_ADDRESS_TYPE.ComplexAddress = "COMPLEX";
+    //END Address Type ENUM
+
+    //Affilliate Member Type ENUM
+    var ENUM_AFFILIATE_TYPE = JSON.parse("{}");
+
+    ENUM_AFFILIATE_TYPE.Wife = 1;
+    ENUM_AFFILIATE_TYPE.Husband = 2;
+    ENUM_AFFILIATE_TYPE.Son = 3;
+    ENUM_AFFILIATE_TYPE.Daughter = 4;
+    ENUM_AFFILIATE_TYPE.Visitor = 5;
+    //END Affilliate Member Type ENUM
+
+    //Affilliate Member Type ENUM
+    var ENUM_ADDRESS_TYPE = JSON.parse("{}");
+    ENUM_ADDRESS_TYPE.Street = 1;
+    ENUM_ADDRESS_TYPE.Complex = 2;
+    ENUM_ADDRESS_TYPE.POBox = 3;
+    //END Affilliate Member Type ENUM
+
+    /*END ENUM Items
+    * **************/
+
+    /*End Data Structure
+    * *****************/
+
+    /*Global Variables
+    * ***************/
+    var _MainDataStore = JSON.parse("{}");
+    var _CurrentAddressTypeToAdd;
+
+    /*Member Profile Image
+     * ******************/
+
+    var imgMemeberProfileImage;
+    var imgFileType;
+    var imgFileName;
+    /*END Profile Image
+     * **************/
+
+    /*Add affiliated Member Form
+     * **************************/
+    var dataTablesMemberAffiliation;
+    var cboObjSelectAffiliationType;
+    var txtObjMemberAffiliationFirstName;
+    var txtObjMemberAffiliationLastName;
+    var txtMemberAffiliationDateOfBirth;
+    /*END Add affiliated Member Form
+     * ****************************/
+
+    /*Add Member Address Form
+     * *********************/
+    var txtObjAddMemberAddressAreaCode;
+    //var txtObjAddMemberAddressCountry;
+    var cboObjCountries;
+    var txtObjAddMemberAddressSuburb;
+    var txtObjAddMemberAddressComplexName;
+    var txtObjAddMemberAddressComplexUnitNumber;
+    var txtObjAddMemberAddressPOBoxNumber;
+    var txtObjAddMemberAddressStreetNumber;
+    var txtObjAddMemberAddressStreetName;
+    var txtObjAddMemberAddressCity;
+    var chkObjAddMemberAddressIsPrimary;
+
+    var dataTablesMemberAddressStreet;
+    var dataTablesMemberAddressPOBox;
+    var dataTablesMemberAddressComplex;
+    /*END - Add Member Address Form
+    * *********************/
+
+    /*END Global Variables
+    * ********************/
+    function tresting() {
+        alert();
+    }
+
+
+    /*Load Countries
+     * ***********/
+    function LoadCountries() {
+        var _ViewModel = JSON.parse('{}');
+        const uri = "@httpContextAccessor.HttpContext.Request.Scheme" + "://" + "@httpContextAccessor.HttpContext.Request.Host" + "/api/CommonAjax";
+        alert( uri);
+
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("TestPost", "Members")',
+            data: JSON.stringify(_ViewModel),
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("RequestVerificationToken",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            dataType: "json",
+            success: function (data) {
+                //Add industry to select list
+                var newOption = new Option(data.coreSkill, data.id, true, true);
+                cboObjSelectHardSkill.append(newOption).trigger('change');
+                showSelectHardSkill();
+                //show success message
+                toastr.success("Skill Successfully Added.", 'Successfull');
+            },
+            error: function (data, textStatus, error) {
+                toastr.success("Something went wrong - " + error, 'Error');
+
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: uri,
+            cache: false,
+            //beforeSend: function (xhr) {
+            //           xhr.setRequestHeader("RequestVerificationToken",
+            //               $('input:hidden[name="__RequestVerificationToken"]').val());
+            //       },
+            success: function (data) {
+
+                alert("Yes");
+
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong!  -  " + JSON.stringify(jqXHR) + "  " + textStatus);
+            }
+        });
+    }
+
+    /*END Load Contries
+     * *****************/
+
+    /* Form Initialization
+     * ********************/
+    function inti_MainDataStore() {
+
+        _MainDataStore.MainMemberDetails =
+            {
+                FirstName: "",
+                LastNAme: "",
+                Password: "",
+                ConfirmPassword: "",
+                AgreeToTermsAndPolicy: false
+            };
+
+        _MainDataStore.Adddresses = new Array();
+        _MainDataStore.FamilyMembers = new Array();
+        _MainDataStore.StorageItems = new Array();
+    }
+    /*END Fomr Initialization
+    * *******************/
+
+    /*Initilise AddMember Form
+     * **********************/
+    function intiAddMemberForm() {
+        //reset Member Affiliation Select Control
+        cboObjSelectAffiliationType.val(null).trigger('change');
+        //reset the Add affiliated Member name
+        txtObjMemberAffiliationFirstName.val('');
+        //reset the Add affiliated Member Last Name
+        txtObjMemberAffiliationLastName.val('');
+        //reset Date Selected;
+        txtObjMemberAffiliationDateOfBirth.datepicker('clearDates');
+    }
+    /*END Initialise Member Form
+     * ************************/
+
+
+    /*initilise Add Memeber Address Form
+     * ***********************************/
+    function initiAddMemberAddressForm(_AddressType) {
+
+        _CurrentAddressTypeToAdd = _AddressType;
+
+        txtObjAddMemberAddressAreaCode.val('');
+        // txtObjAddMemberAddressCountry.val('');
+        cboObjCountries.val('ZA').trigger('change');
+        txtObjAddMemberAddressSuburb.val('');
+        txtObjAddMemberAddressComplexName.val('');
+        txtObjAddMemberAddressComplexUnitNumber.val('');
+        txtObjAddMemberAddressPOBoxNumber.val('');
+        txtObjAddMemberAddressStreetNumber.val('');
+        txtObjAddMemberAddressStreetName.val('');
+        txtObjAddMemberAddressCity.val('');
+
+        chkObjAddMemberAddressIsPrimary.prop("checked", "");
+
+        if (_AddressType == ENUM_ADDRESS_TYPE.Street) {
+            //Show Address Street NAme and Number
+            $(".add-Member-Address-StreetName").show();
+            $(".add-Member-Address-StreetNumber").show();
+
+            //Hide Complex Name And Number and POBox Number
+            $(".add-Member-Address-ComplexName").hide();
+            $(".add-Member-Address-ComplexUnitNumber").hide();
+            $(".add-Member-Address-POBoxNumber").hide();
+        }
+        if (_AddressType == ENUM_ADDRESS_TYPE.Complex) {
+            //Show Address Complex NAme and Number
+            $(".add-Member-Address-ComplexName").show();
+            $(".add-Member-Address-ComplexUnitNumber").show();
+
+            //Hide Street Name And Number and POBox Number
+            $(".add-Member-Address-StreetName").hide();
+            $(".add-Member-Address-StreetNumber").hide();
+            $(".add-Member-Address-POBoxNumber").hide();
+        }
+
+        if (_AddressType == ENUM_ADDRESS_TYPE.POBox) {
+            //Show Address Complex NAme and Number
+            $(".add-Member-Address-POBoxNumber").show();
+
+
+            //Hide Street Name And Number and POBox Number
+            $(".add-Member-Address-ComplexName").hide();
+            $(".add-Member-Address-ComplexUnitNumber").hide();
+            $(".add-Member-Address-StreetName").hide();
+            $(".add-Member-Address-StreetNumber").hide();
+        }
+
+
+    }
+
+    //Add Member Address To MainDataStore
+    function addMemberAddress() {
+
+
+        var _NewMemberAddress = JSON.parse("{}");
+
+        _NewMemberAddress.Index = _MainDataStore.Adddresses.length;
+        _NewMemberAddress.AddressType = _CurrentAddressTypeToAdd;
+        _NewMemberAddress.City = txtObjAddMemberAddressCity.val();
+        _NewMemberAddress.Subub = txtObjAddMemberAddressSuburb.val();
+        //_NewMemberAddress.Country = txtObjAddMemberAddressCountry.val();
+        _NewMemberAddress.Country = cboObjCountries.find('option:selected').text();
+        _NewMemberAddress.countryID = cboObjCountries.val();
+        _NewMemberAddress.ComplexName = txtObjAddMemberAddressComplexName.val();
+        _NewMemberAddress.ComplexUnitNumber = txtObjAddMemberAddressComplexUnitNumber.val();
+        _NewMemberAddress.POBoxNumber = txtObjAddMemberAddressPOBoxNumber.val();
+        _NewMemberAddress.StreetNumber = txtObjAddMemberAddressStreetNumber.val();
+        _NewMemberAddress.StreetName = txtObjAddMemberAddressStreetName.val();
+        _NewMemberAddress.IsPrimaryAddress = chkObjAddMemberAddressIsPrimary.is(":checked");
+        _NewMemberAddress.AreaCode = txtObjAddMemberAddressAreaCode.val();
+
+        _MainDataStore.Adddresses.push(_NewMemberAddress);
+
+        buildAddressTables();
+    }
+
+    //Adds the Addess to the correct Tables
+    function buildAddressTables() {
+        dataTablesMemberAddressStreet.clear().draw();
+        dataTablesMemberAddressPOBox.clear().draw();
+        dataTablesMemberAddressComplex.clear().draw();
+
+        $.each(_MainDataStore.Adddresses, function (i, MemberAddress) {
+            if (MemberAddress.AddressType == ENUM_ADDRESS_TYPE.Street) {
+                dataTablesMemberAddressStreet.row.add([
+                    '<a  class="dropdown-item btn btn-w-m btn-info text-white text-center p-xs datatable-RemoveItem" onclick="removeMemberAddress(' + MemberAddress.Index + ');">' +
+                    '<i class="fa fa-remove" style="font-size: 15px;" ></i>&nbsp;Remove' +
+                    '</a>',//Adding buttons
+                    MemberAddress.StreetNumber,//Adding Street Number
+                    MemberAddress.StreetName,// adding Street Name
+                    MemberAddress.City,//Adding City
+                    MemberAddress.Subub,//Adding Suburb
+                    MemberAddress.Country, //Adding Counrty
+                    MemberAddress.AreaCode //Adding Area Co
+                ]).draw();
+            }
+            if (MemberAddress.AddressType == ENUM_ADDRESS_TYPE.Complex) {
+                dataTablesMemberAddressComplex.row.add([
+                    '<a  class="dropdown-item btn btn-w-m btn-info text-white text-center p-xs datatable-RemoveItem" onclick="removeMemberAddress(' + MemberAddress.Index + ');">' +
+                    '<i class="fa fa-remove" style="font-size: 15px;" ></i>&nbsp;Remove' +
+                    '</a>',//Adding buttons
+                    MemberAddress.ComplexName,//Adding affiliation Type
+                    MemberAddress.ComplexUnitNumber,// adding Complex Unit Number
+                    MemberAddress.City,//Adding City
+                    MemberAddress.Subub,//Adding Suburb
+                    MemberAddress.Country, //Adding Counrty
+                    MemberAddress.AreaCode //Adding Area Co
+                ]).draw();
+            }
+            if (MemberAddress.AddressType == ENUM_ADDRESS_TYPE.POBox) {
+                dataTablesMemberAddressPOBox.row.add([
+                    '<a  class="dropdown-item btn btn-w-m btn-info text-white text-center p-xs datatable-RemoveItem" onclick="removeMemberAddress(' + MemberAddress.Index + ');">' +
+                    '<i class="fa fa-remove" style="font-size: 15px;" ></i>&nbsp;Remove' +
+                    '</a>',//Adding buttons
+                    MemberAddress.POBoxNumber,//Adding P.O.Box Number
+                    MemberAddress.City,//Adding City
+                    MemberAddress.Subub,//Adding Suburb
+                    MemberAddress.Country, //Adding Counrty
+                    MemberAddress.AreaCode //Adding Area Code
+                ]).draw();
+            }
+        });
+    }
+
+    //REMOVE - Member ddress From MainDataStore
+    function removeMemberAddress(IndexToRemove) {
+
+        var iSelectedIndexToRemove = 0;
+        $.each(_MainDataStore.Adddresses, function (i, MemberAddress) {
+            alert(MemberAddress.Index + '==' + IndexToRemove);
+            if (MemberAddress.Index == IndexToRemove) {
+                iSelectedIndexToRemove = IndexToRemove;
+            }
+        });
+
+        _MainDataStore.Adddresses.splice(iSelectedIndexToRemove, 1);
+        buildAddressTables();
+    }
+
+    /*END - initilise Add Memeber Address Form
+     * ***********************************/
+
+    /*From Methods
+     * *********/
+
+    ///Affiliated Member - ADD MEMBER
+    function addAffiliatedMember() {
+        //create new Affilate Object and initlise the values from the form
+        var _NewMemerAffilate = JSON.parse("{}");
+        _NewMemerAffilate.Index = _MainDataStore.FamilyMembers.length;
+        _NewMemerAffilate.AffiliateType = cboObjSelectAffiliationType.val();
+        _NewMemerAffilate.FirstName = txtObjMemberAffiliationFirstName.val();
+        _NewMemerAffilate.LastNAme = txtObjMemberAffiliationLastName.val();
+        _NewMemerAffilate.DateOfBirth = txtMemberAffiliationDateOfBirth;
+        //Add the Member to the main data store.
+        _MainDataStore.FamilyMembers.push(_NewMemerAffilate);
+        intiAddMemberForm();
+        buildMemberAfilliationTable();
+        //aDDS THE NEW ENTRY TO THE TABLE
+
+    }
+
+    function getAffiliationType(_AffiliateType) {
+        var sAffiliateType = "";
+
+        switch (_AffiliateType) {
+            case '1':
+                sAffiliateType = "Wife";
+                break;
+            case '2':
+                sAffiliateType = "Husband";
+                break;
+            case '3':
+                sAffiliateType = "Son";
+                break;
+            case '4':
+                sAffiliateType = "Daughter";
+                break;
+
+            default:
+                sAffiliateType = "Visitor";
+        }
+
+        return sAffiliateType;
+    }
+
+    function buildMemberAfilliationTable() {
+        dataTablesMemberAffiliation.clear().draw();
+        $.each(_MainDataStore.FamilyMembers, function (i, MemberAffiliate) {
+            dataTablesMemberAffiliation.row.add([
+                '<a  class="dropdown-item btn btn-w-m btn-info text-white text-center p-xs datatable-RemoveItem" onclick="removeAffiliatedMember(' + MemberAffiliate.Index + ');">' +
+                '<i class="fa fa-remove" style="font-size: 15px;" ></i>&nbsp;Remove' +
+                '</a>',//Adding buttons
+                getAffiliationType(MemberAffiliate.AffiliateType),//Adding affiliation Type
+                MemberAffiliate.FirstName,// adding First NAme
+                MemberAffiliate.LastNAme,//Adding Lastname
+                MemberAffiliate.DateOfBirth//Adding DateOfBirth
+            ]).draw();
+        });
+
+
+    }
+
+    //Affiliated Member - REMOVE MEMBER
+    function removeAffiliatedMember(iIndex) {
+        var iCurrentIndex = 0;
+        $.each(_MainDataStore.FamilyMembers, function (i, MemberAffiliate) {
+            if (i == iIndex) {
+                iCurrentIndex = i;
+            }
+        });
+        _MainDataStore.FamilyMembers.splice(iCurrentIndex, 1);
+        buildMemberAfilliationTable();
+    }
+    /*End Form Methods
+     * ***************/
+
+
+
+    $(document).ready(function () {
+
+        //LoadCountries();
+        //AddMemeberAddress Variables
+        txtObjAddMemberAddressAreaCode = $("#txtAddMemberAddressAreaCode");
+        //txtObjAddMemberAddressCountry = $("#txtAddMemberAddressCountry");
+        txtObjAddMemberAddressSuburb = $("#txtAddMemberAddressSuburb");
+        txtObjAddMemberAddressComplexName = $("#txtAddMemberAddressComplexName");
+        txtObjAddMemberAddressComplexUnitNumber = $("#txtAddMemberAddressComplexUnitNumber");
+        txtObjAddMemberAddressPOBoxNumber = $("#txtAddMemberAddressPOBoxNumber");
+        txtObjAddMemberAddressStreetNumber = $("#txtAddMemberAddressStreetNumber");
+        txtObjAddMemberAddressStreetName = $("#txtAddMemberAddressStreetName");
+        txtObjAddMemberAddressCity = $("#txtAddMemberAddressCity");
+        chkObjAddMemberAddressIsPrimary = $("#chkAddMemberAddressIsPrimary");
+
+
+        //chkObjAddMemberAddressIsPrimary.click(function () {
+        //    if ($(this).prop("checked") == true) {
+        //        alert("Checkbox is checked.");
+        //    }
+        //    else if ($(this).prop("checked") == false) {
+        //        alert("Checkbox is unchecked.");
+        //    }
+        //});
+        /*Initilise Main DataStore
+         * ************************/
+
+        inti_MainDataStore();
+        /*Initilse variables
+         * *******************/
+        txtObjMemberAffiliationFirstName = $("#txtMemberAffiliateFirstName").change(function (ev) {
+
+        });
+        txtObjMemberAffiliationLastName = $("#txtMemberAffiliateLastName");
+        txtMemberAffiliationDateOfBirth = "";
+
+        txtObjMemberAffiliationDateOfBirth = $('#AffiliatedMemberDateOfBirth .input-group.date').datepicker({
+            format: "yyyy/mm/dd",
+            startView: 2,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        }).on('change', function (ev) {
+            txtMemberAffiliationDateOfBirth = $(this).datepicker('getFormattedDate');
+
+            //if ($(this).datepicker('getFormattedDate') > $(YearEndedEmployment).datepicker('getFormattedDate')) {
+            //    $(YearEndedEmployment).datepicker('update', $(this).datepicker('getFormattedDate'));
+            //    toastr.warning("The selected date can not be after the selected end date, it has been reset to the same as that of the End Date!", 'Warning');
+            //}
+            //UpdateGlobalStatus();
+        });
+
+        //intilise member Profile Images
+        imgMemeberProfileImage = $('.image-crop > img').cropper({
+            aspectRatio: 1.1,
+            preview: ".img-preview",
+            viewMode: 1,
+            dragMode: 'none',
+            autoCrop: true,
+            restore: false,
+            zoomOnTouch: false,
+            zoomOnWheel: false,
+            minCropBoxWidth: 50,
+            autoCropArea: 1.0,
+            done: function (data) {
+                // Output the result data for cropping image.
+            }
+        });
+
+        var $inputImage = $("#inputImage");
+        if (window.FileReader) {
+            $inputImage.change(function () {
+                var fileReader = new FileReader(),
+                    files = this.files,
+                    file;
+
+                if (!files.length) {
+                    return;
+                }
+
+                file = files[0];
+
+                if (/^image\/\w+$/.test(file.type)) {
+
+                    imgFileType = file.type;
+                    imgFileName = file.name;
+                    //$("#hidSelectedFileType").val(file.type);
+                    //$("#hidFileName").val(file.name);
+
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        $inputImage.val("");
+                        imgMemeberProfileImage.cropper("reset", true).cropper("replace", this.result);
+                    };
+                } else {
+                    toastr.warning("Please choose an image file.", 'Warning');
+                }
+            });
+        } else {
+            $inputImage.addClass("hide");
+        }
+        /*End Member Profile Image
+         * ************************/
+
+
+
+
+
+
+        dataTablesMemberAffiliation = $('.dataTables-MemberAffiliation').DataTable({
+            pageLength: 10
+        });
+        dataTablesMemberAddressComplex = $('.dataTables-MemberAddress-Complex').DataTable({
+            pageLength: 10
+        });
+        dataTablesMemberAddressPOBox = $('.dataTables-MemberAddress-POBox').DataTable({
+            pageLength: 10
+        });
+        dataTablesMemberAddressStreet = $('.dataTables-MemberAddress-Street').DataTable({
+            pageLength: 10
+        });
+
+
+
+
+        cboObjSelectAffiliationType = $(".MemberAffiliation-Select").select2({
+            placeholder: "Select Affiliation",
+            allowClear: true,
+            dropdownParent: $("#divSelectMemberAffiliationContainer"),
+            dropdownAutoWidth: true,
+            width: '100%'
+        }).change(function (ev) {
+
+        });
+
+        cboObjCountries = $("#cboCountries").select2({
+            placeholder: "Select Country",
+            allowClear: true,
+            dropdownParent: $(".add-Member-Address-Country"),
+            dropdownAutoWidth: true,
+            width: '100%'
+        }).change(function (ev) {
+
+        });
+
+
+
+
+
+        $("#imageReset").click(function () {
+            imgMemeberProfileImage.cropper("reset");
+        });
+
+        //$("#download").click(function () {
+        //    window.open($image.cropper("getDataURL"));
+        //});
+
+        $("#zoomIn").click(function () {
+            imgMemeberProfileImage.cropper("zoom", 0.1);
+        });
+
+        $("#zoomOut").click(function () {
+
+            imgMemeberProfileImage.cropper("zoom", -0.1);
+        });
+
+        $("#imageRotateLeft").click(function () {
+            imgMemeberProfileImage.cropper("rotate", 2);
+        });
+
+        $("#imageRotateRight").click(function () {
+            imgMemeberProfileImage.cropper("rotate", -2);
+        });
+
+        //$("#setDrag").click(function () {
+        //    imgMemeberProfileImage.cropper("setDragMode", "crop");
+        //});
+        $("#imageUp").click(function () {
+
+            imgMemeberProfileImage.cropper("move", 0, -5);
+        });
+        $("#imageDown").click(function () {
+
+            imgMemeberProfileImage.cropper("move", 0, 5);
+        });
+        $("#imageLeft").click(function () {
+
+            imgMemeberProfileImage.cropper("move", -5, 0);
+        });
+        $("#imageRight").click(function () {
+
+            imgMemeberProfileImage.cropper("move", 5, 0);
+        });
+
+    });
+
+    </script>
+}
+

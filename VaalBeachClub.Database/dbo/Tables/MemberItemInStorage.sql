@@ -1,12 +1,13 @@
 ﻿CREATE TABLE [dbo].[MemberItemInStorage] (
-    [MemberItemInStorageID] INT            IDENTITY (1, 1) NOT NULL,
-    [item]                  NVARCHAR (MAX) NULL,
-    [BoatHouseRentalID]     INT            NULL,
-    [MemberItemID]          INT            NULL,
+    [MemberItemInStorageID] INT IDENTITY (1, 1) NOT NULL,
+    [BoatHouseRentalID]     INT NOT NULL,
+    [MemberItemID]          INT NOT NULL,
     CONSTRAINT [PK_MemberItemInStorage] PRIMARY KEY CLUSTERED ([MemberItemInStorageID] ASC),
     CONSTRAINT [FK_MemberItemInStorage_BoatHouseRentals_BoatHouseRentalID] FOREIGN KEY ([BoatHouseRentalID]) REFERENCES [dbo].[BoatHouseRentals] ([BoatHouseRentalID]),
     CONSTRAINT [FK_MemberItemInStorage_MemberItems_MemberItemID] FOREIGN KEY ([MemberItemID]) REFERENCES [dbo].[MemberItems] ([MemberItemID])
 );
+
+
 
 
 GO

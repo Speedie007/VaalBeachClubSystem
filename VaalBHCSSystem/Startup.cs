@@ -7,27 +7,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VaalBeachClub.Data;
 using VaalBeachClub.Web.Data.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using VaalBeachClub.Data.Interfaces;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
-using VaalBeachClub.Services.BoatHouses;
-using VaalBeachClub.ViewFactory.BoatHouses;
-using VaalBreachClub.Web.Data.Intefaces;
-using VaalBeachClub.Models.ViewModels;
-using VaalBeachClub.Models.Domain;
-using VaalBeachClub.Models;
-using VaalBeachClub.Models.Domain.BoatHouses;
-
 using VaalBreachClub.Web.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using VaalBeachClub.Models.ViewModels.EmailSending;
 
 namespace VaalBeachClub.Web
 {
@@ -40,12 +29,13 @@ namespace VaalBeachClub.Web
 
         public IConfiguration Configuration { get; }
 
-        
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            
+
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -53,34 +43,41 @@ namespace VaalBeachClub.Web
                    Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddIdentity<BeachClubMember, BeachClubRole>()
+            services.AddIdentity<BeachClubMember, BeachClubRole>(options =>
+           {
+               options.SignIn.RequireConfirmedEmail = true;
+               //options.Tokens.ProviderMap.Add("Default", new TokenProviderDescriptor(typeof(IUserTwoFactorTokenProvider<BeachClubMember>)));
+           })
                 //.AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+               options.TokenLifespan = TimeSpan.FromHours(12));
 
 
             services.Configure<IdentityOptions>(options =>
-            {
-                options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+             {
+                 options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
 
-                // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
+                 // Password settings.
+                 options.Password.RequireDigit = true;
+                 options.Password.RequireLowercase = true;
+                 options.Password.RequireNonAlphanumeric = true;
+                 options.Password.RequireUppercase = true;
+                 options.Password.RequiredLength = 6;
+                 options.Password.RequiredUniqueChars = 1;
 
-                // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
+                 // Lockout settings.
+                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                 options.Lockout.MaxFailedAccessAttempts = 5;
+                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings.
-                options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
-            });
+                 // User settings.
+                 options.User.AllowedUserNameCharacters =
+                  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                 options.User.RequireUniqueEmail = false;
+             });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -100,17 +97,21 @@ namespace VaalBeachClub.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 // options.Cookie.Name = "IntrgratorCookie";
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
                 options.LoginPath = "/Authentication/Login";
                 options.AccessDeniedPath = "/Authentication/Login";
                 // ReturnUrlParameter requires 
                 //using Microsoft.AspNetCore.Authentication.Cookies;
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
-                
+
             });
 
-
+            services.Configure<DataProtectionTokenProviderOptions>(o =>
+            {
+                //o.Name = "Default";
+                o.TokenLifespan = TimeSpan.FromHours(24);
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddXmlSerializerFormatters();
@@ -137,8 +138,8 @@ namespace VaalBeachClub.Web
                 app.UseHsts();
             }
 
-
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -152,6 +153,10 @@ namespace VaalBeachClub.Web
             app.UseMvc(routes =>
             {
 
+                //routes.MapRoute(
+                //    name: "api",
+                //    template: "api/{controller}/{action}/{id?}");
+
                 routes.MapRoute(
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
@@ -160,6 +165,10 @@ namespace VaalBeachClub.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+
             });
         }
     }

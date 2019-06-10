@@ -60,6 +60,7 @@
                             <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
                             <span class="fas fa-key"></span>
                             <label asp-for="Password"></label>
@@ -80,7 +81,7 @@
                         <a href="#">
                             <small>Forgot password?</small>
                         </a>
-
+                        @Html.HiddenFor(x=>x.EmailVerified)
 
                     </form>
 

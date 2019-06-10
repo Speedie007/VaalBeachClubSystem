@@ -1,0 +1,787 @@
+﻿@inject IHttpContextAccessor httpContextAccessor
+@inject System.Text.Encodings.Web.HtmlEncoder MyEncoder
+@inject ICommonService CommonService
+@inject IAssetService AssetService
+@{
+    ViewData["Title"] = "AssestList";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminPortalLayout.cshtml";
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Configuration</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action(" Index", "DashBoard" )">Dsahboard</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Configuration</a>
+            </li>
+            <li class="active breadcrumb-item">
+                <strong>Assets</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Available Assets Properties</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="form-group b-r-lg">
+                        <h4>Select Assest Type</h4>
+                        <select class="select-AssestItems">
+                            @{
+                                foreach (var item in AssetService.ListAssestTypes().OrderBy(x => x.Item))
+                                {
+                                    <option value="@item.Id" label="@item.Item">@item.Item</option>
+                                }
+                            }
+                        </select>
+
+                    </div>
+                    <div class="form-group b-r-lg">
+                        <div class="d-flex justify-content-start">
+                            <h4>Is Asset Type to be stored On-Site</h4>
+                            <div class="d-flex align-items-center p-w-m">
+                                <div class="i-checks">
+                                    <label>
+                                        <input id="chkIsAssetStoredOnSite" type="checkbox" value="">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group b-r-lg">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Required Items
+                            </div>
+                            <div class="panel-body">
+                                <button type="button" class="btn btn-primary"
+                                        data-toggle="modal"
+                                        data-target="#AssetRquirementModal"
+                                        onclick="initialseListOfAvailableAsests();">
+                                    Add Requirement
+                                </button>
+                                <hr />
+                                <div id="div-Unlinked-Asset-Properties" class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTable-Assest-Requirements">
+                                        <thead>
+                                            <tr>
+                                                <td>Options</td>
+                                                <td>Required Asset</td>
+                                                <td>Use Same Space</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    sdf
+                                                </td>
+                                                <td>dsadsad</td>
+                                                <td>yers</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>Options</td>
+                                                <td>Required Asset</td>
+                                                <td>Use Same Space</td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span id="Selected-Available-Asset-Heading-Display"></span> - Available Properties
+                        </div>
+                        <div class="panel-body">
+                            <hr />
+                            <button class=" btn btn-info full-width m-b" type="button">
+                                <i class="fa fa-plus fa-2x" title="Add Property">&nbsp;Add Property</i>
+                            </button>
+                            <hr />
+                            <div id="div-Unlinked-Asset-Properties" class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-AvailableProperties">
+                                    <thead>
+                                        <tr>
+                                            <td>Option</td>
+                                            <td>Property</td>
+                                            <td>Type</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>Option</td>
+                                            <td>Property</td>
+                                            <td>Type</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Linked Assest Properties</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Linked Properties</div>
+                        <div class="panel-body" id="div-linked-Asset-Properties">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-LinkedProperties">
+                                    <thead>
+                                        <tr>
+                                            <td>Option</td>
+                                            <td>Property</td>
+                                            <td>Type</td>
+                                            <td>Required</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-primary full-width text-justify"><i class="fa fa-remove"></i>&nbsp;Remove Property</button>
+                                            </td>
+                                            <td class="">Colour</td>
+                                            <td>TEXT</td>
+                                            <td class="justify-content-center">Yes</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>Option</td>
+                                            <td>Property</td>
+                                            <td>Type</td>
+                                            <td>Required</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!--Add Asset Requirement Model-->
+<div class="modal inmodal" id="AssetRquirementModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-share-alt-square modal-icon"></i>
+                <h4 class="modal-title">List Of Available Assets</h4>
+                <small>Link the required asset that the [ITEM] Requires.</small>
+            </div>
+            <div class="modal-body">
+
+                <ul class="unstyled" id="AvailbaleAssetRequirements"></ul>
+                <hr />
+
+                <div class="d-flex justify-content-start">
+                    <div>Does Assest Occupy the same vertical space?</div>
+
+                    <div class="i-checks-AssetRequiresSameSpace ml-2">
+                        <label>
+                            <input type="checkbox" style="position: absolute; opacity: 0;" onclick="" />
+                        </label>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="LinkRequiredAsset();">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Asset Requirement Model-->
+@section Styles {
+
+    <environment names="Development,Staging,Production">
+        <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
+        <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+        <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
+        <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+        <link href="~/lib/iCheck/custom.css" rel="stylesheet" />
+    </environment>
+
+}
+
+@section Scripts {
+    <link href="~/lib/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/select2/dist/js/select2.min.js"></script>
+        <script src="~/lib/dataTables/datatables.min.js"></script>
+        <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+        <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="~/lib/toastr/toastr.min.js"></script>
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+
+        /*Gloabl Data Structure
+        *********************
+
+
+        */
+
+    var CURRENTLY_SELECTED_ASSESTID = 0;
+
+        //Global Variables
+            //Assets VAriables
+        var cboObjSelectAssestTypes;
+        var spanObjSelectedAvailableAssetHeadingDisplay;
+        //DataTable Variables
+        var dataTablesAvailableProperties;
+        var dataTablesLinkedProperties;
+        var dataTablesAssetReqirements;
+        var ulObjAvailbaleAssetRequirements;
+    var iCheckObj = null;
+    var iCheckAssetRequiresSameSpaceObj;
+    var DoesRequiredAssetOccupyTheSameSpaceAsParent = false;
+        //END Globla Varibales
+
+        //Asset Requirements
+        function initialseListOfAvailableAsests() {
+
+            iCheckAssetRequiresSameSpaceObj.iCheck('uncheck');
+            iCurrentlySelectedAssestRequiementToLink = 0;
+            LoadUnLinkedAssetRequirements();
+        }
+        function LoadLinkedAssetRequirements() {
+            var _ViewModel = JSON.parse('{}');
+            _ViewModel.id = CURRENTLY_SELECTED_ASSESTID;
+            const URI = '@HtmlEncoder.Encode(Url.Action(action: "ListLinkedRequiredAssest", controller: "CommonAjax", values: null, protocol: httpContextAccessor.HttpContext.Request.Scheme, host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    buildLinkedAssetRequirements(data);
+                    toastr.clear();
+                    toastr.success("Properties Successfully Loaded.", 'Successfull');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+
+
+        }
+         function LoadUnLinkedAssetRequirements() {
+            var _ViewModel = JSON.parse('{}');
+            _ViewModel.id = CURRENTLY_SELECTED_ASSESTID;
+
+            const URI = '@HtmlEncoder.Encode(Url.Action(action: "ListUnLinkedRequiredAssest", controller: "CommonAjax", values: null, protocol: httpContextAccessor.HttpContext.Request.Scheme, host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    //buildAvailableAssetProperties(data);
+                    buildAvailableAssetRequirements(data.listOfAvailableAssestRequirements);
+                    //buildLinkedAssetProperties(data);
+                    toastr.clear();
+                    toastr.success("Properties Successfully Loaded.", 'Successfull');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+
+
+        }
+        function LinkRequiredAsset() {
+             var _ViewModel = JSON.parse('{}');
+             _ViewModel.ParentID = CURRENTLY_SELECTED_ASSESTID;
+             _ViewModel.ChildID = iCurrentlySelectedAssestRequiementToLink;
+             _ViewModel.OccupiesSameSpaceAsParent = DoesRequiredAssetOccupyTheSameSpaceAsParent;
+
+            const URI = '@HtmlEncoder.Encode(Url.Action(action: "LinkRequiredAssest", controller: "CommonAjax", values: null, protocol: httpContextAccessor.HttpContext.Request.Scheme, host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    //buildAvailableAssetProperties(data);
+                    //buildAvailableAssetRequirements(data.listOfAvailableAssestRequirements);
+                    //buildLinkedAssetProperties(data);
+                    $("#AssetRquirementModal").modal('hide');
+                    LoadLinkedAssetRequirements();
+                    toastr.clear();
+                    toastr.success("Properties Successfully Loaded.", 'Successfull');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+    }
+    function RemoveRequiredAsset(sAssestType, iAssest) {
+        alert();
+         swal({
+            title: "Confirmation",
+            text: "Are you Sure you wish to remove " + sAssestType + "?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Remove requirement!",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: true,
+            closeOnCancel: true },
+        function (isConfirm) {
+            if (isConfirm) {
+                //IS REquired
+                UnlinkRequirmentInTheBackEnd(iAssest);
+            }
+        });
+    }
+    function UnlinkRequirmentInTheBackEnd(iAssest) {
+       var _ViewModel = JSON.parse('{}');
+             _ViewModel.ParentID = CURRENTLY_SELECTED_ASSESTID;
+             _ViewModel.ChildID = iAssest;
+             
+
+             const URI = '@HtmlEncoder.Encode(Url.Action(action: "UnLinkAssetRequirement",
+controller: "CommonAjax",
+values: null,
+protocol: httpContextAccessor.HttpContext.Request.Scheme,
+host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    toastr.clear();
+                    toastr.success("Properties Successfully Removed.", 'Successfull');
+                    cboObjSelectAssestTypes.trigger('change');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+    }
+        function buildAvailableAssetRequirements(data) {
+
+        ulObjAvailbaleAssetRequirements.html('');
+        sHtml = "";
+        $.each(data, function (i,Item) {
+         sHtml += '<li>';
+            sHtml += '<div class="d-flex justify-content-start">';
+                sHtml += '<div class="d-flex align-items-center p-w-m">';
+                    sHtml += '<div class="i-checks">';
+                        sHtml += '<label>';
+                            sHtml += '<input type="radio"';
+                                    sHtml += 'value="'+ Item.id+'"';
+                                    sHtml += 'name="cboListOfAvailableAssests"';
+                                   // sHtml += 'onclick="alert();"';
+                                    sHtml += 'style="position: absolute; opacity: 0;"/>';
+                           // sHtml += 'Option one';
+                        sHtml += '</label>';
+                    sHtml += '</div>';
+                sHtml += '</div>';
+                sHtml += '<h4>'+ Item.assestType+'</h4>';
+            sHtml += '</div>';
+            sHtml += '</li>';
+
+
+        });
+        ulObjAvailbaleAssetRequirements.html(sHtml);
+        if (iCheckObj != null) {
+            iCheckObj.iCheck('destroy');
+        }
+
+        iCheckObj = $('.i-checks').iCheck({
+                //checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+        }).on('ifClicked', function (event) {
+            iCurrentlySelectedAssestRequiementToLink = $(this).val();
+        });;
+    }
+
+    function buildLinkedAssetRequirements(data) {
+
+            dataTablesAssetReqirements.clear().draw();
+        $.each(data.listOfLinkedAssestRequirements, function (i, LinkedAssestRequirements) {
+            var isLinked = "";
+                if (LinkedAssestRequirements.occupiesSameSpaceAsParent) {
+                    isLinked = "YES";
+                    } else {
+                    isLinked = "NO";
+                    }
+            dataTablesAssetReqirements.row.add([
+                    //\''+LinkedProperties.assestPropertyName+'\','+ LinkedProperties.id +'
+                    '<button type="button" onclick="RemoveRequiredAsset(\''+LinkedAssestRequirements.assestType+'\','+LinkedAssestRequirements.id+');" class="btn btn-primary full-width text-justify"><i class="fa fa-remove "></i>&nbsp;Remove</button>',//Adding buttons
+                    LinkedAssestRequirements.assestType,
+                    isLinked
+                ]).draw();
+            });
+        }
+        //END - Asset REquirments
+
+    /*Available Properties
+        * ****************/
+    function LoadAssetProperties(iAssetID) {
+        var _ViewModel = JSON.parse('{}');
+        _ViewModel.id = iAssetID;
+
+        const URI = '@HtmlEncoder.Encode(Url.Action(action: "AssestProperties", controller: "CommonAjax", values: null, protocol: httpContextAccessor.HttpContext.Request.Scheme, host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+        $.ajax({
+            type: "POST",
+            url: URI,
+            data: JSON.stringify(_ViewModel),
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("RequestVerificationToken",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            dataType: "json",
+            success: function (data) {
+                buildAvailableAssetProperties(data);
+                buildLinkedAssetProperties(data);
+                toastr.clear();
+                toastr.success("Properties Successfully Loaded.", 'Successfull');
+            },
+            error: function (data, textStatus, error) {
+                toastr.success("Something went wrong - " + error, 'Error');
+            }
+        });
+
+
+    }
+
+    function buildAvailableAssetProperties(data) {
+        dataTablesAvailableProperties.clear().draw();
+
+        $.each(data.listOfAvailableAssetProperties, function (i, AvailableProperties) {
+            dataTablesAvailableProperties.row.add([
+                '<button type="button" onclick="LinkPropertyToAssetType(\''+AvailableProperties.assestPropertyName+'\','+AvailableProperties.id+');" class="btn btn-primary full-width text-justify"><i class="fa fa-sign-in "></i>&nbsp;Link - ' + AvailableProperties.assestPropertyName + ' </button>',//Adding buttons
+                AvailableProperties.assestPropertyName,
+                AvailableProperties.dataTypeName
+            ]).draw();
+        });
+    }
+    function buildLinkedAssetProperties(data) {
+        dataTablesLinkedProperties.clear().draw();
+
+        $.each(data.listOfLinkedAssetProperties, function (i, LinkedProperties) {
+            var IsRequiredText = "";
+             if ( LinkedProperties.isAssetPropertRequired == true) {
+                 IsRequiredText = "Yes";
+             }else{
+                 IsRequiredText = "No";
+             }
+            dataTablesLinkedProperties.row.add([
+                '<button type="button" onclick="UnLinkPropertyFromAssetType(\''+LinkedProperties.assestPropertyName+'\','+ LinkedProperties.id +')" class="btn btn-primary full-width text-justify"><i class="fa fa-remove"></i>&nbsp;Remove Property</button>',//Adding buttons
+                LinkedProperties.assestPropertyName,
+                LinkedProperties.dataTypeName,
+               IsRequiredText
+            ]).draw();
+        });
+    }
+    function LinkPropertyToAssetType(sPropertyName,iPropertyID) {
+         swal({
+            title: "Must the " + sPropertyName + " be set as a requirement?",
+            text: "If set as a requirement the user will be required to complete this field in the registration form.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Set as Required!",
+            cancelButtonText: "No, Not Required, but an optional field!",
+            closeOnConfirm: true,
+            closeOnCancel: true },
+        function (isConfirm) {
+            if (isConfirm) {
+                //IS REquired
+                LinkPropertyInTheBackEnd(true,iPropertyID);
+            } else {
+                //Not REquired
+                LinkPropertyInTheBackEnd(false,iPropertyID);
+            }
+        });
+    }
+
+    function UnLinkPropertyFromAssetType(sPropertyName,iPropertyID) {
+         swal({
+            title: "Confirmation",
+            text: "Are you Sure you wish to remove " + sPropertyName + "?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Remove Property!",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: true,
+            closeOnCancel: true },
+        function (isConfirm) {
+            if (isConfirm) {
+                //IS REquired
+                UnlinkPropertyInTheBackEnd(iPropertyID);
+            }
+        });
+    }
+
+    function UnlinkPropertyInTheBackEnd(iPropertyID) {
+
+        var _ViewModel = JSON.parse('{}');
+        _ViewModel.AssestID = cboObjSelectAssestTypes.val();
+        _ViewModel.AssetPropertyID = iPropertyID;
+        //_ViewModel.IsPropertryRequired = bIsRequired;
+
+             const URI = '@HtmlEncoder.Encode(Url.Action(action: "UnLinkAssetProperties",
+controller: "CommonAjax",
+values: null,
+protocol: httpContextAccessor.HttpContext.Request.Scheme,
+host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    toastr.clear();
+                    toastr.success("Properties Successfully Removed.", 'Successfull');
+                    cboObjSelectAssestTypes.trigger('change');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+        }
+        function LinkPropertyInTheBackEnd(bIsRequired, iPropertyID) {
+
+            var _ViewModel = JSON.parse('{}');
+            _ViewModel.AssestID = cboObjSelectAssestTypes.val();
+            _ViewModel.AssetPropertyID = iPropertyID;
+            _ViewModel.IsPropertryRequired = bIsRequired;
+
+             const URI = '@HtmlEncoder.Encode(Url.Action(action: "LinkAssestProperties",
+controller: "CommonAjax",
+values: null,
+protocol: httpContextAccessor.HttpContext.Request.Scheme,
+host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    toastr.success("Properties Successfully Added.", 'Successfull');
+                    cboObjSelectAssestTypes.trigger('change');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+        }
+        /*END Available Properties
+         * **********************/
+
+        function SetAssetOnSiteProperty(iAssetTypeID) {
+              var _ViewModel = JSON.parse('{}');
+            _ViewModel.AssestID = iAssetTypeID;
+
+
+             const URI = '@HtmlEncoder.Encode(Url.Action(action: "LinkAssestProperties",
+controller: "CommonAjax",
+values: null,
+protocol: httpContextAccessor.HttpContext.Request.Scheme,
+host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    toastr.success("Properties Successfully Added.", 'Successfull');
+                    cboObjSelectAssestTypes.trigger('change');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            //Global Variables
+            spanObjSelectedAvailableAssetHeadingDisplay = $("#Selected-Available-Asset-Heading-Display");
+            ulObjAvailbaleAssetRequirements = $("#AvailbaleAssetRequirements");
+            //Asset Types Controls
+            cboObjSelectAssestTypes = $(".select-AssestItems").select2({
+                placeholder: "Select Assest Type",
+                allowClear: true,
+                //dropdownParent: $("#divSelectMemberAffiliationContainer"),
+               dropdownAutoWidth: true,
+                    width: '100%'
+            }).change(function (ev) {
+                CURRENTLY_SELECTED_ASSESTID = $(this).val();
+                LoadAssetProperties($(this).val());
+                //SetAssetOnSiteProperty($(this).val());
+                spanObjSelectedAvailableAssetHeadingDisplay.html($(this).find('option:selected').text());
+                LoadUnLinkedAssetRequirements();
+                LoadLinkedAssetRequirements();
+            });
+
+            //END Assest Types Controls.
+
+            //Available Properties Datatables
+             dataTablesAvailableProperties = $('.dataTables-AvailableProperties').DataTable({
+                 pageLength: 10,
+                 "autoWidth": false,
+                 "searching": true,
+                 "lengthChange": false
+            });
+            //END Available Properties Datatables
+
+            //Asset Requirements DataTable
+
+            dataTablesAssetReqirements = $('.dataTable-Assest-Requirements').DataTable({
+                 pageLength: 10,
+                 "autoWidth": false,
+                 "searching": true,
+                 "lengthChange": false
+            });
+            //END Asset Requirements Datatable
+
+             //Available Properties Datatables
+
+             dataTablesLinkedProperties = $('.dataTables-LinkedProperties').DataTable({
+                 pageLength: 10,
+                 "autoWidth": false,
+                 "searching": true,
+                 "lengthChange": false
+            });
+            //END Available Properties Datatables
+
+            toastr.options = {
+                "closeButton": true,
+                //"debug": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+                "positionClass": "toast-top-right",
+                //"onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "4000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+           //iCheckObj = $('.i-checks').iCheck({
+           //     //checkboxClass: 'icheckbox_square-green',
+           //     radioClass: 'iradio_square-green'
+           // }).on('ifChanged', function(event){
+           //     alert(event.type + ' callback');
+           // });
+            iCheckAssetRequiresSameSpaceObj = $('.i-checks-AssetRequiresSameSpace').iCheck({
+                checkboxClass: 'icheckbox_square-green'
+                //radioClass: 'iradio_square-green'
+            }).on('ifChecked', function (ev) {
+                DoesRequiredAssetOccupyTheSameSpaceAsParent = true;
+                }).on('ifUnchecked', function () {
+                    DoesRequiredAssetOccupyTheSameSpaceAsParent = false;
+            });
+            cboObjSelectAssestTypes.trigger('change');
+        });
+    </script>
+
+
+}

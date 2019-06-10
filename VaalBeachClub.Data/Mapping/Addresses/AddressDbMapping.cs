@@ -28,6 +28,13 @@ namespace VaalBeachClub.Data.Mapping.Addresses
             .HasValue<POBoxAddress>(AddressTypes.POBoxAddress)
             .HasValue<ComplexAddress>(AddressTypes.ComplexAddress);
 
+
+            builder.HasOne(d => d.aCountry)
+                  .WithMany(p => p.Addresses)
+                  .HasForeignKey(d => d.CountryID)
+                  .OnDelete(DeleteBehavior.Restrict)
+                  .HasConstraintName("FK_Addresses_Countries");
+
             base.Configure(builder);
         }
     }

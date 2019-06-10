@@ -13,7 +13,10 @@ namespace VaalBeachClub.Models.Domain.Members
         public MemberItem()
         {
             MemberItemsInStorage = new List<MemberItemInStorage>();
+            MemberAssetProperties = new HashSet<MemberItemProperty>();
+
         }
+
 
 
         public int BeachClubMemberID { get; set; }
@@ -23,38 +26,8 @@ namespace VaalBeachClub.Models.Domain.Members
         public virtual BeachClubMember BeachClubMember { get; set; }
         public virtual ItemType Item { get; set; }
         public virtual ICollection<MemberItemInStorage> MemberItemsInStorage { get; set; }
-
+        public virtual ICollection<MemberItemProperty> MemberAssetProperties { get; set; }
 
     }
-    //public partial class Boat : MemberItem
-    //{
-    //    public virtual string BoatModel { get; set; }
-    //    public string BoatMake { get; set; }
-    //    public string BoatRegistration { get; set; }
-    //}
-
-    //public partial class Trailer : MemberItem
-    //{
-
-    //    public virtual string TrailerRegistration { get; set; }
-    //}
-    //public partial class JetSki : MemberItem
-    //{
-
-    //    public virtual string JetSkiModel { get; set; }
-    //    public virtual string JetSkiMake { get; set; }
-    //    public virtual string JetSkiRegistration { get; set; }
-    //}
-
-    //public partial class MotorHome : MemberItem
-    //{
-
-    //    public virtual string JetSkiModel { get; set; }
-    //    public virtual string JetSkiMake { get; set; }
-    //    public virtual string JetSkiRegistration { get; set; }
-    //}
-    //public enum MemberItemType
-    //{
-    //    Boat, Trailer, JetSki, Caravans, MotorHouses
-    //}
 }
+   

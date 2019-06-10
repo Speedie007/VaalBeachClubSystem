@@ -19,6 +19,12 @@ namespace VaalBeachClub.Data.Mapping.Members
             builder.ToTable("AffiliatedMembers");
 
 
+            builder.HasOne(d => d.AffiliatedMemberType)
+                   .WithMany(p => p.AffiliatedMembers)
+                   .HasForeignKey(d => d.AffiliatedMemberTypeID)
+                   .OnDelete(DeleteBehavior.Restrict)
+                   .HasConstraintName("FK_AffiliatedMembers_AffiliatedMemberTypes");
+
             builder.Property(x => x.FirstName)
                 .HasMaxLength(75);
             builder.Property(x => x.LastName)

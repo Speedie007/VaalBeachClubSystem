@@ -1,53 +1,165 @@
 ﻿@model RegisterViewModel
 
+@inject IHttpContextAccessor httpContextAccessor
+@inject ICommonService CommonService
 @{
     Layout = "_AuthenticationLayout";
 }
-<div class="middle-box text-center loginscreen   animated fadeInDown">
-    <div>
-        @*<div>
 
-                <h1 class="logo-name">Integrator</h1>
 
-            </div>*@
-        <h3>Register with Vaal Beach Club</h3>
-        <p>Create account to start your journey today!</p>
-        <form class="m-t" role="form" asp-action="Register" asp-area="Individuals" asp-controller="Individual">
-            <div class="form-group">
-                <input asp-for="FirstName" class="form-control" placeholder="First Name" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+<div class="container">
+
+    <div class="login-page">
+        <div class="text-center heading ibox-title">
+            <h1>Welcome to Registration!</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="ibox">
+                    <hr />
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-edit"></i> How to register.</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-2 "><i class="fa fa-handshake-o" style="font-size: 50px;"></i></div>
+                            <div class="col-lg-10 ">
+                                <h4>Registration Process</h4>
+                                <p><strong>Step One:</strong>&nbsp;Initial Registration</p>
+                                <p>
+                                    Complete the initial registration section on this page.
+                                    Within this section you will be required to complete basic information which include your name and email, as well as set your password.
+                                    Please note that the for security reason and your protection it is required that your password must contain the following:
+                                </p>
+
+                                <ul>
+                                    <li>At least one upper case charater.</li>
+                                    <li>At least one lower case charater.</li>
+                                    <li>At least one numeric charater.</li>
+                                    <li>Minimum of 6 charaters.</li>
+                                    <li>At least one of the following (-._@@+).</li>
+                                </ul>
+
+                                <p><strong>Step Two:</strong> Confirm you email address.</p>
+
+                                <p>
+                                    An email will be sent to the email address provided in step one. Please click on the link to verfiy yor email address.
+                                    <h4 class="text-info">You will have 24 hours to do so.</h4>
+                                    Once your email address is confirmed you will redirected to  the registration form where your regisration application form is required to be completed which will be submitted to Vaal Beach Club  for approval.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
+            <div class="col-lg-6">
+                <div class="ibox">
+                    <hr />
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-bookmark-o "></i>&nbsp;Step One of Registration.</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
 
-                <input asp-for="LastName" class="form-control" placeholder="Last Name" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="ibox-content">
+                        @{
+                            if (Model.RegistrationConfirmationSent)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2><strong>Thank You.</strong></h2>
+                                        <p>
+                                            Your Email was successfuly registered, please check your email, you will recieve a confirmation email.
+                                        </p>
+                                        <p>
+                                            Please click on the confirmation link in the email. You will be redirected to a confirmation page were your email will be verified and you can complete the second stage of the registration process.
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <form asp-action="Register">
 
-            <div class="form-group">
-                <input asp-for="UserEmail" class="form-control" placeholder="Email Address" />
-                <span asp-validation-for="UserEmail" class="text-danger"></span>
-            </div><hr />
-            <div class="form-group">
-                <input asp-for="UserPassword" class="form-control" placeholder="Password" />
-                <span asp-validation-for="UserPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="ConfirmUserPassword" class="form-control" placeholder="Confirm Password" />
-                <span asp-validation-for="ConfirmUserPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class=""> <input asp-for="TermsAndConditions" class="checkbox " /> Agree the terms and policy </div>
-                <span asp-validation-for="TermsAndConditions" class="text-danger"></span>
-            </div>
 
-            <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <span class="fa fa-address-card-o"></span>
+                                        <label asp-for="FirstName" class="control-label"></label>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="fa fa-address-card-o"></span>
 
-            <p class="text-muted text-center"><small>Already have an account?</small></p>
-            <a class="btn btn-sm btn-white btn-block" href="@Url.Action(" Login", "Authentication" )">Login</a>
-        </form>
-        <p class="m-t"> <small>Integrator &copy; @DateTime.Now.Year</small> </p>
+                                        <label asp-for="LastName" class="control-label"></label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <span class="fa fa-envelope-o"></span>
+                                        <label asp-for="UserEmail" class="control-label"></label>
+                                        <input asp-for="UserEmail" class="form-control" />
+                                        <span asp-validation-for="UserEmail" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="fa fa-filter"></span>
+                                        <label asp-for="UserConfirmEmail" class="control-label"></label>
+                                        <input asp-for="UserConfirmEmail" class="form-control" />
+                                        <span asp-validation-for="UserConfirmEmail" class="text-danger"></span>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <i class="fa fa-chain"></i>
+                                        <label asp-for="UserPassword" class="control-label"></label>
+                                        <input asp-for="UserPassword" class="form-control" />
+                                        <span asp-validation-for="UserPassword" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="fa fa-filter"></span>
+                                        <label asp-for="ConfirmUserPassword" class="control-label"></label>
+                                        <input asp-for="ConfirmUserPassword" class="form-control" />
+                                        <span asp-validation-for="ConfirmUserPassword" class="text-danger"></span>
+                                    </div>
+                                    <hr />
+                                    <div class="d-flex flex-row-reverse">
+                                        <div class="p-1"><button type="submit" class="btn btn-primary pull-right"><i class=" fa fa-edit"></i>&nbsp;Register</button></div>
+                                        <div class="p-1"><a class="btn btn-primary pull-right" asp-controller="User" asp-action="Login"><i class="fa fa-sign-out"></i>  Back to Login</a></div>
+                                    </div>
+
+                                    @Html.HiddenFor(x => x.UserRole)
+                                </form>
+                            }
+                        }
+                    </div>
+
+                </div>
+                <div class="returning-wrapper">
+
+
+                </div>
+            </div>
+        </div>
+        <hr />
     </div>
 </div>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -15,12 +15,8 @@ namespace DatabaseDevelopment
         {
         }
 
-        public virtual DbSet<BeachClubMembers> BeachClubMembers { get; set; }
-        public virtual DbSet<ItemProperties> ItemProperties { get; set; }
-        public virtual DbSet<ItemTypeProperties> ItemTypeProperties { get; set; }
+        public virtual DbSet<ItemTypeHierarchy> ItemTypeHierarchy { get; set; }
         public virtual DbSet<ItemTypes> ItemTypes { get; set; }
-        public virtual DbSet<MemberItemInStorage> MemberItemInStorage { get; set; }
-        public virtual DbSet<MemberItems> MemberItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,46 +31,31 @@ namespace DatabaseDevelopment
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
-          
-
-            modelBuilder.Entity<ItemProperties>(entity =>
+            modelBuilder.Entity<ItemTypeHierarchy>(entity =>
             {
-               
+                entity.Property(e => e.ItemTypeHierarchyId).HasColumnName("ItemTypeHierarchyID");
+
+                entity.Property(e => e.ChildId).HasColumnName("ChildID");
+
+                entity.Property(e => e.ParentId).HasColumnName("ParentID");
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.ItemTypeHierarchy)
+                    .HasForeignKey(d => d.ParentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemTypeHierarchy_ItemTypes");
             });
 
-            modelBuilder.Entity<ItemTypeProperties>(entity =>
+            modelBuilder.Entity<ItemTypes>(entity =>
             {
-               
-            });
-
-           
-
-            modelBuilder.Entity<MemberItemInStorage>(entity =>
-            {
-              
-            });
-
-            modelBuilder.Entity<MemberItems>(entity =>
-            {
-                entity.HasKey(e => e.MemberItemId);
-
-                entity.HasIndex(e => e.BeachClubMemberId);
-
-                entity.Property(e => e.MemberItemId).HasColumnName("MemberItemID");
-
-                entity.Property(e => e.BeachClubMemberId).HasColumnName("BeachClubMemberID");
+                entity.HasKey(e => e.ItemId);
 
                 entity.Property(e => e.ItemId).HasColumnName("ItemID");
 
-                entity.HasOne(d => d.BeachClubMember)
-                    .WithMany(p => p.MemberItems)
-                    .HasForeignKey(d => d.BeachClubMemberId);
-
-                entity.HasOne(d => d.Item)
-                    .WithMany(p => p.MemberItems)
-                    .HasForeignKey(d => d.ItemId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MemberItems_ItemTypes");
+                entity.Property(e => e.Item)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

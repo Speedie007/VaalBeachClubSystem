@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewModels\Common\" />
     <Folder Include="ViewModels\Fees\" />
     <Folder Include="ViewModels\Users\" />
   </ItemGroup>

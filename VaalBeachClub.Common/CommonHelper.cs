@@ -36,6 +36,15 @@ namespace VaalBeachClub.Common
 
         #region Methods
 
+        public static string FormatCurrency(double value)
+        {
+            return value.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("af-ZA"));
+        }
+        public static string FormatCurrency(decimal value)
+        {
+            return value.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("af-ZA"));
+        }
+
         /// <summary>
         /// Ensures the subscriber email or throw.
         /// </summary>

@@ -73,10 +73,11 @@
                                     @Html.DisplayNameFor(model => model.Area)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Cost)
+                                    @Html.DisplayNameFor(model => model.Cost);
+
                                 </th>
 
-                               
+
 
                             </tr>
                         </thead>
@@ -85,7 +86,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.ActionLink("Edit", "EditBoatHouses", new { BoatHouseID = item.Id  }) |
+                                        @Html.ActionLink("Edit", "EditBoatHouses", new { BoatHouseID = item.Id }) |
                                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                                     </td>
@@ -108,13 +109,22 @@
                                         @Html.DisplayFor(modelItem => item.Area)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Cost)
+
+                                        @{
+                                            var xx = CommonHelper.FormatCurrency(item.Cost);
+                                            //xx.ToString("C3", System.Globalization.CultureInfo.CreateSpecificCulture("af-ZA"));
+
+                                        }
+                                        @xx
+
+
                                     </td>
 
-                                   
+
 
                                 </tr>
                             }
+
                         </tbody>
                         <tfoot>
                             <tr>
@@ -141,7 +151,7 @@
                                     @Html.DisplayNameFor(model => model.Cost)
                                 </th>
 
-                               
+
                             </tr>
                         </tfoot>
                     </table>

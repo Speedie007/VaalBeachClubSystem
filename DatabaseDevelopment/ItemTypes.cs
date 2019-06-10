@@ -7,14 +7,13 @@ namespace DatabaseDevelopment
     {
         public ItemTypes()
         {
-            ItemTypeProperties = new HashSet<ItemTypeProperties>();
-            MemberItems = new HashSet<MemberItems>();
+            ItemTypeHierarchy = new HashSet<ItemTypeHierarchy>();
         }
 
         public int ItemId { get; set; }
         public string Item { get; set; }
+        public bool IsOnSiteStorageItem { get; set; }
 
-        public virtual ICollection<ItemTypeProperties> ItemTypeProperties { get; set; }
-        public virtual ICollection<MemberItems> MemberItems { get; set; }
+        public virtual ICollection<ItemTypeHierarchy> ItemTypeHierarchy { get; set; }
     }
 }

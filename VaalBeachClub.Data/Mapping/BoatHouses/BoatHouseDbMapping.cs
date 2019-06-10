@@ -18,7 +18,7 @@ namespace VaalBeachClub.Data.Mapping.BoatHouses
             builder.Property(x => x.Id)
                 .HasColumnName("BoatHouseID");
 
-            
+
             builder.HasKey(boathouse => boathouse.Id);
 
             builder.Property(boathouse => boathouse.BoatHouseNumber)
@@ -38,6 +38,44 @@ namespace VaalBeachClub.Data.Mapping.BoatHouses
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_BoatHouses_BoatHouseSizes");
 
+            builder.HasData(
+                new BoatHouse()
+                {
+                    Id = 1,
+                    BoatHouseNumber = "BH001",
+                    BoatHouseSizeID = 1
+                },
+                new BoatHouse()
+                {
+                    Id = 2,
+                    BoatHouseNumber = "BH002",
+                    BoatHouseSizeID = 2
+                },
+                new BoatHouse()
+                {
+                    Id = 3,
+                    BoatHouseNumber = "BH003",
+                    BoatHouseSizeID = 3
+                },
+                new BoatHouse()
+                {
+                    Id = 4,
+                    BoatHouseNumber = "BH004",
+                    BoatHouseSizeID = 4
+                },
+                new BoatHouse()
+                {
+                    Id = 5,
+                    BoatHouseNumber = "BH005",
+                    BoatHouseSizeID = 5
+                },
+                new BoatHouse()
+                {
+                    Id = 6,
+                    BoatHouseNumber = "BH006",
+                    BoatHouseSizeID = 6
+                }
+                );
 
 
             base.Configure(builder);

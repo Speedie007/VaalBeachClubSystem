@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using VaalBeachClub.Models.ViewModels.Authentication;
 using VaalBeachClub.Services.Authentication;
+using VaalBeachClub.Services.EmailSending;
 using VaalBeachClub.ViewFactory.Users;
 using VaalBeachClub.Web.Data.Identity;
 using VaalBreachClub.Web.Areas.Identity.Pages.Account;
@@ -25,6 +27,7 @@ namespace VaalBreachClub.Web.Controllers
         private readonly IServiceProvider _serviceProvider;
         private readonly UserManager<BeachClubMember> _userManager;
         private readonly RoleManager<BeachClubRole> _roleManager;
+        private readonly ICustomEmailSender _emailSender;
 
         #endregion
 
@@ -36,8 +39,9 @@ namespace VaalBreachClub.Web.Controllers
             IUserRegistrationService userRegistrationService,
             IServiceProvider serviceProvider,
             UserManager<BeachClubMember> userManager,
-            RoleManager<BeachClubRole> roleManager
-            
+            RoleManager<BeachClubRole> roleManager,
+            ICustomEmailSender customEmailSender
+
             )
         {
             this._roleManager = roleManager;
@@ -47,7 +51,8 @@ namespace VaalBreachClub.Web.Controllers
             this._logger = logger;
             this._serviceProvider = serviceProvider;
             this._userManager = userManager;
-            
+            this._emailSender = customEmailSender;
+
         }
         #endregion
 
@@ -71,9 +76,9 @@ namespace VaalBreachClub.Web.Controllers
 
 
             ICollection<BeachClubRole> UserRoles = (from AllRoles in _roleManager.Roles
-                                                     from b in AllRoles.UserRoles
-                                                     where b.UserId == CurrentUserLoggedIn.Id
-                                                     select AllRoles).ToList<BeachClubRole>();
+                                                    from b in AllRoles.UserRoles
+                                                    where b.UserId == CurrentUserLoggedIn.Id
+                                                    select AllRoles).ToList<BeachClubRole>();
 
             if (UserRoles.Count > 0)
             {
@@ -128,9 +133,9 @@ namespace VaalBreachClub.Web.Controllers
                     var CurrentUserLoggedIn = await _userManager.FindByEmailAsync(model.Email);
 
                     ICollection<BeachClubRole> UserRoles = (from AllRoles in _roleManager.Roles
-                                                             from b in AllRoles.UserRoles
-                                                             where b.UserId == CurrentUserLoggedIn.Id
-                                                             select AllRoles).ToList<BeachClubRole>();
+                                                            from b in AllRoles.UserRoles
+                                                            where b.UserId == CurrentUserLoggedIn.Id
+                                                            select AllRoles).ToList<BeachClubRole>();
 
                     if (UserRoles.Count > 0)
                     {
@@ -161,6 +166,32 @@ namespace VaalBreachClub.Web.Controllers
 
 
                 }
+                var _user = await _userManager.FindByEmailAsync(model.Email);
+                if (_user != null)
+                {
+                    var IsConfirmed = await _userManager.IsEmailConfirmedAsync(_user);
+                    if (!IsConfirmed)
+                    {
+                        ModelState.AddModelError(string.Empty, "Your Email Address Has NOT been verified. A new confirmation Link has been emailed, PLease check your email!");
+                    }
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(_user);
+                    var callbackUrl = Url.Action(
+                         action: "RegistrationConfirmation",
+                         controller: "Members",
+
+                        values: new { Area = "Members", userId = _user.Id, code = code },
+                        protocol: Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(model.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Your Account was not found on the system! Please Ensure you enter the correct email address!");
+                }
+
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = "", RememberMe = model.RememberMe });
@@ -177,7 +208,7 @@ namespace VaalBreachClub.Web.Controllers
                 }
             }
 
-            return View();
+            return View(model);
         }
         #endregion
 

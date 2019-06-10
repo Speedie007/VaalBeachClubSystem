@@ -85,6 +85,19 @@
 
                 </ul>
             </li>
+            <li class="@Html.IsSelected(controller: "Configuration")">
+                <a asp-action="Index" asp-controller="Configuration">
+                    <i class="fa fa-gears"></i>
+                    <span class="nav-label">Configuration</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse ">
+                    <li class="@Html.IsSelected(action: "AssestList")"><a href="@Url.Action("AssestList", "Configuration")">Assests</a></li>
+                    <li class="@Html.IsSelected(action: "SystemUsers")"><a href="@Url.Action("SystemUsers", "Configuration")">System Users</a></li>
+                    <li class="@Html.IsSelected(action: "EmailSettings")"><a href="@Url.Action("EmailSettings", "Configuration")">Email</a></li>
+
+                </ul>
+            </li>
             @*<li class="@Html.IsSelected(controller: "Graphs")">
             <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label" data-i18n="nav.graphs">Graphs</span><span class="fa arrow"></span></a>
             <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Graphs", cssClass: "in")">

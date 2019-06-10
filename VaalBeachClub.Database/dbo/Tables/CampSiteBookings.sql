@@ -6,8 +6,10 @@
     [CampSiteID]        INT           NOT NULL,
     CONSTRAINT [PK_CampSiteBookings] PRIMARY KEY CLUSTERED ([CampSiteBookingID] ASC),
     CONSTRAINT [FK_CampSiteBookings_BeachClubMembers_BeachClubMemberID] FOREIGN KEY ([BeachClubMemberID]) REFERENCES [dbo].[BeachClubMembers] ([BeachClubMemberID]) ON DELETE CASCADE,
-    CONSTRAINT [FK_CampSiteBookings_CampSites_CampSiteID] FOREIGN KEY ([CampSiteID]) REFERENCES [dbo].[CampSites] ([CampSiteID]) ON DELETE CASCADE
+    CONSTRAINT [FK_CampSiteBookings_CampSite_CampSiteID] FOREIGN KEY ([CampSiteID]) REFERENCES [dbo].[CampSite] ([CampSiteID]) ON DELETE CASCADE
 );
+
+
 
 
 GO

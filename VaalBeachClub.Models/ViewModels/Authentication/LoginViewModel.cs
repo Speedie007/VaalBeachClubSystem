@@ -6,7 +6,7 @@ using VaalBeachClub.Models.ViewModels.ViewModelComponents;
 
 namespace VaalBeachClub.Models.ViewModels.Authentication
 {
-    public partial class LoginViewModel: BaseBeachClubViewModel
+    public partial class LoginViewModel : BaseBeachClubViewModel
     {
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email Address")]
@@ -24,6 +24,8 @@ namespace VaalBeachClub.Models.ViewModels.Authentication
 
         [Display(Name = "Remember Me")]
         public bool RememberMe { get; set; }
+
+        public bool EmailVerified { get; set; }
 
         public bool DisplayCaptcha { get; set; }
     }

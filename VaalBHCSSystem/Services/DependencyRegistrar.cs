@@ -10,13 +10,17 @@ using VaalBeachClub.Common.Interfaces;
 using VaalBeachClub.Data;
 using VaalBeachClub.Data.Interfaces;
 using VaalBeachClub.Models.Common;
+using VaalBeachClub.Models.Domain.Interfaces;
+using VaalBeachClub.Services.Assests;
 using VaalBeachClub.Services.Authentication;
 using VaalBeachClub.Services.BoatHouses;
 using VaalBeachClub.Services.CampSites;
-
+using VaalBeachClub.Services.Common;
+using VaalBeachClub.Services.EmailSending;
 using VaalBeachClub.Services.Interfaces.CampSites;
 using VaalBeachClub.ViewFactory.BoatHouses;
 using VaalBeachClub.ViewFactory.CampSites;
+using VaalBeachClub.ViewFactory.Common;
 using VaalBeachClub.ViewFactory.Users;
 using VaalBreachClub.Web.Data.Intefaces;
 
@@ -47,12 +51,18 @@ namespace VaalBeachClub.Web.Services
             builder.RegisterType<CampSiteService>().As<ICampSitesService>().InstancePerLifetimeScope();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<UserRegistrationService>().As<IUserRegistrationService>().InstancePerLifetimeScope();
+            builder.RegisterType<CommonService>().As<ICommonService>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomEmailSender>().As<ICustomEmailSender>().InstancePerLifetimeScope();
+            builder.RegisterType<AssetService>().As<IAssetService>().InstancePerLifetimeScope();
             
 
             //Factories
             builder.RegisterType<BoatHouseModelFactory>().As<IBoatHouseModelFactory>().InstancePerLifetimeScope();
             builder.RegisterType<CampSiteModelFactory>().As<ICampSiteModelFactory>().InstancePerLifetimeScope();
             builder.RegisterType<UserViewModelFactory>().As<IUserViewModelFactory>().InstancePerLifetimeScope();
+            builder.RegisterType<AssetViewFactory>().As<IAssetViewFactory>().InstancePerLifetimeScope();
+
+            
 
 
             //Event publisher

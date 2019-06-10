@@ -17,7 +17,7 @@ namespace VaalBeachClub.Data.Mapping.Members
 
             builder.ToTable("MemberItems");
 
-            builder.ToTable("MemberItems");
+           
             //.HasDiscriminator<MemberItemType>(nameof(MemberItemType))
 
             //.HasValue<Boat>(MemberItemType.Boat)

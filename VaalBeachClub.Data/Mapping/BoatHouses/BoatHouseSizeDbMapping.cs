@@ -32,6 +32,63 @@ namespace VaalBeachClub.Data.Mapping.BoatHouses
 
             //builder.Property(e => e.Dimensions)..ValueGeneratedNever();
 
+             builder.HasData(
+                 new BoatHouseSize()
+                 {
+                     Id = 1,
+                      Description = "Boat Size A",
+                     Hieght = Convert.ToDecimal(2.5),
+                     Length = 8,
+                     Width = 3,
+                     Cost = 14380
+                 },
+                  new BoatHouseSize()
+                  {
+                      Id = 2,
+                      Description = "Boat Size B",
+                      Hieght = Convert.ToDecimal(2.8),
+                      Length = 9,
+                      Width = Convert.ToDecimal(3.5),
+                      Cost = 16392
+                  },
+                   new BoatHouseSize()
+                   {
+                       Id = 3,
+                       Description = "Boat Size C",
+                       Hieght = Convert.ToDecimal(3.5),
+                       Length = 9,
+                       Width = Convert.ToDecimal(3.5),
+                       Cost = 16392
+                   },
+                    new BoatHouseSize()
+                    {
+                        Id = 4,
+                        Description = "Boat Size D",
+                        Hieght = Convert.ToDecimal(4),
+                        Length = 10,
+                        Width = Convert.ToDecimal(3.5),
+                        Cost = 18117
+                    },
+                     new BoatHouseSize()
+                     {
+                         Id = 5,
+                         Description = "Boat Size E",
+                         Hieght = Convert.ToDecimal(2.8),
+                         Length = 12,
+                         Width = Convert.ToDecimal(3.5),
+                         Cost = 20340
+                     },
+                      new BoatHouseSize()
+                      {
+                          Id = 6,
+                          Description = "Boat Size F",
+                          Hieght = Convert.ToDecimal(3.5),
+                          Length = 12,
+                          Width = Convert.ToDecimal(3.5),
+                          Cost = 20340
+                      }
+                );
+
             base.Configure(builder);
         }
 

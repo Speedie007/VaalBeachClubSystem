@@ -12,6 +12,7 @@ using VaalBeachClub.Common.Events;
 using VaalBeachClub.Models.ViewModels.BoatHouses;
 using Microsoft.EntityFrameworkCore;
 using VaalBeachClub.Models.Common;
+using VaalBeachClub.Models.Domain.Interfaces;
 
 namespace VaalBeachClub.Services.BoatHouses
 {
@@ -66,7 +67,7 @@ namespace VaalBeachClub.Services.BoatHouses
                 throw new ArgumentNullException(nameof(boatHouse));
 
             _boatHouseRepository.Insert(boatHouse);
-
+            
             //event notification
             //_eventPublisher.EntityInserted(boatHouse);
         }

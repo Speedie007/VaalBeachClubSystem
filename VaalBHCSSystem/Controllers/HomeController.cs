@@ -17,6 +17,7 @@ namespace VaalBHCSSystem.Controllers
 
         public IActionResult Privacy()
         {
+
             return View();
         }
 

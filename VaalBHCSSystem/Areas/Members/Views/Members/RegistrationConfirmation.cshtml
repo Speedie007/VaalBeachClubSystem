@@ -1,0 +1,85 @@
+﻿@model VaalBeachClub.Models.ViewModels.Authentication.RegistrationConfirmationViewModel
+
+@{
+    ViewData["Title"] = "RegistrationConfirmation";
+    Layout = "~/Views/Shared/_AuthenticationLayout.cshtml";
+}
+
+
+<div class="container">
+
+    <div class="login-page">
+        <div class="center">
+            <div class="d-flex justify-content-center">
+                <div class="ibox">
+
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-handshake-o"></i> Registration Confiramtion.</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="ibox-content">
+                        @{
+                            if (Model.ShowInvalid)
+                            {
+                                <p>
+                                    Error confirming your email.
+                                </p>
+                                <p>
+                                    If you can login, try updating your email again.<br />
+                                    If you cannot login, try resend verification.
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    <h2><strong>Thank you</strong></h2>
+
+                                </p>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <i class="fa fa-check-circle fa-5x text-info" ></i>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <p>Your email address is now confirmed and registred within the system.</p>
+                                        <p>Please click on the link below to processed to <strong>Step Two</strong> of the registration process.</p>
+                                    </div>
+                                </div>
+                                <hr />
+                                <a class="btn btn-primary full-width p-3"
+                                        asp-action="MemberAppliactionWizard"
+                                        asp-controller="Members"
+                                        asp-area="Members">
+                                    Complete Registration Form
+                                </a>
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+</div>
+

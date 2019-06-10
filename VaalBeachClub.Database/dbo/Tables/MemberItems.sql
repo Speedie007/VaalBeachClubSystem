@@ -1,24 +1,22 @@
 ﻿CREATE TABLE [dbo].[MemberItems] (
-    [MemberItemID]                 INT            IDENTITY (1, 1) NOT NULL,
-    [BeachClubMemberID]            INT            NOT NULL,
-    [StorageItemType]              INT            NOT NULL,
-    [MemberItemType]               INT            NOT NULL,
-    [BoatModel]                    NVARCHAR (MAX) NULL,
-    [BoatMake]                     NVARCHAR (MAX) NULL,
-    [BoatRegistration]             NVARCHAR (MAX) NULL,
-    [JetSkiModel]                  NVARCHAR (MAX) NULL,
-    [JetSkiMake]                   NVARCHAR (MAX) NULL,
-    [JetSkiRegistration]           NVARCHAR (MAX) NULL,
-    [MotorHome_JetSkiModel]        NVARCHAR (MAX) NULL,
-    [MotorHome_JetSkiMake]         NVARCHAR (MAX) NULL,
-    [MotorHome_JetSkiRegistration] NVARCHAR (MAX) NULL,
-    [TrailerRegistration]          NVARCHAR (MAX) NULL,
+    [MemberItemID]      INT IDENTITY (1, 1) NOT NULL,
+    [BeachClubMemberID] INT NOT NULL,
+    [ItemID]            INT NOT NULL,
+    [IsOnSite]          BIT NOT NULL,
     CONSTRAINT [PK_MemberItems] PRIMARY KEY CLUSTERED ([MemberItemID] ASC),
-    CONSTRAINT [FK_MemberItems_BeachClubMembers_BeachClubMemberID] FOREIGN KEY ([BeachClubMemberID]) REFERENCES [dbo].[BeachClubMembers] ([BeachClubMemberID]) ON DELETE CASCADE
+    CONSTRAINT [FK_MemberItems_BeachClubMembers_BeachClubMemberID] FOREIGN KEY ([BeachClubMemberID]) REFERENCES [dbo].[BeachClubMembers] ([BeachClubMemberID]) ON DELETE CASCADE,
+    CONSTRAINT [FK_MemberItems_ItemTypes] FOREIGN KEY ([ItemID]) REFERENCES [dbo].[ItemTypes] ([ItemTypeID])
 );
+
+
 
 
 GO
 CREATE NONCLUSTERED INDEX [IX_MemberItems_BeachClubMemberID]
     ON [dbo].[MemberItems]([BeachClubMemberID] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_MemberItems_ItemID]
+    ON [dbo].[MemberItems]([ItemID] ASC);
 

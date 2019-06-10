@@ -6,6 +6,14 @@
  *   version 2.9
  *
 */
+.item111{
+    border:3px solid;
+    background: #b6aaaa;
+    width:200px;
+    top: 10%;
+    left:10%;
+    border-radius:25px 0px 25px 0px;
+}
 @font-face {
     font-family: 'Glyphicons Halflings';
     src: url('../fonts/glyphicons-halflings-regular.eot');
@@ -4162,8 +4170,13 @@ label.error {
 }
 
 .img-preview-sm {
-    height: 130px;
+    height: 250px;
     width: 200px;
+}
+
+.img-preview-lg {
+    height: 550px;
+    width: 550px;
 }
 /* Forum styles  */
 .forum-post-container .media {

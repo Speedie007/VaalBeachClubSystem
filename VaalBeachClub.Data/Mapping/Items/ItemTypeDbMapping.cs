@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VaalBeachClub.Models.Common.Enum;
 using VaalBeachClub.Models.Domain.Items;
 
 namespace VaalBeachClub.Data.Mapping.Items
@@ -28,6 +29,20 @@ namespace VaalBeachClub.Data.Mapping.Items
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+            //EnumAssetPropertyDataTypes
+
+            Array enumValueArray = Enum.GetValues(typeof(EnumAssestTypes));
+            List<ItemType> ListOfItemTypes = new List<ItemType>();
+            foreach (int enumValue in enumValueArray)
+            {
+                ListOfItemTypes.Add(new ItemType()
+                {
+                    Id = enumValue,
+                    Item = Enum.GetName(typeof(EnumAssestTypes), enumValue).ToString().Replace("_", " ")
+                });
+            }
+
+            builder.HasData(ListOfItemTypes);
 
             base.Configure(builder);
         }

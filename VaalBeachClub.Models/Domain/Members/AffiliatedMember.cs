@@ -10,7 +10,10 @@ namespace VaalBeachClub.Models.Domain.Members
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
         public virtual int BeachClubMemberID { get; set; }
-        public virtual AffiliatedMemberType MemberAffiliation { get; set; }
+
+        public int AffiliatedMemberTypeID { get; set; }
+        
+        //public virtual AffiliatedMemberType MemberAffiliation { get; set; }
         public virtual DateTime DateOfBirth { get; set; }
         public virtual string FullName
         {
@@ -20,11 +23,9 @@ namespace VaalBeachClub.Models.Domain.Members
             }
         }
 
+        public virtual AffiliatedMemberType AffiliatedMemberType { get; set; }
         public virtual BeachClubMember Member { get; set; }
     }
 
-    public enum AffiliatedMemberType
-    {
-        Wife, Husband, Son, Daughter
-    }
+    
 }
