@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Models.Domain.BoatHouses;
 using VaalBeachClub.Models.Domain.Members;
-using VaalBeachClub.Web.Data.Identity;
+
 
 namespace VaalBeachClub.Models.Domain.Rentals
 {
@@ -11,7 +11,7 @@ namespace VaalBeachClub.Models.Domain.Rentals
     {
         public BoatHouseRental()
         {
-           //MemberItemsInStorage = new List<MemberItemInStorage>();
+           MemberItemsInStorage = new List<MemberItemInStorage>();
         }
 
         public virtual DateTime StartDate { get; set; }
@@ -19,11 +19,15 @@ namespace VaalBeachClub.Models.Domain.Rentals
         public virtual Boolean HasBeenPaid { get; set; }
         public virtual int BeachClubMemberID { get; set; }
         public virtual int BoatHouseID { get; set; }
+        public virtual int BoatHouseRentalStatusID { get; set; }
 
         public virtual BeachClubMember BeachClubMember { get; set; }
         public virtual BoatHouse BoatHouse { get; set; }
-       
+        public BoatHouseRentalStatus BoatHouseRentalStatus { get; set; }
+
         public virtual ICollection<MemberItemInStorage> MemberItemsInStorage { get; set; }
+
+        
 
 
     }

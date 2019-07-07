@@ -1,6 +1,5 @@
 ﻿using System;
-
-using VaalBeachClub.Web.Data.Identity;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Models.Domain.Logging
 {

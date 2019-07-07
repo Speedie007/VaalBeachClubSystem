@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using VaalBeachClub.Web.Data.Identity;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBreachClub.Web.Areas.Identity.Pages.Account
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Common.Interfaces;
 using VaalBeachClub.Models.Domain.Logging;
-using VaalBeachClub.Web.Data.Identity;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Web.EventLogging
 {

@@ -5,10 +5,11 @@ using VaalBeachClub.Models.Domain;
 
 namespace VaalBeachClub.Models.ViewModels.Assets
 {
-    public class AssetTypeRequirementViewModel: BaseEntity
+    public class AssetTypeRequirementViewModel : BaseEntity
     {
         public virtual string AssestType { get; set; }
         public virtual bool OccupiesSameSpaceAsParent { get; set; }
+        public virtual bool IsOptional { get; set; }
     }
 
     public class AssetTypeRequirementViewModelComparer : IEqualityComparer<AssetTypeRequirementViewModel>

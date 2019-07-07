@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using VaalBeachClub.Web.Data.Identity;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Models.Domain.Common
 {

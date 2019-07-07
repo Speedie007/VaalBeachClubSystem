@@ -7,7 +7,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminPortalLayout.cshtml";
 }
 
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Configuration</h2>
@@ -46,23 +45,24 @@
                         <h4>Select Assest Type</h4>
                         <select class="select-AssestItems">
                             @{
-                                foreach (var item in AssetService.ListAssestTypes().OrderBy(x => x.Item))
-                                {
-                                    <option value="@item.Id" label="@item.Item">@item.Item</option>
-                                }
+                            foreach (var item in AssetService.ListAssestTypes().OrderBy(x => x.Item))
+                            {
+                            <option value="@item.Id" label="@item.Item">@item.Item</option>
+                            }
                             }
                         </select>
 
                     </div>
                     <div class="form-group b-r-lg">
                         <div class="d-flex justify-content-start">
-                            <h4>Is Asset Type to be stored On-Site</h4>
-                            <div class="d-flex align-items-center p-w-m">
-                                <div class="i-checks">
-                                    <label>
-                                        <input id="chkIsAssetStoredOnSite" type="checkbox" value="">
-                                    </label>
+
+                            <div class="d-flex align-items-start ">
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="chkIsAssetStoredOnSite" />
+                                    <label class="custom-control-label" for="chkIsAssetStoredOnSite">Is Asset Type to be stored On-Site</label>
                                 </div>
+
                             </div>
                         </div>
 
@@ -80,13 +80,14 @@
                                     Add Requirement
                                 </button>
                                 <hr />
-                                <div id="div-Unlinked-Asset-Properties" class="table-responsive">
+                                <div class="p-0 table-responsive">
                                     <table class="table table-striped table-bordered table-hover dataTable-Assest-Requirements">
                                         <thead>
                                             <tr>
-                                                <td>Options</td>
-                                                <td>Required Asset</td>
-                                                <td>Use Same Space</td>
+                                                <th>Options</th>
+                                                <th class="nowrap" nowrap>Asset Type</th>
+                                                <th nowrap>Use Same Space</th>
+                                                <th>Is Optioanl</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -96,13 +97,15 @@
                                                 </td>
                                                 <td>dsadsad</td>
                                                 <td>yers</td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td>Options</td>
-                                                <td>Required Asset</td>
-                                                <td>Use Same Space</td>
+                                                <th>Options</th>
+                                                <th>Asset Type</th>
+                                                <th>Use Same Space</th>
+                                                <th>Is Optioanl</th>
                                             </tr>
                                         </tfoot>
 
@@ -128,17 +131,17 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-AvailableProperties">
                                     <thead>
                                         <tr>
-                                            <td>Option</td>
-                                            <td>Property</td>
-                                            <td>Type</td>
+                                            <th>Option</th>
+                                            <th>Property</th>
+                                            <th>Type</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr>
-                                            <td>Option</td>
-                                            <td>Property</td>
-                                            <td>Type</td>
+                                            <th>Option</th>
+                                            <th>Property</th>
+                                            <th>Type</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -170,17 +173,17 @@
                                 <table class="table table-striped table-bordered table-hover dataTables-LinkedProperties">
                                     <thead>
                                         <tr>
-                                            <td>Option</td>
-                                            <td>Property</td>
-                                            <td>Type</td>
-                                            <td>Required</td>
+                                            <th>Option</th>
+                                            <th>Property</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <th>
                                                 <button type="button" class="btn btn-primary full-width text-justify"><i class="fa fa-remove"></i>&nbsp;Remove Property</button>
-                                            </td>
+                                            </th>
                                             <td class="">Colour</td>
                                             <td>TEXT</td>
                                             <td class="justify-content-center">Yes</td>
@@ -188,10 +191,10 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td>Option</td>
-                                            <td>Property</td>
-                                            <td>Type</td>
-                                            <td>Required</td>
+                                            <th>Option</th>
+                                            <th>Property</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -231,7 +234,16 @@
                     </div>
 
                 </div>
+                <div class="d-flex justify-content-start">
+                    <div>Is Optional?</div>
 
+                    <div class="i-checks-AssetIsOptional ml-2">
+                        <label>
+                            <input type="checkbox" style="position: absolute; opacity: 0;" onclick="" />
+                        </label>
+                    </div>
+
+                </div>
 
 
             </div>
@@ -245,29 +257,29 @@
 <!--Add Asset Requirement Model-->
 @section Styles {
 
-    <environment names="Development,Staging,Production">
-        <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
-        <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
-        <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
-        <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
-        <link href="~/lib/iCheck/custom.css" rel="stylesheet" />
-    </environment>
+<environment names="Development,Staging,Production">
+    <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+    <link href="~/lib/iCheck/custom.css" rel="stylesheet" />
+</environment>
 
 }
 
 @section Scripts {
-    <link href="~/lib/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+<link href="~/lib/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
 
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/select2/dist/js/select2.min.js"></script>
-        <script src="~/lib/dataTables/datatables.min.js"></script>
-        <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
-        <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="~/lib/toastr/toastr.min.js"></script>
-        <script src="~/lib/iCheck/icheck.min.js"></script>
-    </environment>
+<environment names="Development,Staging,Production">
+    <script src="~/lib/select2/dist/js/select2.min.js"></script>
+    <script src="~/lib/dataTables/datatables.min.js"></script>
+    <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/lib/toastr/toastr.min.js"></script>
+    <script src="~/lib/iCheck/icheck.min.js"></script>
+</environment>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         /*Gloabl Data Structure
         *********************
@@ -278,6 +290,10 @@
     var CURRENTLY_SELECTED_ASSESTID = 0;
 
         //Global Variables
+
+        //Is assest to be stored on site variable
+        var objchkIsAssetStoredOnSite;
+        //END Is assest to be stored on site variable
             //Assets VAriables
         var cboObjSelectAssestTypes;
         var spanObjSelectedAvailableAssetHeadingDisplay;
@@ -288,12 +304,15 @@
         var ulObjAvailbaleAssetRequirements;
     var iCheckObj = null;
     var iCheckAssetRequiresSameSpaceObj;
+    var iCheckAssetIsOptionalObj;
     var DoesRequiredAssetOccupyTheSameSpaceAsParent = false;
+    var IsRequiredAssetOptional = false;
         //END Globla Varibales
 
         //Asset Requirements
         function initialseListOfAvailableAsests() {
 
+            iCheckAssetIsOptionalObj.iCheck('uncheck');
             iCheckAssetRequiresSameSpaceObj.iCheck('uncheck');
             iCurrentlySelectedAssestRequiementToLink = 0;
             LoadUnLinkedAssetRequirements();
@@ -319,7 +338,7 @@
                     toastr.success("Properties Successfully Loaded.", 'Successfull');
                 },
                 error: function (data, textStatus, error) {
-                    toastr.success("Something went wrong - " + error, 'Error');
+                    toastr.error("Something went wrong - " + error, 'Error');
                 }
             });
 
@@ -349,7 +368,7 @@
                     toastr.success("Properties Successfully Loaded.", 'Successfull');
                 },
                 error: function (data, textStatus, error) {
-                    toastr.success("Something went wrong - " + error, 'Error');
+                    toastr.error("Something went wrong - " + error, 'Error');
                 }
             });
 
@@ -359,7 +378,8 @@
              var _ViewModel = JSON.parse('{}');
              _ViewModel.ParentID = CURRENTLY_SELECTED_ASSESTID;
              _ViewModel.ChildID = iCurrentlySelectedAssestRequiementToLink;
-             _ViewModel.OccupiesSameSpaceAsParent = DoesRequiredAssetOccupyTheSameSpaceAsParent;
+            _ViewModel.OccupiesSameSpaceAsParent = DoesRequiredAssetOccupyTheSameSpaceAsParent;
+            _ViewModel.IsOptional = IsRequiredAssetOptional;
 
             const URI = '@HtmlEncoder.Encode(Url.Action(action: "LinkRequiredAssest", controller: "CommonAjax", values: null, protocol: httpContextAccessor.HttpContext.Request.Scheme, host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
 
@@ -388,7 +408,7 @@
             });
     }
     function RemoveRequiredAsset(sAssestType, iAssest) {
-        alert();
+
          swal({
             title: "Confirmation",
             text: "Are you Sure you wish to remove " + sAssestType + "?",
@@ -410,7 +430,7 @@
        var _ViewModel = JSON.parse('{}');
              _ViewModel.ParentID = CURRENTLY_SELECTED_ASSESTID;
              _ViewModel.ChildID = iAssest;
-             
+
 
              const URI = '@HtmlEncoder.Encode(Url.Action(action: "UnLinkAssetRequirement",
 controller: "CommonAjax",
@@ -434,7 +454,7 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                     cboObjSelectAssestTypes.trigger('change');
                 },
                 error: function (data, textStatus, error) {
-                    toastr.success("Something went wrong - " + error, 'Error');
+                    toastr.er("Something went wrong - " + error, 'Error');
                 }
             });
     }
@@ -481,16 +501,23 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
             dataTablesAssetReqirements.clear().draw();
         $.each(data.listOfLinkedAssestRequirements, function (i, LinkedAssestRequirements) {
             var isLinked = "";
+            var isOptional = "";
                 if (LinkedAssestRequirements.occupiesSameSpaceAsParent) {
                     isLinked = "YES";
                     } else {
                     isLinked = "NO";
-                    }
+            }
+            if (LinkedAssestRequirements.isOptional) {
+                isOptional = "YES";
+            } else {
+                isOptional = "NO";
+            }
             dataTablesAssetReqirements.row.add([
                     //\''+LinkedProperties.assestPropertyName+'\','+ LinkedProperties.id +'
-                    '<button type="button" onclick="RemoveRequiredAsset(\''+LinkedAssestRequirements.assestType+'\','+LinkedAssestRequirements.id+');" class="btn btn-primary full-width text-justify"><i class="fa fa-remove "></i>&nbsp;Remove</button>',//Adding buttons
+                    '<button type="button" onclick="RemoveRequiredAsset(\''+LinkedAssestRequirements.assestType+'\','+LinkedAssestRequirements.id+');" class="btn btn-primary  text-justify"><i class="fa fa-remove "></i></button>',//Adding buttons
                     LinkedAssestRequirements.assestType,
-                    isLinked
+                isLinked,
+                    isOptional
                 ]).draw();
             });
         }
@@ -521,7 +548,7 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                 toastr.success("Properties Successfully Loaded.", 'Successfull');
             },
             error: function (data, textStatus, error) {
-                toastr.success("Something went wrong - " + error, 'Error');
+                toastr.error("Something went wrong - " + error, 'Error');
             }
         });
 
@@ -627,7 +654,7 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                     cboObjSelectAssestTypes.trigger('change');
                 },
                 error: function (data, textStatus, error) {
-                    toastr.success("Something went wrong - " + error, 'Error');
+                    toastr.error("Something went wrong - " + error, 'Error');
                 }
             });
         }
@@ -655,11 +682,12 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                 },
                 dataType: "json",
                 success: function (data) {
+                    toastr.clear();
                     toastr.success("Properties Successfully Added.", 'Successfull');
                     cboObjSelectAssestTypes.trigger('change');
                 },
                 error: function (data, textStatus, error) {
-                    toastr.success("Something went wrong - " + error, 'Error');
+                    toastr.error("Something went wrong - " + error, 'Error');
                 }
             });
         }
@@ -688,17 +716,98 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                 },
                 dataType: "json",
                 success: function (data) {
+                    toastr.clear();
                     toastr.success("Properties Successfully Added.", 'Successfull');
                     cboObjSelectAssestTypes.trigger('change');
+                },
+                error: function (data, textStatus, error) {
+                    toastr.error("Something went wrong - " + error, 'Error');
+                }
+            });
+        }
+        /*Sets Is assest to be stored on site
+        ***************************************/
+        function loadIsAssestStoredOnSite(){
+         var _ViewModel = JSON.parse('{}');
+            _ViewModel.AssestID = CURRENTLY_SELECTED_ASSESTID;
+
+
+             const URI = '@HtmlEncoder.Encode(Url.Action(action: "GetAsset",
+controller: "CommonAjax",
+values: null,
+protocol: httpContextAccessor.HttpContext.Request.Scheme,
+host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.toString().length > 0) {
+                        toastr.clear();
+                        objchkIsAssetStoredOnSite.prop('checked', data.isOnSiteStorageItem);
+                        toastr.success("Assest Onsite Property Successfully Loaded.", 'Successfull');
+                    }
+
+
                 },
                 error: function (data, textStatus, error) {
                     toastr.success("Something went wrong - " + error, 'Error');
                 }
             });
         }
+        function setIsAssestStoredOnSite(){
+         var _ViewModel = JSON.parse('{}');
+            _ViewModel.Id = CURRENTLY_SELECTED_ASSESTID;
+            _ViewModel.IsOnSiteStorageItem = objchkIsAssetStoredOnSite.is(':checked');
+
+             const URI = '@HtmlEncoder.Encode(Url.Action(action: "UpdateAssetOnSiteStorageStatus",
+controller: "CommonAjax",
+values: null,
+protocol: httpContextAccessor.HttpContext.Request.Scheme,
+host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
+
+            $.ajax({
+                type: "POST",
+                url: URI,
+                data: JSON.stringify(_ViewModel),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("RequestVerificationToken",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                success: function (data) {
+                    
+                    if (data) {
+                        
+                        toastr.clear();
+                        toastr.success("Properties Successfully Updated.", 'Successfull');
+                        
+
+                    }else{
+                        toastr.success("Something went wrong - " + error, 'Error');
+                    }
+                },
+                error: function (data, textStatus, error) {
+                    toastr.success("Something went wrong - " + error, 'Error');
+                }
+            });
+        }
+    
+        /*END Sets Is assest to be stored on site
+        ***************************************/
 
         $(document).ready(function () {
             //Global Variables
+            objchkIsAssetStoredOnSite = $("#chkIsAssetStoredOnSite");
             spanObjSelectedAvailableAssetHeadingDisplay = $("#Selected-Available-Asset-Heading-Display");
             ulObjAvailbaleAssetRequirements = $("#AvailbaleAssetRequirements");
             //Asset Types Controls
@@ -715,7 +824,13 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                 spanObjSelectedAvailableAssetHeadingDisplay.html($(this).find('option:selected').text());
                 LoadUnLinkedAssetRequirements();
                 LoadLinkedAssetRequirements();
+                loadIsAssestStoredOnSite();
+                });
+
+            objchkIsAssetStoredOnSite.change(function (ev) {
+                setIsAssestStoredOnSite();
             });
+
 
             //END Assest Types Controls.
 
@@ -778,10 +893,19 @@ host: httpContextAccessor.HttpContext.Request.Host.ToString()))';
                 DoesRequiredAssetOccupyTheSameSpaceAsParent = true;
                 }).on('ifUnchecked', function () {
                     DoesRequiredAssetOccupyTheSameSpaceAsParent = false;
-            });
+                });
+             iCheckAssetIsOptionalObj = $('.i-checks-AssetIsOptional').iCheck({
+                checkboxClass: 'icheckbox_square-green'
+                //radioClass: 'iradio_square-green'
+            }).on('ifChecked', function (ev) {
+                IsRequiredAssetOptional = true;
+                }).on('ifUnchecked', function () {
+                    IsRequiredAssetOptional = false;
+                });
+            //i-checks-AssetIsOptional
             cboObjSelectAssestTypes.trigger('change');
         });
-    </script>
+</script>
 
 
 }

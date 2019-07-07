@@ -1,22 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Models.Domain.Files
 {
-    public partial class File: BaseEntity
+    public partial class BeachClubFile: BaseEntity
     {
-        public File()
+        public BeachClubFile()
         {
-            MemberProfileImages = new HashSet<MemberProfileImage>();
+            //MemberProfileImages = new HashSet<MemberProfileImage>();
         }
 
-        
-        public string ContentType { get; set; }
-        public string FileName { get; set; }
-        public string FileExtension { get; set; }
-        public byte[] Image { get; set; }
 
-        public virtual ICollection<MemberProfileImage> MemberProfileImages { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string ContentType { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string FileName { get; set; }
+        [Required]
+        [StringLength(25)]
+        public string FileExtension { get; set; }
+
+        public Int64 FileSize { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime DateCreated { get; set; }
+
+
+        public string FileFullName => $"{FileName}.{FileExtension}";
+
+        public virtual FileBlob FileBlob { get; set; }
+
+        public virtual MemberProfileImage MemberProfileImage { get; set; }
     }
 }

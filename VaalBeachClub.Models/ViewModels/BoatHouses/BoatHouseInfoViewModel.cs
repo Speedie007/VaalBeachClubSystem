@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using VaalBeachClub.Models.Domain.BoatHouses;
 using VaalBeachClub.Models.ViewModels.ViewModelComponents;
-using VaalBeachClub.Web.Data.Identity;
+
 
 namespace VaalBeachClub.Models.ViewModels.BoatHouses
 {

@@ -108,7 +108,8 @@ namespace VaalBeachClub.Services.Assests
                                                                 {
                                                                     Id = a.Id,
                                                                     AssestType = a.Item,
-                                                                    OccupiesSameSpaceAsParent = false
+                                                                    OccupiesSameSpaceAsParent = false,
+                                                                    IsOptional = true
                                                                 }).ToList<AssetTypeRequirementViewModel>();
 
             return ListOfAssets.Except(
@@ -134,7 +135,8 @@ namespace VaalBeachClub.Services.Assests
                 {
                     Id = Assets.Id,
                     AssestType = Assets.Item,
-                    OccupiesSameSpaceAsParent = Requirements.OccupiesSameSpaceAsParent
+                    OccupiesSameSpaceAsParent = Requirements.OccupiesSameSpaceAsParent,
+                     IsOptional = Requirements.IsOptional
                 }).ToList();
 
             return ListRtn;
@@ -183,7 +185,12 @@ namespace VaalBeachClub.Services.Assests
 
         public void UnLinkRequiredAsset(ItemTypeHierarchy Entity)
         {
-            _itemTypeHierarchyRepository.Delete(Entity);
+            var item = _itemTypeHierarchyRepository.Table.Where(x => x.ParentID == Entity.ParentID && x.ChildID == Entity.ChildID).FirstOrDefault();
+            if (item != null)
+            {
+                _itemTypeHierarchyRepository.Delete(item);
+            }
+
         }
     }
 }

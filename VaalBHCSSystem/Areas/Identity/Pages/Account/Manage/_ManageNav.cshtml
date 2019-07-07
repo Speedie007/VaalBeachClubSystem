@@ -1,5 +1,5 @@
 ﻿@using VaalBreachClub.Web.Areas.Identity.Pages.Account.Manage;
-@using VaalBeachClub.Web.Data.Identity;
+
 @inject SignInManager<BeachClubMember> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

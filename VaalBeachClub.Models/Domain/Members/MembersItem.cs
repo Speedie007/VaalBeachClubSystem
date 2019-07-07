@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Models.Domain.Items;
 using VaalBeachClub.Models.Domain.Rentals;
-using VaalBeachClub.Web.Data.Identity;
+
 
 namespace VaalBeachClub.Models.Domain.Members
 {
@@ -18,10 +18,11 @@ namespace VaalBeachClub.Models.Domain.Members
         }
 
 
-
+        public int MemberItemParentID { get; set; }
         public int BeachClubMemberID { get; set; }
         public int ItemID { get; set; }
         public Boolean IsOnSite { get; set; }
+
 
         public virtual BeachClubMember BeachClubMember { get; set; }
         public virtual ItemType Item { get; set; }
@@ -30,4 +31,3 @@ namespace VaalBeachClub.Models.Domain.Members
 
     }
 }
-   

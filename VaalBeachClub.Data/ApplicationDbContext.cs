@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using VaalBeachClub.Web.Data.Identity;
+
 using VaalBeachClub.Models.Domain.BoatHouses;
 using VaalBreachClub.Web.Data.Intefaces;
 using VaalBeachClub.Data.Mapping;
@@ -24,6 +24,7 @@ using VaalBeachClub.Models.Domain.Bookings;
 using VaalBeachClub.Models.Domain.Members;
 using VaalBeachClub.Models.Domain.Fees;
 using VaalBeachClub.Models.Domain.Logging;
+using VaalBeachClub.Web.Models;
 
 namespace VaalBeachClub.Data
 {
@@ -60,7 +61,9 @@ namespace VaalBeachClub.Data
         ////public virtual DbSet<JetSki> JetSkis { get; set; }
         ////public virtual DbSet<MotorHome> MotorHome { get; set; }
         //public virtual DbSet<CampSite> CampSites { get; set; }
+        public virtual DbSet<MyTestModel> MyTestModel { get; set; }
         
+
         //public virtual DbSet<EntranceCommissionFee> EntranceCommissionFees { get; set; }
         //public virtual DbSet<BoatHouseCommissionFee> BoatHouseCommissionFees { get; set; }
 

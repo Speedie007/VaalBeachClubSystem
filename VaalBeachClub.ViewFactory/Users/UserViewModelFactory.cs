@@ -2,27 +2,53 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VaalBeachClub.Models.Domain.Addresses;
+using VaalBeachClub.Models.Domain.Files;
+using VaalBeachClub.Models.Domain.Members;
 using VaalBeachClub.Models.ViewModels.Authentication;
+using VaalBeachClub.Models.ViewModels.Members;
+using VaalBeachClub.Services.Addresses;
 using VaalBeachClub.Services.Authentication;
-using VaalBeachClub.Web.Data.Identity;
+
 
 namespace VaalBeachClub.ViewFactory.Users
 {
+    public interface IUserViewModelFactory
+    {
+        /// <summary>
+        /// Prepare the login model
+        /// </summary>
+        /// <returns>Login model</returns>
+        LoginViewModel PrepareLoginModel();
+
+        /// <summary>
+        /// Prepare the Registration model
+        /// </summary>
+        /// <returns>Login model</returns>
+        RegisterViewModel PrepareRegistrationLoginModel();
+
+        #region Member Regisration 
+
+        MemberInfoModel PrepareMemberRegistraionViewModel();
+        #endregion
+    }
     public partial class UserViewModelFactory : IUserViewModelFactory
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IUserService _userService;
         private readonly UserManager<BeachClubMember> _userManager;
-
+        private readonly IAddressService<Address> _AddressService;
 
         #region Ctor
         public UserViewModelFactory(IServiceProvider serviceProvider,
             IUserService userService,
-            UserManager<BeachClubMember> userManager)
+            UserManager<BeachClubMember> userManager,
+            IAddressService<Address> AddressService)
         {
             this._serviceProvider = serviceProvider;
             this._userService = userService;
             this._userManager = userManager;
+            this._AddressService = AddressService;
         }
         #endregion
 
@@ -38,6 +64,8 @@ namespace VaalBeachClub.ViewFactory.Users
             model.EmailVerified = false;
             return model;
         }
+
+
 
         public RegisterViewModel PrepareRegistrationLoginModel()
         {
@@ -64,5 +92,27 @@ namespace VaalBeachClub.ViewFactory.Users
         #endregion
 
 
+        #region Member Regisration Wizard
+        public MemberInfoModel PrepareMemberRegistraionViewModel()
+        {
+            MemberInfoModel model = new MemberInfoModel();
+
+            model.Memeber = _userService.GetCurrentLoginInUser();
+
+
+            BeachClubFile CurrentProfilePicture = _userService.GetUserProfilePicture();
+
+            model.ProfilePicture = new MemberProfilePicture()
+            {
+                Id = CurrentProfilePicture.Id,//FILEID
+                ContentType = CurrentProfilePicture.ContentType,
+                ProfileImage = CurrentProfilePicture.FileBlob.BlobData
+            };
+
+            model.AddAddressToCollection(_AddressService.ListAddressesByMember(_userService.GetUserID()));
+            //
+            return model;
+        }
+        #endregion
     }
 }

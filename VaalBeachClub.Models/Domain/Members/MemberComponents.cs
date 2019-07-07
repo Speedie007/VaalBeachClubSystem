@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using VaalBeachClub.Models;
@@ -12,7 +13,7 @@ using VaalBeachClub.Models.Domain.Common;
 using VaalBeachClub.Models.Domain.Members;
 using VaalBeachClub.Models.Domain.Rentals;
 
-namespace VaalBeachClub.Web.Data.Identity
+namespace VaalBeachClub.Models.Domain.Members
 {
 
     public partial class BeachClubMember : IdentityUser<int>, IBaseEntity
@@ -37,9 +38,15 @@ namespace VaalBeachClub.Web.Data.Identity
 
         public BeachClubMember(string UserName) : base(UserName) { this.Init(); }
 
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public virtual DateTime DateOfBirth { get; set; }
+        [Required]
+        [MinLength(13)]
+        public virtual string IDNumber { get; set; }
 
         public virtual ICollection<BeachClubMemberClaim> Claims { get; set; }
         public virtual ICollection<BeachClubMemberLogin> Logins { get; set; }

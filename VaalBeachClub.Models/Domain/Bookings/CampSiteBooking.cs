@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Models.Domain.CampSites;
-using VaalBeachClub.Web.Data.Identity;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Models.Domain.Bookings
 {

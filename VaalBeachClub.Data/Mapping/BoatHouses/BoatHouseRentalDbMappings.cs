@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Models.Domain.Rentals;
-using VaalBeachClub.Web.Data.Identity;
+
 
 namespace VaalBeachClub.Data.Mapping.BoatHouses
 {

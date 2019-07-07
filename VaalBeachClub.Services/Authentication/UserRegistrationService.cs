@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Common;
+using VaalBeachClub.Models.Domain.Members;
 using VaalBeachClub.Models.ViewModels.Authentication;
-using VaalBeachClub.Web.Data.Identity;
 
 namespace VaalBeachClub.Services.Authentication
 {

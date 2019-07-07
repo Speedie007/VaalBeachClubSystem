@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Models.Domain.Common;
 using VaalBeachClub.Models.Domain.Intefaces;
-using VaalBeachClub.Web.Data.Identity;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Models.Domain.Addresses
 {
@@ -11,7 +11,7 @@ namespace VaalBeachClub.Models.Domain.Addresses
     {
         public virtual string City { get; set; }
         public virtual string Suburb { get; set; }
-      
+
         public virtual string AreaCode { get; set; }
         public virtual bool IsPrimaryAddress { get; set; }
         public virtual int BeachClubMemberID { get; set; }
@@ -41,6 +41,6 @@ namespace VaalBeachClub.Models.Domain.Addresses
 
     public enum AddressTypes
     {
-        POBoxAddress, StreetAddress, ComplexAddress
+        StreetAddress = 1, ComplexAddress = 2, POBoxAddress = 3
     }
 }

@@ -57,6 +57,23 @@ namespace VaalBeachClub.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BeachClubFiles",
+                columns: table => new
+                {
+                    FileID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ContentType = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    FileName = table.Column<string>(unicode: false, maxLength: 200, nullable: false),
+                    FileExtension = table.Column<string>(unicode: false, maxLength: 25, nullable: false),
+                    FileSize = table.Column<long>(nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BeachClubFiles", x => x.FileID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BeachClubMembers",
                 columns: table => new
                 {
@@ -101,6 +118,19 @@ namespace VaalBeachClub.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BoatHouseRentalStatuses",
+                columns: table => new
+                {
+                    BoatHouseRentalStatusID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RentalStatus = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BoatHouseRentalStatuses", x => x.BoatHouseRentalStatusID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BoatHouseSizes",
                 columns: table => new
                 {
@@ -124,6 +154,7 @@ namespace VaalBeachClub.Data.Migrations
                     CampSiteID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CampSiteNumber = table.Column<string>(nullable: true),
+                    CampSiteCapacity = table.Column<int>(nullable: false),
                     hasElectricity = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -159,22 +190,6 @@ namespace VaalBeachClub.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Files",
-                columns: table => new
-                {
-                    FileID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ContentType = table.Column<string>(unicode: false, maxLength: 75, nullable: false),
-                    FileName = table.Column<string>(unicode: false, maxLength: 150, nullable: false),
-                    FileExtension = table.Column<string>(unicode: false, maxLength: 50, nullable: false),
-                    Image = table.Column<byte[]>(type: "image", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Files", x => x.FileID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ItemPropertyDataTypes",
                 columns: table => new
                 {
@@ -193,7 +208,8 @@ namespace VaalBeachClub.Data.Migrations
                 {
                     ItemTypeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Item = table.Column<string>(unicode: false, maxLength: 100, nullable: false)
+                    Item = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    IsOnSiteStorageItem = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,6 +235,24 @@ namespace VaalBeachClub.Data.Migrations
                         column: x => x.BeachClubFeeStructureID,
                         principalTable: "BeachClubFeeStructures",
                         principalColumn: "BeachClubFeeStructureID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileBlobs",
+                columns: table => new
+                {
+                    FileID = table.Column<int>(nullable: false),
+                    BlobData = table.Column<byte[]>(type: "image", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileBlobs", x => x.FileID);
+                    table.ForeignKey(
+                        name: "FK_BeachClubFileBlobs_BeachClubFiles131123",
+                        column: x => x.FileID,
+                        principalTable: "BeachClubFiles",
+                        principalColumn: "FileID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -369,6 +403,31 @@ namespace VaalBeachClub.Data.Migrations
                         principalTable: "BeachClubMembers",
                         principalColumn: "BeachClubMemberID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MemberProfileImages",
+                columns: table => new
+                {
+                    FileID = table.Column<int>(nullable: false),
+                    BeachClubMemberID = table.Column<int>(nullable: false),
+                    DateLastUpdated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MemberProfileImages", x => x.FileID);
+                    table.ForeignKey(
+                        name: "FK_MemberProfileImages_BeachClubMembers",
+                        column: x => x.BeachClubMemberID,
+                        principalTable: "BeachClubMembers",
+                        principalColumn: "BeachClubMemberID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BeachClubFileBlobs_BeachClubFiles1",
+                        column: x => x.FileID,
+                        principalTable: "BeachClubFiles",
+                        principalColumn: "FileID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -574,33 +633,6 @@ namespace VaalBeachClub.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MemberProfileImages",
-                columns: table => new
-                {
-                    MemberProfileImageID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FileID = table.Column<int>(nullable: false),
-                    BeachClubMemberID = table.Column<int>(nullable: false),
-                    DateLastUpdated = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MemberProfileImages", x => x.MemberProfileImageID);
-                    table.ForeignKey(
-                        name: "FK_MemberProfileImages_BeachClubMembers",
-                        column: x => x.BeachClubMemberID,
-                        principalTable: "BeachClubMembers",
-                        principalColumn: "BeachClubMemberID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MemberProfileImages_Files",
-                        column: x => x.FileID,
-                        principalTable: "Files",
-                        principalColumn: "FileID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ItemProperties",
                 columns: table => new
                 {
@@ -621,11 +653,34 @@ namespace VaalBeachClub.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItemTypeHierarchy",
+                columns: table => new
+                {
+                    ItemTypeHierarchyID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ParentID = table.Column<int>(nullable: false),
+                    ChildID = table.Column<int>(nullable: false),
+                    OccupiesSameSpaceAsParent = table.Column<bool>(nullable: false),
+                    IsOptional = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemTypeHierarchy", x => x.ItemTypeHierarchyID);
+                    table.ForeignKey(
+                        name: "FK_ItemTypeHierarchy_ItemTypes",
+                        column: x => x.ParentID,
+                        principalTable: "ItemTypes",
+                        principalColumn: "ItemTypeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MemberItems",
                 columns: table => new
                 {
                     MemberItemID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MemberItemParentID = table.Column<int>(nullable: false),
                     BeachClubMemberID = table.Column<int>(nullable: false),
                     ItemID = table.Column<int>(nullable: false),
                     IsOnSite = table.Column<bool>(nullable: false)
@@ -657,7 +712,8 @@ namespace VaalBeachClub.Data.Migrations
                     EndDate = table.Column<DateTime>(nullable: false),
                     HasBeenPaid = table.Column<bool>(nullable: false),
                     BeachClubMemberID = table.Column<int>(nullable: false),
-                    BoatHouseID = table.Column<int>(nullable: false)
+                    BoatHouseID = table.Column<int>(nullable: false),
+                    BoatHouseRentalStatusID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -674,6 +730,12 @@ namespace VaalBeachClub.Data.Migrations
                         principalTable: "BoatHouses",
                         principalColumn: "BoatHouseID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BoatHouseRentals_BoatHouseRentalStatuses_BoatHouseRentalStatusID",
+                        column: x => x.BoatHouseRentalStatusID,
+                        principalTable: "BoatHouseRentalStatuses",
+                        principalColumn: "BoatHouseRentalStatusID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -694,7 +756,7 @@ namespace VaalBeachClub.Data.Migrations
                         column: x => x.ItemID,
                         principalTable: "ItemTypes",
                         principalColumn: "ItemTypeID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ItemTypeProperties_ItemProperties",
                         column: x => x.ItemPropertyID,
@@ -761,11 +823,22 @@ namespace VaalBeachClub.Data.Migrations
                 columns: new[] { "AffiliatedMemberTypeID", "AffiliatedMemberTypeName" },
                 values: new object[,]
                 {
-                    { 5, "Visitor" },
+                    { 6, "Guest" },
+                    { 5, "Other_Direct_Relative" },
+                    { 4, "Daughter" },
                     { 3, "Son" },
                     { 2, "Husband" },
-                    { 1, "Wife" },
-                    { 4, "Daughter" }
+                    { 1, "Wife" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BoatHouseRentalStatuses",
+                columns: new[] { "BoatHouseRentalStatusID", "RentalStatus" },
+                values: new object[,]
+                {
+                    { 3, "Active" },
+                    { 1, "Reserved" },
+                    { 2, "Suspended" }
                 });
 
             migrationBuilder.InsertData(
@@ -774,11 +847,11 @@ namespace VaalBeachClub.Data.Migrations
                 values: new object[,]
                 {
                     { 1, 14380m, "Boat Size A", 2.5m, 8m, 3m },
-                    { 2, 16392m, "Boat Size B", 2.8m, 9m, 3.5m },
+                    { 6, 20340m, "Boat Size F", 3.5m, 12m, 3.5m },
                     { 5, 20340m, "Boat Size E", 2.8m, 12m, 3.5m },
-                    { 3, 16392m, "Boat Size C", 3.5m, 9m, 3.5m },
                     { 4, 18117m, "Boat Size D", 4m, 10m, 3.5m },
-                    { 6, 20340m, "Boat Size F", 3.5m, 12m, 3.5m }
+                    { 3, 16392m, "Boat Size C", 3.5m, 9m, 3.5m },
+                    { 2, 16392m, "Boat Size B", 2.8m, 9m, 3.5m }
                 });
 
             migrationBuilder.InsertData(
@@ -786,9 +859,9 @@ namespace VaalBeachClub.Data.Migrations
                 columns: new[] { "ContactDetailTypeID", "ContactDetailTypeValue" },
                 values: new object[,]
                 {
-                    { 1, "Email Address" },
-                    { 2, "Cell Number" },
                     { 3, "Office Number" },
+                    { 2, "Cell Number" },
+                    { 1, "Email Address" },
                     { 4, "Home Number" }
                 });
 
@@ -797,21 +870,20 @@ namespace VaalBeachClub.Data.Migrations
                 columns: new[] { "ItemPropertyDataTypeID", "ItemPropertyDataTypeName" },
                 values: new object[,]
                 {
-                    { 2, "NUMERIC" },
-                    { 1, "TEXT" }
+                    { 1, "TEXT" },
+                    { 2, "NUMERIC" }
                 });
 
             migrationBuilder.InsertData(
                 table: "ItemTypes",
-                columns: new[] { "ItemTypeID", "Item" },
+                columns: new[] { "ItemTypeID", "IsOnSiteStorageItem", "Item" },
                 values: new object[,]
                 {
-                    { 5, "Vechicle" },
-                    { 6, "Wake Board Tower" },
-                    { 2, "Trailer" },
-                    { 1, "Car" },
-                    { 4, "JetSki" },
-                    { 3, "Boat" }
+                    { 2, false, "Boat" },
+                    { 3, false, "JetSki" },
+                    { 4, false, "Vechicle" },
+                    { 5, false, "Wake Board Tower" },
+                    { 1, false, "Trailer" }
                 });
 
             migrationBuilder.InsertData(
@@ -838,6 +910,7 @@ namespace VaalBeachClub.Data.Migrations
                     { 6, 1, "Registration Number" },
                     { 7, 1, "Model" },
                     { 8, 1, "Make Of Engine" },
+                    { 9, 1, "Width" },
                     { 4, 2, "Length" },
                     { 5, 2, "Height" }
                 });
@@ -927,6 +1000,11 @@ namespace VaalBeachClub.Data.Migrations
                 column: "BoatHouseID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BoatHouseRentals_BoatHouseRentalStatusID",
+                table: "BoatHouseRentals",
+                column: "BoatHouseRentalStatusID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BoatHouses_BoatHouseSizeID",
                 table: "BoatHouses",
                 column: "BoatHouseSizeID");
@@ -960,6 +1038,11 @@ namespace VaalBeachClub.Data.Migrations
                 name: "IX_ItemProperties_ItemPropertyDataTypeID",
                 table: "ItemProperties",
                 column: "ItemPropertyDataTypeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemTypeHierarchy_ParentID",
+                table: "ItemTypeHierarchy",
+                column: "ParentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemTypeProperties_ItemID",
@@ -1012,11 +1095,6 @@ namespace VaalBeachClub.Data.Migrations
                 column: "BeachClubMemberID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MemberProfileImages_FileID",
-                table: "MemberProfileImages",
-                column: "FileID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MemberRegistrations_BeachClubMemberID",
                 table: "MemberRegistrations",
                 column: "BeachClubMemberID");
@@ -1059,6 +1137,12 @@ namespace VaalBeachClub.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EntranceCommissionFee");
+
+            migrationBuilder.DropTable(
+                name: "FileBlobs");
+
+            migrationBuilder.DropTable(
+                name: "ItemTypeHierarchy");
 
             migrationBuilder.DropTable(
                 name: "ItemTypeProperties");
@@ -1109,10 +1193,13 @@ namespace VaalBeachClub.Data.Migrations
                 name: "MemberItems");
 
             migrationBuilder.DropTable(
-                name: "Files");
+                name: "BeachClubFiles");
 
             migrationBuilder.DropTable(
                 name: "BoatHouses");
+
+            migrationBuilder.DropTable(
+                name: "BoatHouseRentalStatuses");
 
             migrationBuilder.DropTable(
                 name: "ItemPropertyDataTypes");

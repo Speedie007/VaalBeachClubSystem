@@ -13,8 +13,9 @@ namespace VaalBeachClub.Models.Domain.CampSites
         }
 
         public virtual string CampSiteNumber { get; set; }
+        public virtual int CampSiteCapacity { get; set; }
         public virtual Boolean hasElectricity { get; set; }
-        
+
 
         public virtual ICollection<CampSiteBooking> CampSiteBookings { get; set; }
     }

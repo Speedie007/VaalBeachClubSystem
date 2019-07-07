@@ -12,11 +12,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VaalBeachClub.Data;
-using VaalBeachClub.Web.Data.Identity;
+
 using VaalBeachClub.Data.Interfaces;
 using VaalBreachClub.Web.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using VaalBeachClub.Models.ViewModels.EmailSending;
+using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Web
 {

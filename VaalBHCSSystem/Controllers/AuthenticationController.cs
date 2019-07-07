@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using VaalBeachClub.Models.Domain.Members;
 using VaalBeachClub.Models.ViewModels.Authentication;
 using VaalBeachClub.Services.Authentication;
 using VaalBeachClub.Services.EmailSending;
 using VaalBeachClub.ViewFactory.Users;
-using VaalBeachClub.Web.Data.Identity;
+
 using VaalBreachClub.Web.Areas.Identity.Pages.Account;
 
 namespace VaalBreachClub.Web.Controllers

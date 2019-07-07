@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VaalBeachClub.Models.Common
+namespace VaalBeachClub.Models.Common.Enum
 {
     public enum EnumAffiliatedMemberType
     {
@@ -10,6 +10,6 @@ namespace VaalBeachClub.Models.Common
         Husband = 2,
         Son = 3,
         Daughter = 4,
-        Visitor = 5
+        Guest = 5
     }
 }

@@ -11,6 +11,7 @@ using VaalBeachClub.Data;
 using VaalBeachClub.Data.Interfaces;
 using VaalBeachClub.Models.Common;
 using VaalBeachClub.Models.Domain.Interfaces;
+using VaalBeachClub.Services.Addresses;
 using VaalBeachClub.Services.Assests;
 using VaalBeachClub.Services.Authentication;
 using VaalBeachClub.Services.BoatHouses;
@@ -54,6 +55,8 @@ namespace VaalBeachClub.Web.Services
             builder.RegisterType<CommonService>().As<ICommonService>().InstancePerLifetimeScope();
             builder.RegisterType<CustomEmailSender>().As<ICustomEmailSender>().InstancePerLifetimeScope();
             builder.RegisterType<AssetService>().As<IAssetService>().InstancePerLifetimeScope();
+            builder.RegisterType<AssetService>().As<IAssetService>().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(AddressService<>)).As(typeof(IAddressService<>)).InstancePerLifetimeScope();
             
 
             //Factories

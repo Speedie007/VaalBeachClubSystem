@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VaalBeachClub.Models.Common;
+using VaalBeachClub.Models.Common.Enum;
 using VaalBeachClub.Models.Domain.Members;
 
 namespace VaalBeachClub.Data.Mapping.Members
@@ -32,7 +33,7 @@ namespace VaalBeachClub.Data.Mapping.Members
                 ListOfAffiliatedMemberTypes.Add(new AffiliatedMemberType()
                 {
                     Id = enumValue,
-                    AffiliatedMemberTypeName = Enum.GetName(typeof(EnumAffiliatedMemberType), enumValue)
+                    AffiliatedMemberTypeName = Enum.GetName(typeof(EnumAffiliatedMemberType), enumValue).ToString().Replace("_", " ")
                 });
             }
             builder.HasData(ListOfAffiliatedMemberTypes);

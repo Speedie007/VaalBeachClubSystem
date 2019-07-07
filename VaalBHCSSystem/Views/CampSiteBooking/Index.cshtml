@@ -1,212 +1,768 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_BookingFormLayout.cshtml";
 }
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-8">
-        <h2>Calendar</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                Extra pages
-            </li>
-            <li class="active breadcrumb-item">
-                <strong>Calendar</strong>
-            </li>
-        </ol>
-    </div>
-</div>
-<div class="wrapper wrapper-content">
+<h1 class="ibox-title">Vaal Beach Club Registration Wizard</h1>
+<p class="ibox-content">To Complete the Wizard, simply navigate through each section and add the relivant details to each section.</p>
+<p class="ibox-content">Once all sections are completed, select <span class="text-info">PROCESS</span> in the registration summary. Else select <span class="text-info">SAVE</span> to come back and complete complete later.</p>
+<div class="animated fadeInDown">
     <div class="row animated fadeInDown">
+
         <div class="col-lg-3">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>Booking Selection</h5>
+                    <h5>Registration Summary</h5>
                     <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#" class="dropdown-item">Config option 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
+
                     </div>
                 </div>
                 <div class="ibox-content">
-                    
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-exclamation-circle fa-3x text-info"
+                                   title="No Profile Image Added."
+                                   id="divRegistrationSummary-MemberImage-Icon"></i>
+                                <div class="d-flex align-items-center p-w-m"
+                                     id="divRegistrationSummary-MemberImage-Message">Member Image Added</div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-exclamation-circle fa-3x text-warning"
+                                   id="divRegistrationSummary-ContactDetails-Icon"></i>
+                                <div class="d-flex align-items-center p-w-m"
+                                     id="divRegistrationSummary-ContactDetails-Message">( 0 ) Contact Details</div>
+                            </div>
+
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-exclamation-circle fa-3x text-warning"
+                                   id="divRegistrationSummary-AddressDetails-Icon"></i>
+                                <div class="d-flex align-items-center p-w-m"
+                                     id="divRegistrationSummary-AddressDetails-Message">( 0 ) Address Deatils</div>
+                            </div>
+
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-check-circle fa-3x text-info"
+                                   id="divRegistrationSummary-FamilyDetails-Icon"></i>
+                                <div class="d-flex align-items-center p-w-m"
+                                     id="divRegistrationSummary-FamilyDetails-Message">( 0 ) Family Members</div>
+                            </div>
+
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-exclamation-circle fa-3x text-warning"
+                                   id="divRegistrationSummary-OnSite-Icon"></i>
+                                <div class="d-flex align-items-center p-w-m"
+                                     id="divRegistrationSummary-OnSiteDetails-Message">( 0 ) On-Site Assests</div>
+                            </div>
+
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-exclamation-circle fa-3x text-warning"
+                                   id="divRegistrationSummary-BoatLockerDetails-Icon"></i>
+                                <div class="d-flex align-items-center p-w-m"
+                                     id="divRegistrationSummary-BoatLockerDetails-Message">( 0 ) Boat Locker Allocation</div>
+                            </div>
+                            <hr />
+                            <button type="button" class="btn btn-info p-sm full-width"><i class="fa fa-sign-out fa-2x">Save Details</i></button>
+                            <hr />
+                            <button type="button" class="btn btn-primary p-sm full-width"><i class="fa fa-sign-out fa-2x">Process</i></button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            
+
         </div>
         <div class="col-lg-9">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>Striped Table </h5>
+                    <h5>Wizard Components </h5>
                     <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#" class="dropdown-item">Config option 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
+
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <div id="calendar"></div>
+                    <!--Member Registrastion Wizard Accordion-->
+                    <div class="panel-group" id="accordion">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                <a class="text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <h5 class="panel-title">
+                                        Date Selection
+                                    </h5>
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in show" data-parent="#accordion">
+                                <div class="panel-body">
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <div class="card">
+                                                <div class="card-header bg-warning">Select Dates</div>
+                                                <div class="card-body p-2">
+                                                    <div class="form-group" id="data_5">
+                                                        <div class="d-flex flex-row">
+                                                            <div class="p-w-m" style="width:50%"><h4>Start Date</h4></div>
+
+                                                            <div class="p-w-m">End Date</div>
+                                                        </div>
+                                                        <div class="input-daterange input-group" id="datepicker">
+                                                            <input type="text" class="form-control-sm form-control" name="start" />
+                                                            <span class="input-group-addon">to</span>
+
+                                                            <input type="text" class="form-control-sm form-control" name="end" />
+                                                        </div>
+                                                        <button type="button" class="btn btn-info full-width m-t"><i class="fa fa-search"></i>&nbsp;Check Availablity</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    Available Camp Sites
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex flex-column flex-wrap">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                Site 1
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <a class="text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseContactDetails">
+                                    <h4 class="panel-title">
+                                        Configure Camping Party
+                                    </h4>
+                                </a>
+                            </div>
+                            <div id="collapseContactDetails" class="panel-collapse collapse" data-parent="#accordion">
+                                <div class="panel-body">
+                                    <!--Contact Details Accordion-->
+                                    <div class="ibox ">
+                                        <div class="ibox-title">
+                                            <h5>Contact Details</h5>
+                                            <div class="ibox-tools">
+
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+
+                                            <button type="button"
+                                                    class="btn btn-info "
+                                                    data-toggle="modal"
+                                                    data-target="#AddMemberContactDetailsModal"
+                                                    onclick="intiAddContactDetailForm();">
+                                                <i class="fa fa-plus "></i>&nbsp;Add Contact Detail
+                                            </button>
+                                            <hr />
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-ContactDetails">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Options</th>
+                                                            <th class="text-nowrap">Contact Type</th>
+                                                            <th class="text-nowrap">Value</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Options</th>
+                                                            <th class="text-nowrap">Contact Type</th>
+                                                            <th class="text-nowrap">Value</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                            <!--Contact Deatils According-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#MemberAddressDetails">
+                                    <h4 class="panel-title text-white">
+                                        Address Details
+                                    </h4>
+                                </a>
+                            </div>
+                            <div id="MemberAddressDetails" class="panel-collapse collapse " data-parent="#accordion">
+                                <div class="panel-body">
+                                    <h3> Image Selection and Positioning.</h3>
+                                    <p>Select your image of your self to upload.</p>
+                                    <p class="text-lg-left text-primary">
+                                        Use the controls to bring the desired area into focus.
+                                        The image will automatically be cropped and upload to the system, when uploaded.
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>List Of Addresses</h5>
+                                                    <div class="ibox-tools">
+
+                                                    </div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <!--Address Types Accordinion-->
+                                                    <!--Address Details According-->
+                                                    <div class="panel-group" id="MemberAddressAccordion">
+                                                        <div class="panel panel-primary">
+                                                            <div class="panel-heading">
+                                                                <a class="text-white" data-toggle="collapse" data-parent="#MemberAddressAccordion" href="#collapseStreetAddress">
+                                                                    <h5 class="panel-title">Street Addresses</h5>
+                                                                </a>
+                                                            </div>
+                                                            <div id="collapseStreetAddress" class="panel-collapse collapse" data-parent="#MemberAddressAccordion">
+                                                                <div class="panel-body">
+                                                                    <!--List Of ADDED Street Addresses-->
+                                                                    <button type="button"
+                                                                            class="btn btn-info "
+                                                                            data-toggle="modal"
+                                                                            data-target="#AddMemberAddressesModal"
+                                                                            onclick="initiAddMemberAddressForm(1);">
+                                                                        <i class=" fa fa-plus"></i>&nbsp;Add Addesses
+                                                                    </button>
+                                                                    <hr />
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-striped table-bordered table-hover dataTables-MemberAddress-Street">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Options</th>
+                                                                                            <th class="text-nowrap">Number</th>
+                                                                                            <th class="text-nowrap">Street</th>
+                                                                                            <th class="text-nowrap">City</th>
+                                                                                            <th class="text-nowrap">Suburb</th>
+                                                                                            <th class="text-nowrap">Country</th>
+                                                                                            <th class="text-nowrap">Area Code</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody></tbody>
+                                                                                    <tfoot>
+                                                                                        <tr>
+                                                                                            <th>Options</th>
+                                                                                            <th class="text-nowrap">Number</th>
+                                                                                            <th class="text-nowrap">Street</th>
+                                                                                            <th class="text-nowrap">City</th>
+                                                                                            <th class="text-nowrap">Suburb</th>
+                                                                                            <th class="text-nowrap">Country</th>
+                                                                                            <th class="text-nowrap">Area Code</th>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--END - List Of ADDED Street Addresses-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel panel-primary">
+                                                            <div class="panel-heading">
+                                                                <a data-toggle="collapse" data-parent="#MemberAddressAccordion" href="#collapsePostalAddress">
+                                                                    <h4 class="panel-title text-white">
+                                                                        P.O.Box Addresss
+                                                                    </h4>
+                                                                </a>
+                                                            </div>
+                                                            <div id="collapsePostalAddress" class="panel-collapse collapse " data-parent="#MemberAddressAccordion">
+                                                                <div class="panel-body">
+                                                                    <!--List Of ADDED PoBox Addresses-->
+                                                                    <button type="button"
+                                                                            class="btn btn-info "
+                                                                            data-toggle="modal"
+                                                                            data-target="#AddMemberAddressesModal"
+                                                                            onclick="initiAddMemberAddressForm(3);">
+                                                                        <i class=" fa fa-plus"></i>&nbsp;Add Addesses
+                                                                    </button>
+                                                                    <hr />
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-striped table-bordered table-hover dataTables-MemberAddress-POBox">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Options</th>
+                                                                                            <th class="text-nowrap">P.O.Box Number</th>
+                                                                                            <th class="text-nowrap">City</th>
+                                                                                            <th class="text-nowrap">Suburb</th>
+                                                                                            <th class="text-nowrap">Country</th>
+                                                                                            <th class="text-nowrap">Area Code</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody></tbody>
+                                                                                    <tfoot>
+                                                                                        <tr>
+                                                                                            <th>Options</th>
+                                                                                            <th class="text-nowrap">P.O.Box Number</th>
+                                                                                            <th class="text-nowrap">City</th>
+                                                                                            <th class="text-nowrap">Suburb</th>
+                                                                                            <th class="text-nowrap">Country</th>
+                                                                                            <th class="text-nowrap">Area Code</th>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--END - List Of ADDED PoBox Addresses-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel panel-primary">
+                                                            <div class="panel-heading ">
+                                                                <a data-toggle="collapse" data-parent="#MemberAddressAccordion" href="#collapseComplexAddress">
+                                                                    <h4 class="panel-title text-white">
+                                                                        Complex Address
+                                                                    </h4>
+                                                                </a>
+                                                            </div>
+                                                            <div id="collapseComplexAddress" class="panel-collapse collapse " data-parent="#MemberAddressAccordion">
+                                                                <div class="panel-body">
+                                                                    <!--List Of ADDED Complex Addresses-->
+                                                                    <button type="button"
+                                                                            class="btn btn-info "
+                                                                            data-toggle="modal"
+                                                                            data-target="#AddMemberAddressesModal"
+                                                                            onclick="initiAddMemberAddressForm(2);">
+                                                                        <i class=" fa fa-plus"></i>&nbsp;Add Addesses
+                                                                    </button>
+                                                                    <hr />
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-striped table-bordered table-hover dataTables-MemberAddress-Complex">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Options</th>
+                                                                                            <th class="text-nowrap">Complex Name</th>
+                                                                                            <th class="text-nowrap">Unit Number</th>
+                                                                                            <th class="text-nowrap">City</th>
+                                                                                            <th class="text-nowrap">Suburb</th>
+                                                                                            <th class="text-nowrap">Country</th>
+                                                                                            <th class="text-nowrap">Area Code</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody></tbody>
+                                                                                    <tfoot>
+                                                                                        <tr>
+                                                                                            <th>Options</th>
+                                                                                            <th class="text-nowrap">Complex Name</th>
+                                                                                            <th class="text-nowrap">Unit Number</th>
+                                                                                            <th class="text-nowrap">City</th>
+                                                                                            <th class="text-nowrap">Suburb</th>
+                                                                                            <th class="text-nowrap">Country</th>
+                                                                                            <th class="text-nowrap">Area Code</th>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--END - List Of ADDED Complex Addresses-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Address Deatils According-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <a class="text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    <h4 class="panel-title">
+                                        Family Members
+
+                                    </h4>
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" data-parent="#accordion">
+                                <div class="panel-body">
+                                    <div class="p-sm">
+                                        <button type="button"
+                                                class="btn btn-info "
+                                                data-toggle="modal"
+                                                data-target="#AddAffiliatedMemberModal"
+                                                onclick="intiAddMemberForm();">
+                                            <i class="fa fa-plus ">&nbsp;Add Member Affiliation</i>
+                                        </button>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-MemberAffiliation">
+                                            <thead>
+                                                <tr>
+                                                    <th>Options</th>
+                                                    <th class="text-nowrap">Affiliation</th>
+                                                    <th class="text-nowrap">First Name</th>
+                                                    <th class="text-nowrap">Last Name</th>
+
+                                                    <th class="text-nowrap">Date Of Birth</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Options</th>
+                                                    <th class="text-nowrap">Affiliation</th>
+                                                    <th class="text-nowrap">First Name</th>
+                                                    <th class="text-nowrap">Last Name</th>
+
+                                                    <th class="text-nowrap">Date Of Birth</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">On-Site Assets</a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" data-parent="#accordion">
+                                <div class="panel-body">
+                                    [On-site Assests]
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Boat Locker Selection</a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" data-parent="#accordion">
+                                <div class="panel-body">
+                                    [On-site Assests]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Member Registrastion Wizard Accordion-->
                 </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="wrapper wrapper-content">
+
+    </div>
+
+
+    <div>
+        @*<div>
+
+            <h1 class="logo-name">Integrator</h1>
+
+        </div>*@
+
+        <p class="m-t"> <small>Integrator &copy; @DateTime.Now.Year</small> </p>
+    </div>
+</div>
+<!--Select Picture Modal-->
+<div class="modal inmodal fade" id="SelectPictureModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-industry">&nbsp;Select Picture</i></h4>
+            </div>
+            <div class="modal-body">
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick=""><i class="fa fa-plus">&nbsp;Add Selected Skill</i></button>
             </div>
         </div>
     </div>
 </div>
 
+<!--Add member Affilate Modal-->
+<div class="modal inmodal fade" id="AddAffiliatedMemberModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-industry">&nbsp;Add Member</i></h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div id="divSelectMemberAffiliationContainer" class="p-h-xs">
+                        Select Affiliation
+                        <select class="full-width MemberAffiliation-Select">
+                            <option value="1">
+                                Wife
+                            </option>
+                            <option value="2">
+                                Husband
+                            </option>
+                            <option value="3">
+                                Son
+                            </option>
+                            <option value="4">
+                                Daughter
+                            </option>
+                            <option value="5">
+                                Visitor
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-primary">First Name</label>
+                        <input id="txtMemberAffiliateFirstName" class="form-control" placeholder="Enter First Name Here" />
+
+                    </div>
+                    <div class="form-group">
+
+                        <label class="text-primary">Last Name</label>
+                        <input id="txtMemberAffiliateLastName" class="form-control" placeholder="Enter Last Name Here" />
+
+                    </div>
+
+                    <div class="form-group" id="AffiliatedMemberDateOfBirth">
+                        <label class="control-label">Select Date of Birth</label>
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addAffiliatedMember();"><i class="fa fa-plus">&nbsp;Add Member Affiliation</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Afiliated Member Modal-->
+<!--Add member Address Modal-->
+<div class="modal inmodal fade" id="AddMemberAddressesModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-address-book">&nbsp;Add Address</i></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group add-Member-Address-ComplexName">
+
+                        <label class="text-primary">Complex Name</label>
+                        <input id="txtAddMemberAddressComplexName" class="form-control" placeholder="Enter Complex Name Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-ComplexUnitNumber">
+
+                        <label class="text-primary">Unit Number</label>
+                        <input id="txtAddMemberAddressComplexUnitNumber" class="form-control" placeholder="EnterComplex Unit Number Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-POBoxNumber">
+
+                        <label class="text-primary">P.O.Box Number</label>
+                        <input id="txtAddMemberAddressPOBoxNumber" class="form-control" placeholder="Enter P.O.Box Number Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-StreetNumber">
+                        <label class="text-primary">Street Number</label>
+                        <input id="txtAddMemberAddressStreetNumber" class="form-control" placeholder="Enter Street Number Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-StreetName">
+                        <label class="text-primary">Street Name</label>
+                        <input id="txtAddMemberAddressStreetName" class="form-control" placeholder="Enter Street Name Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-City">
+                        <label class="text-primary">City</label>
+                        <input id="txtAddMemberAddressCity" class="form-control" placeholder="Enter City Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-Suburb">
+                        <label class="text-primary">Suburb</label>
+                        <input id="txtAddMemberAddressSuburb" class="form-control" placeholder="Enter Suburb Here" />
+
+                    </div>
+                    <div class="form-group add-Member-Address-Country">
+                        <label class="text-primary">Country</label>
+                        @*<input id="txtAddMemberAddressCountry" class="form-control" placeholder="Enter Country Here" />*@
+
+
+                        <select name="cboCountries" id="cboCountries"></select>
+                    </div>
+                    <div class="form-group add-Member-Address-AreaCode">
+                        <label class="text-primary">Area Code</label>
+                        <input id="txtAddMemberAddressAreaCode" class="form-control" placeholder="Enter Area Code Here" />
+                    </div>
+                    <hr />
+                    <div class="form-group add-Member-Address-IsPrimaryAddress">
+
+                        <div class="checkbox checkbox-success">
+                            <input type="checkbox" id="chkAddMemberAddressIsPrimary" />
+                            <label for="chkAddMemberAddressIsPrimary">
+                                Is Your Primary Address
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addMemberAddress();"><i class="fa fa-plus"></i>&nbsp;Add Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add Member Address Modal-->
+<!--Add member Contact Detail Modal-->
+<div class="modal inmodal fade" id="AddMemberContactDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-address-book-o"></i>&nbsp;Add Contact Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group add-Member-Contact-Detail-Type">
+                    <label class="text-primary">Contact Type</label>
+                    @*<input id="txtAddMemberAddressCountry" class="form-control" placeholder="Enter Country Here" />*@
+
+
+                    <select name="cboContactDetailTypes" id="cboContactDetailTypes"></select>
+                </div>
+                <div class="form-group ">
+
+                    <div id="divContactDetailType-Email">
+                        <label class="text-primary">Secondary Email Address</label>
+                        <input id="txtAddMemberEmailAddress"
+                               class="form-control"
+                               type="email"
+                               placeholder="Enter Email Address" />
+                    </div>
+
+                    <div id="divContactDetailType-Cell-Number">
+
+                        <label class="text-primary">Suburb</label>
+                        <input id="txtAddMemberCellNumber" class="form-control"
+                               data-mask="(999) 999-9999"
+                               type="tel" placeholder="Please Enter Cell Number" />
+                    </div>
+
+                    <div id="divContactDetailType-Office-Number">
+                        <label class="text-primary">Work Number</label>
+                        <input id="txtAddMemberWorkNumber" class="form-control"
+                               data-mask="(999) 999-9999"
+                               type="tel"
+                               placeholder="Please Enter Work Number" />
+                    </div>
+                    <div id="divContactDetailType-Home-Number">
+                        <label class="text-primary">Home Number</label>
+                        <input id="txtAddMemberHomeNumber" class="form-control"
+                               data-mask="(999) 999-9999"
+                               type="tel" placeholder="Please Enter Home Number" />
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addMemberContactDetail();"><i class="fa fa-plus"></i>&nbsp;Add Contact Detail</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Add member Contact Detail Modal-->
 @section Styles {
-    <environment names="Development,Staging,Production">
-        <link rel="stylesheet" href="~/lib/iCheck/custom.css" />
-        <link rel="stylesheet" href="~/lib/fullcalendar/fullcalendar.css" />
-    </environment>
+
+<environment names="Development,Staging,Production">
+
+    <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="~/lib/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
+
+
+    <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+
+</environment>
 }
 
 @section Scripts {
-    <environment names="Development">
-        <script src="~/lib/moment/moment.js"></script>
-        <script src="~/lib/iCheck/icheck.min.js"></script>
-        <script src="~/lib/fullcalendar/fullcalendar.min.js"></script>
-        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="~/lib/moment/min/moment.min.js"></script>
-        <script src="~/lib/iCheck/icheck.min.js"></script>
-        <script src="~/lib/fullcalendar/fullcalendar.min.js"></script>
-        <script src="~/lib/jquery-ui/jquery-ui.js"></script>
-    </environment>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<environment names="Development,Staging,Production">
+
+    <script src="~/lib/toastr/toastr.min.js"></script>
+    <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/lib/dataTables/datatables.min.js"></script>
+    <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/select2/dist/js/select2.min.js"></script>
+
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+
+</environment>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+<script>
 
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
+    $(document).ready(function () {
+        //daterangepicker
+        var CurrentDate = new Date();
 
-            /* initialize the external events
-             -----------------------------------------------------------------*/
-
-
-            $('#external-events div.external-event').each(function () {
-
-                // store data so the calendar knows to render an event upon drop
-                $(this).data('event', {
-                    title: $.trim($(this).text()), // use the element's text as the event title
-                    stick: true // maintain when user navigates (see docs on the renderEvent method)
-                });
-
-                // make the event draggable using jQuery UI
-                $(this).draggable({
-                    zIndex: 1111999,
-                    revert: true,      // will cause the event to go back to its
-                    revertDuration: 0  //  original position after the drag
-                });
-
-            });
-
-
-            /* initialize the calendar
-             -----------------------------------------------------------------*/
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                editable: true,
-                //droppable: true, // this allows things to be dropped onto the calendar
-                //drop: function () {
-                //    // is the "remove after drop" checkbox checked?
-                //    if ($('#drop-remove').is(':checked')) {
-                //        // if so, remove the element from the "Draggable Events" list
-                //        $(this).remove();
-                //    }
-                //},
-                events: [
-                    {
-                        title: 'All Day Event',
-                        start: new Date(y, m, 1)
-                    },
-                    {
-                        title: 'Long Event',
-                        start: new Date(y, m, d - 5),
-                        end: new Date(y, m, d - 2),
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: new Date(y, m, d - 3, 16, 0),
-                        allDay: false,
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: new Date(y, m, d + 4, 16, 0),
-                        allDay: false
-                    },
-                    {
-                        title: 'Meeting',
-                        start: new Date(y, m, d, 10, 30),
-                        allDay: false
-                    },
-                    {
-                        title: 'Lunch',
-                        start: new Date(y, m, d, 12, 0),
-                        end: new Date(y, m, d, 14, 0),
-                        allDay: false
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: new Date(y, m, d + 1, 19, 0),
-                        end: new Date(y, m, d + 1, 22, 30),
-                        allDay: false
-                    },
-                    {
-                        title: 'Click for Google',
-                        start: new Date(y, m, 28),
-                        end: new Date(y, m, 29),
-                        url: 'http://google.com/'
-                    }
-                ],
-            });
-
-
+        $('#data_5 .input-daterange').datepicker({
+            format: "DD, dd M yyyy",
+            startDate: "01/01/2019",
+            maxViewMode: 1,
+            orientation: "bottom left",
+            multidateSeparator: ":",
+            forceParse: false,
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: true,
+            toggleActive: true,
+            defaultViewDate: { year: CurrentDate.getFullYear(), month: CurrentDate.getMonth(), day: CurrentDate.getDay() }
         });
-    </script>
+    });
+
+</script>
+
 }
+

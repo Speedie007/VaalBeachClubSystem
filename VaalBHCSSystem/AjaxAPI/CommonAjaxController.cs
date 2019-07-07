@@ -91,7 +91,7 @@ namespace VaalBeachClub.Web.AjaxAPI
             bool IsSuccesful = false;
             try
             {
-                _AssetService.LinkRequiredAsset(model);
+                _AssetService.UnLinkRequiredAsset(model);
                 IsSuccesful = true;
             }
             catch (VaalBeachClubException ex)
@@ -166,6 +166,8 @@ namespace VaalBeachClub.Web.AjaxAPI
 
         }
 
+       
+
         [HttpPost("UpdateAssetStorageStatus")]
         [AutoValidateAntiforgeryToken]
         public JsonResult UpdateAssetOnSiteStorageStatus([FromBody]ItemType model)
@@ -181,7 +183,7 @@ namespace VaalBeachClub.Web.AjaxAPI
             catch (VaalBeachClubException ex)
             {
             }
-            return new JsonResult($"{{IsSuccesful:{IsSuccesful}}}");
+            return new JsonResult(IsSuccesful);
 
         }
       

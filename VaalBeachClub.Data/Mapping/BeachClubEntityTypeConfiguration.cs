@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VaalBeachClub.Models;
 using VaalBeachClub.Models.Domain;
-using VaalBeachClub.Web.Data.Identity;
 using VaalBreachClub.Web.Data.Intefaces;
 
 namespace VaalBeachClub.Data.Mapping

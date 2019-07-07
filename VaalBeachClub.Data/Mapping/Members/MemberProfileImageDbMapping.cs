@@ -17,8 +17,9 @@ namespace VaalBeachClub.Data.Mapping.Members
         {
             builder.ToTable("MemberProfileImages");
 
-            builder.Property(x => x.Id)
-               .HasColumnName("MemberProfileImageID");
+            builder.Property(e => e.Id)
+              .HasColumnName("FileID")
+              .ValueGeneratedNever();
 
             builder.HasKey(e => e.Id);
 
@@ -30,10 +31,10 @@ namespace VaalBeachClub.Data.Mapping.Members
                 .HasConstraintName("FK_MemberProfileImages_BeachClubMembers");
 
             builder.HasOne(d => d.File)
-                .WithMany(p => p.MemberProfileImages)
-                .HasForeignKey(d => d.FileID)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_MemberProfileImages_Files");
+               .WithOne(p => p.MemberProfileImage)
+               .HasForeignKey<MemberProfileImage>(d => d.Id)
+               .OnDelete(DeleteBehavior.Cascade)
+               .HasConstraintName("FK_BeachClubFileBlobs_BeachClubFiles1");
 
 
             base.Configure(builder);
